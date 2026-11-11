@@ -19,6 +19,8 @@ export function RevealMotion() {
       e.forEach((c) => a.observe(c)),
         (document.documentElement.dataset.motion = "ready"),
         (document.documentElement.dataset.pageEntry = "ready");
+      // La entrada de la página solo vale unos instantes: así los cambios posteriores (vista lista, filtros…) no repiten el fundido.
+      const entryTimer = setTimeout(() => delete document.documentElement.dataset.pageEntry, 2400);
       let l = document.querySelector(".hero"),
         n = 0;
       function i() {
@@ -36,6 +38,7 @@ export function RevealMotion() {
         i(),
         () => {
           a.disconnect(),
+            clearTimeout(entryTimer),
             window.removeEventListener("scroll", u),
             cancelAnimationFrame(n),
             delete document.documentElement.dataset.motion,

@@ -1,5 +1,5 @@
 import { SiteFooter } from "../components/SiteFooter.jsx";
-import { SiteHeader } from "../components/SiteHeader.jsx";
+import { SlideText } from "../components/SlideText.jsx";
 import { projects } from "../data/projects.js";
 
 const JB_THINKING_ITEMS = [
@@ -45,11 +45,12 @@ const JB_THINKING_ITEMS = [
 export function JBThinkingPage() {
   return (
     <>
-      <SiteHeader tone="dark" active="thinking" />
       <main id="contenido" className="thinking-page wrap">
         <section className="thinking-intro">
           <span className="eyebrow">Archivo editorial</span>
-          <h1>Thinking</h1>
+          <h1>
+            <SlideText>Thinking</SlideText>
+          </h1>
           <p>
             Ideas, observaciones y piezas de proceso sobre identidad, dirección de arte, tecnología y cultura visual.
           </p>

@@ -1,6 +1,6 @@
 import { CaseExperience } from "../components/CaseExperience.jsx";
+import { SlideText } from "../components/SlideText.jsx";
 import { SiteFooter } from "../components/SiteFooter.jsx";
-import { SiteHeader } from "../components/SiteHeader.jsx";
 import { findProject, nextProject, projectPath, projectTypeLabel } from "../data/projects.js";
 import { notFound } from "../lib/router.js";
 
@@ -11,7 +11,6 @@ export function CasePage({ params: t }) {
     l = [e.sector, e.discipline].filter(Boolean).join(" · ").toUpperCase();
   return (
     <>
-      <SiteHeader tone="dark" active="projects" />
       <main id="contenido" className={"case-page case-" + e.slug}>
         <section className="case-hero case-hero-editorial" aria-labelledby="case-hero-title">
           <img className="case-hero-image" src={e.image} alt={e.alt} loading="eager" fetchPriority="high" />
@@ -24,7 +23,7 @@ export function CasePage({ params: t }) {
             <div className="case-hero-editorial-layout">
               <div className="case-hero-title-block">
                 <h1 id="case-hero-title" tabIndex={-1}>
-                  {e.name}
+                  <SlideText>{e.name}</SlideText>
                 </h1>
               </div>
               <div className="case-hero-side">

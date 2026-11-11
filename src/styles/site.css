@@ -261,11 +261,6 @@ dialog::backdrop { background: rgb(38 32 29 / 72%); }
 
 
 /* The portfolio turns the home selection into a connected, explorable body of work. */
-/* Routed View Transitions are orchestrated by Op(), not by automatic navigation. */
-::view-transition-old(root) { animation: document-out .18s cubic-bezier(.65,0,.35,1) both; }
-::view-transition-new(root) { animation: document-in .24s .08s cubic-bezier(.22,1,.36,1) both; }
-@keyframes document-out { to { opacity: 0; clip-path: inset(48% 0 48% 0); transform: scale(.995); } }
-@keyframes document-in { from { opacity: .3; clip-path: inset(48% 0 48% 0); } to { opacity: 1; clip-path: inset(0); } }
 body.navigation-open { overflow: hidden; }
 .header-dark { color: var(--ink); }
 .header-dark .brand img { filter: none; }
@@ -1028,54 +1023,6 @@ body:has(.case-page) .site-header .menu-toggle{justify-self:end;}
   .case-hero-lead{font-size:13px;max-width:25ch;}
   .case-hero.case-hero-editorial .case-hero-scroll{margin-top:8px;font-size:9px;}
 }
-
-/* Juana Brava / Editorial page choreography — no flashes or blank transition frames. */
-html[data-jb-route-transition]{scroll-behavior:auto!important;}
-html[data-jb-route-transition]::view-transition{pointer-events:none;}
-html[data-jb-route-transition]::view-transition-image-pair(root){isolation:isolate;}
-html[data-jb-route-transition]::view-transition-old(root),
-html[data-jb-route-transition]::view-transition-new(root){
-  mix-blend-mode:normal;
-  opacity:1;
-  animation-fill-mode:both;
-  backface-visibility:hidden;
-  will-change:transform;
-}
-/* Normal page changes: the destination rises over the still-visible old page. */
-html[data-jb-route-transition="page"]::view-transition-old(root),
-html[data-jb-route-transition="section"]::view-transition-old(root){
-  z-index:1;
-  animation:jb-route-old-up 940ms cubic-bezier(.62,0,.26,1) both;
-}
-html[data-jb-route-transition="page"]::view-transition-new(root),
-html[data-jb-route-transition="section"]::view-transition-new(root){
-  z-index:2;
-  animation:jb-route-new-up 940ms cubic-bezier(.62,0,.26,1) both;
-}
-/* Returning home is a different, slower top-down gesture. */
-html[data-jb-route-transition="home"]::view-transition-old(root){
-  z-index:1;
-  animation:jb-route-old-down 1080ms cubic-bezier(.68,0,.20,1) both;
-}
-html[data-jb-route-transition="home"]::view-transition-new(root){
-  z-index:2;
-  animation:jb-route-new-down 1080ms cubic-bezier(.68,0,.20,1) both;
-}
-@keyframes jb-route-old-up{from{transform:translate3d(0,0,0)}to{transform:translate3d(0,-10%,0)}}
-@keyframes jb-route-new-up{from{transform:translate3d(0,100%,0)}to{transform:translate3d(0,0,0)}}
-@keyframes jb-route-old-down{from{transform:translate3d(0,0,0)}to{transform:translate3d(0,10%,0)}}
-@keyframes jb-route-new-down{from{transform:translate3d(0,-100%,0)}to{transform:translate3d(0,0,0)}}
-/* Do not restart the former page-intro animations on top of the page transition. */
-html[data-jb-internal-nav] [data-page-entry] .hero-image,
-html[data-jb-internal-nav] [data-page-entry] .archive-intro h1,
-html[data-jb-internal-nav] [data-page-entry] .case-title-row h1{
-  animation:none!important;
-}
-@media(prefers-reduced-motion:reduce){
- html[data-jb-route-transition]::view-transition-old(root),
- html[data-jb-route-transition]::view-transition-new(root){animation:none!important;}
-}
-
 
 /* JB refinement: editorial return and next-work selection — no grey panel. */
 .case-return-link{
@@ -1866,20 +1813,6 @@ html[data-jb-studio-motion="ready"] .jb-about-page h2.jb-studio-reveal.jb-is-vis
  .jb-about-full-visual img,.jb-about-people-image img{transform:none!important;clip-path:none!important;}
 }
 
-/* Slower page gesture when entering or leaving the Estudio editorial narrative. */
-html[data-jb-route-transition="studio-in"]::view-transition-old(root),
-html[data-jb-route-transition="studio-out"]::view-transition-old(root){z-index:1;animation:jb-studio-route-old 1180ms cubic-bezier(.6,0,.22,1) both;}
-html[data-jb-route-transition="studio-in"]::view-transition-new(root),
-html[data-jb-route-transition="studio-out"]::view-transition-new(root){z-index:2;animation:jb-studio-route-new 1180ms cubic-bezier(.6,0,.22,1) both;}
-@keyframes jb-studio-route-old{from{transform:translate3d(0,0,0)}to{transform:translate3d(0,-7%,0)}}
-@keyframes jb-studio-route-new{from{transform:translate3d(0,100%,0)}to{transform:translate3d(0,0,0)}}
-@media(prefers-reduced-motion:reduce){
- html[data-jb-route-transition="studio-in"]::view-transition-old(root),
- html[data-jb-route-transition="studio-in"]::view-transition-new(root),
- html[data-jb-route-transition="studio-out"]::view-transition-old(root),
- html[data-jb-route-transition="studio-out"]::view-transition-new(root){animation:none!important;}
-}
-
 /* ===== STUDIO V2 / JUANA BRAVA: MOVING EDITORIAL ===== */
 .jbv2-page{--jb-blue:#23496d;--jb-blue-light:#e7eef4;--jb-cream:#fbfbf9;color:#191919;background:#fff;}
 .jbv2-page .wrap{max-width:1600px;}
@@ -2165,3 +2098,82 @@ html[data-jb-route-transition="studio-out"]::view-transition-new(root){z-index:2
 
 /* Avoid the circular reveal bug: a 100% clipped title is not intersecting. */
 .jbv2-page[data-motion="on"] .jbv3-text-reveal{clip-path:inset(0 0 8% 0);}
+
+
+/* ===== Cambio de página al estilo BASIC/DEPT (basicagency.com) =====
+   - La cabecera es permanente: no se vuelve a montar ni a animar al cambiar de página;
+     solo cambia de color (0,65 s) y el enlace activo se subraya con una barra que entra y sale.
+   - El contenido se sustituye al instante; el titular sube desde una máscara palabra a palabra
+     y el resto entra con fundidos escalonados.
+   - Curvas y tiempos tomados de basicagency.com. */
+:root {
+  --ease-out-soft: cubic-bezier(.28, 0, .49, 1);
+  --ease-in-out-soft: cubic-bezier(.72, 0, .28, 1);
+  --ease-garret: cubic-bezier(.5, 0, 0, 1);
+  --ease-out-bd: cubic-bezier(.28, .44, .49, 1);
+}
+
+/* Cabecera fija: al cambiar de página solo cambia el color. */
+.site-header { transition: color .65s var(--ease-in-out-soft); }
+.site-header .brand img { transition: filter .65s var(--ease-in-out-soft); }
+.site-header .menu-toggle > span { transition: transform .2s, background-color .65s var(--ease-in-out-soft); }
+
+/* Enlace activo / hover: una barra entra desde la izquierda y sale por la derecha. */
+.desktop-nav a { position: relative; display: inline-block; overflow: hidden; }
+.desktop-nav a:hover,
+.desktop-nav a[data-active=true] { text-decoration: none; }
+.desktop-nav a::after {
+  content: "";
+  position: absolute;
+  left: 0;
+  right: 0;
+  bottom: 7px;
+  height: 1px;
+  background: currentColor;
+  transform: scaleX(0);
+  transform-origin: right center;
+  transition: transform .25s var(--ease-out-bd);
+}
+.desktop-nav a:hover::after,
+.desktop-nav a:focus-visible::after,
+.desktop-nav a[data-active=true]::after {
+  transform: scaleX(1);
+  transform-origin: left center;
+}
+
+/* Titulares enmascarados que suben (SlideText). */
+.slide-word {
+  display: inline-block;
+  vertical-align: top;
+  padding: 0 .12em .14em 0;
+  margin: 0 -.12em -.14em 0;
+  clip-path: inset(-.4em -.5em 0 -.5em);
+}
+.slide-word > span {
+  display: inline-block;
+  animation: slide-word-up .75s var(--ease-garret) both;
+}
+@keyframes slide-word-up { from { transform: translateY(105%); } to { transform: none; } }
+
+/* Entrada del resto del contenido: fundido de 0,65 s con retrasos escalonados. */
+@keyframes bd-fade-in { from { opacity: 0; } to { opacity: 1; } }
+[data-page-entry] .archive-intro h1 { animation: none; }
+[data-page-entry] .hero-link,
+[data-page-entry] .hero-caption { animation: bd-fade-in .65s var(--ease-out-bd) .35s both; }
+[data-page-entry] .archive-tools { animation: bd-fade-in .65s var(--ease-out-bd) .25s both; }
+[data-page-entry] .archive-grid,
+[data-page-entry] .archive-index { animation: bd-fade-in .65s var(--ease-out-bd) .4s both; }
+[data-page-entry] .thinking-intro > .eyebrow { animation: bd-fade-in .65s var(--ease-out-bd) .1s both; }
+[data-page-entry] .thinking-intro > p { animation: bd-fade-in .65s var(--ease-out-bd) .3s both; }
+[data-page-entry] .jbce-intro > p { animation: bd-fade-in .65s var(--ease-out-bd) .3s both; }
+[data-page-entry] .jbce-columns { animation: bd-fade-in .65s var(--ease-out-bd) .45s both; }
+[data-page-entry] .case-return-link { animation: bd-fade-in .65s var(--ease-out-bd) .3s both; }
+[data-page-entry] .case-hero-side > * { animation: bd-fade-in .65s var(--ease-out-bd) .4s both; }
+[data-page-entry] .case-hero-side > :nth-child(2) { animation-delay: .48s; }
+[data-page-entry] .case-hero-side > :nth-child(3) { animation-delay: .56s; }
+[data-page-entry] .case-hero-side > :nth-child(4) { animation-delay: .64s; }
+[data-page-entry] .footer { animation: bd-fade-in .65s var(--ease-in-out-soft) .3s both; }
+
+@media (prefers-reduced-motion: reduce) {
+  .slide-word > span { animation: none; }
+}

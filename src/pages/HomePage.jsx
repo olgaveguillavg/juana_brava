@@ -1,12 +1,10 @@
 import { FeaturedWork } from "../components/FeaturedWork.jsx";
 import { SiteFooter } from "../components/SiteFooter.jsx";
-import { SiteHeader } from "../components/SiteHeader.jsx";
 import { services } from "../data/projects.js";
 
 export function HomePage() {
   return (
     <>
-      <SiteHeader />
       <main id="contenido">
         <section className="hero" aria-label="El universo visual de Juana Brava">
           <img

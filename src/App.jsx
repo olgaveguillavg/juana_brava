@@ -13,152 +13,112 @@ import { ProjectsPage } from "./pages/ProjectsPage.jsx";
 import { JBStudioPage } from "./pages/StudioPage.jsx";
 import { JBThinkingPage } from "./pages/ThinkingPage.jsx";
 
-export function App({ initialRoute: t }) {
-  let [e, a] = useState(() => t ?? parseRoute(window.location.hash)),
-    l = useRef(e);
-  (l.current = e),
-    useEffect(() => {
-      let u = () => {
-        let c = parseRoute(window.location.hash),
-          prev = l.current,
-          o = () => {
-            flushSync(() => a(c));
-            let f = c.section ? document.getElementById(c.section) : null;
-            f
-              ? f.scrollIntoView({
-                  block: "start",
-                  behavior: "instant",
-                })
-              : window.scrollTo({
-                  top: 0,
-                  behavior: "instant",
-                });
-          };
-        /* Do not interfere with the unique photo-flight and project-opening animations. */
-        let special = !!(
-            document.documentElement.dataset.projectTransition || document.documentElement.dataset.caseOpening
-          ),
-          reduce = matchMedia("(prefers-reduced-motion: reduce)").matches;
-        let changed = c.path !== prev.path || c.section !== prev.section;
-        if (!changed) {
-          o();
-          return;
-        }
-        if (!special && !reduce) {
-          const historyZoom =
-            c.path === "/proyectos" && prev.path.startsWith("/proyectos/")
-              ? window.JBHistoryZoomOut?.(prev.path)
-              : prev.path === "/proyectos" && c.path.startsWith("/proyectos/")
-                ? window.JBHistoryZoomIn?.(c.path)
-                : false;
-          if (historyZoom) {
-            o();
-            return;
-          }
-        }
-        if (special || reduce || typeof document.startViewTransition !== "function") {
-          o();
-          return;
-        }
-        let root = document.documentElement,
-          kind =
-            c.path === "/" && !c.section
-              ? "home"
-              : c.path === "/estudio"
-                ? "studio-in"
-                : prev.path === "/estudio"
-                  ? "studio-out"
-                  : c.path === prev.path
-                    ? "section"
-                    : "page";
-        let prior = window.__JB_ROUTE_VT__;
-        if (prior)
-          try {
-            prior.skipTransition();
-          } catch {}
-        root.dataset.jbRouteTransition = kind;
-        root.dataset.jbInternalNav = "";
-        let vt;
-        try {
-          vt = document.startViewTransition(o);
-          window.__JB_ROUTE_VT__ = vt;
-          vt.finished
-            .catch(() => {})
-            .finally(() => {
-              if (window.__JB_ROUTE_VT__ === vt) {
-                delete root.dataset.jbRouteTransition;
-                window.__JB_ROUTE_VT__ = null;
-              }
-            });
-        } catch (err) {
-          delete root.dataset.jbRouteTransition;
-          o();
-        }
-      };
-      return window.addEventListener("hashchange", u), () => window.removeEventListener("hashchange", u);
-    }, []),
-    useEffect(() => {
-      let u = projects.find((o) => e.path === "/proyectos/" + o.slug);
-      document.title = u
-        ? u.name + " — Juana Brava"
-        : e.path === "/proyectos"
-          ? "Proyectos — Juana Brava"
-          : e.path === "/thinking"
-            ? "Thinking — Juana Brava"
-            : e.path === "/estudio"
-              ? "Estudio — Juana Brava"
-              : e.path === "/contacto"
-                ? "Contacto — Juana Brava"
-                : "Juana Brava — Ideas sin permiso";
-      let c = requestAnimationFrame(() => {
-        if (document.documentElement.dataset.jbRouteTransition) return;
-        let o = e.section ? document.getElementById(e.section) : null;
-        o
-          ? o.scrollIntoView({
-              block: "start",
-              behavior: "instant",
-            })
-          : window.scrollTo({
-              top: 0,
-              behavior: "instant",
-            });
-      });
-      return () => cancelAnimationFrame(c);
-    }, [e.path, e.section]);
-  let n = projects.find((u) => e.path === "/proyectos/" + u.slug),
-    i =
-      e.path === "/" ? (
-        <HomePage />
-      ) : e.path === "/proyectos" ? (
-        <ProjectsPage />
-      ) : e.path === "/thinking" ? (
-        <JBThinkingPage />
-      ) : e.path === "/estudio" ? (
-        <JBStudioPage />
-      ) : e.path === "/contacto" ? (
-        <JBContactPage />
-      ) : n ? (
-        <CasePage
-          params={{
-            slug: n.slug,
-          }}
-        />
-      ) : (
-        <>
-          <SiteHeader tone="dark" />
-          <main className="archive-page wrap" id="contenido">
-            <h1>Esta página no existe.</h1>
-            <a className="all-work-link" href="/proyectos">
-              Explorar los proyectos ↗
-            </a>
-          </main>
-          <SiteFooter />
-        </>
+const PAGE_TITLES = {
+  "/proyectos": "Proyectos — Juana Brava",
+  "/thinking": "Thinking — Juana Brava",
+  "/estudio": "Estudio — Juana Brava",
+  "/contacto": "Contacto — Juana Brava",
+};
+
+// La cabecera es única y permanente: cambia de color y de enlace activo, pero nunca se vuelve a montar
+// ni se anima al cambiar de página (como en basicagency.com).
+function headerFor(path) {
+  if (path === "/") return { tone: "light", active: "" };
+  if (path === "/estudio") return { tone: "dark", active: "studio" };
+  if (path === "/thinking") return { tone: "dark", active: "thinking" };
+  if (path === "/contacto") return { tone: "dark", active: "contact" };
+  if (path === "/proyectos" || path.startsWith("/proyectos/")) return { tone: "dark", active: "projects" };
+  return { tone: "dark", active: "" };
+}
+
+function scrollToRoute(route, animated) {
+  const target = route.section ? document.getElementById(route.section) : null;
+  if (target) {
+    target.scrollIntoView({ block: "start", behavior: animated ? "smooth" : "instant" });
+  } else {
+    window.scrollTo({ top: 0, behavior: "instant" });
+  }
+}
+
+export function App({ initialRoute }) {
+  const [route, setRoute] = useState(() => initialRoute ?? parseRoute(window.location.hash));
+  const current = useRef(route);
+  current.current = route;
+  const shown = useRef(null); // ruta cuya posición de scroll ya está aplicada
+
+  useEffect(() => {
+    const onHashChange = () => {
+      const next = parseRoute(window.location.hash);
+      const previous = current.current;
+      const reduced = matchMedia("(prefers-reduced-motion: reduce)").matches;
+      const samePage = next.path === previous.path;
+
+      /* Do not interfere with the unique photo-flight and project-opening animations. */
+      const special = !!(
+        document.documentElement.dataset.projectTransition || document.documentElement.dataset.caseOpening
       );
+      if (!special && !reduced && !samePage) {
+        if (next.path === "/proyectos" && previous.path.startsWith("/proyectos/")) {
+          window.JBHistoryZoomOut?.(previous.path);
+        } else if (previous.path === "/proyectos" && next.path.startsWith("/proyectos/")) {
+          window.JBHistoryZoomIn?.(next.path);
+        }
+      }
+
+      // El contenido cambia al instante; la entrada (titulares, fundidos) la resuelve el CSS.
+      flushSync(() => setRoute(next));
+      scrollToRoute(next, samePage && !reduced);
+      shown.current = next;
+    };
+    window.addEventListener("hashchange", onHashChange);
+    return () => window.removeEventListener("hashchange", onHashChange);
+  }, []);
+
+  useEffect(() => {
+    const project = projects.find((item) => route.path === "/proyectos/" + item.slug);
+    document.title = project
+      ? project.name + " — Juana Brava"
+      : (PAGE_TITLES[route.path] ?? "Juana Brava — Ideas sin permiso");
+
+    // Carga inicial con #!/…?section=…: coloca la página en su sección.
+    if (shown.current === null) {
+      const frame = requestAnimationFrame(() => scrollToRoute(route, false));
+      shown.current = route;
+      return () => cancelAnimationFrame(frame);
+    }
+  }, [route.path, route.section]);
+
+  const project = projects.find((item) => route.path === "/proyectos/" + item.slug);
+  const page =
+    route.path === "/" ? (
+      <HomePage />
+    ) : route.path === "/proyectos" ? (
+      <ProjectsPage />
+    ) : route.path === "/thinking" ? (
+      <JBThinkingPage />
+    ) : route.path === "/estudio" ? (
+      <JBStudioPage />
+    ) : route.path === "/contacto" ? (
+      <JBContactPage />
+    ) : project ? (
+      <CasePage params={{ slug: project.slug }} />
+    ) : (
+      <>
+        <main className="archive-page wrap" id="contenido">
+          <h1>Esta página no existe.</h1>
+          <a className="all-work-link" href="/proyectos">
+            Explorar los proyectos ↗
+          </a>
+        </main>
+        <SiteFooter />
+      </>
+    );
+
   return (
     <>
-      <Fragment key={e.path}>{i}</Fragment>
-      <RevealMotion key={e.path + "-motion"} />
+      <SiteHeader {...headerFor(route.path)} />
+      <Fragment key={route.path}>{page}</Fragment>
+      <RevealMotion key={route.path + "-motion"} />
       <PortfolioTransitions />
     </>
   );

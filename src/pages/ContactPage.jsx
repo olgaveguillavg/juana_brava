@@ -1,5 +1,5 @@
 import { useState } from "react";
-import { SiteHeader } from "../components/SiteHeader.jsx";
+import { SlideText } from "../components/SlideText.jsx";
 import { projects } from "../data/projects.js";
 
 const JB_CONTACT_DETAILS = {
@@ -88,13 +88,14 @@ export function JBContactPage() {
   }
   return (
     <>
-      <SiteHeader tone="dark" active="contact" />
       <main id="contenido" className="jbce-page">
         <div className="jbce-sheet">
           <div className="jbce-intro">
             <div>
               <span className="jbce-overline">[ Contacto ]</span>
-              <h1>Trabajemos juntos.</h1>
+              <h1>
+                <SlideText>Trabajemos juntos.</SlideText>
+              </h1>
             </div>
             <p>
               ¿Tienes una idea, una marca que necesita evolucionar o un proyecto por empezar? Nos encantará escucharte.

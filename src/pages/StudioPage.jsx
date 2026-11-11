@@ -1,5 +1,4 @@
 import { useEffect, useRef, useState } from "react";
-import { SiteHeader } from "../components/SiteHeader.jsx";
 import { services } from "../data/projects.js";
 
 /* Studio-only editorial motion. All effects use existing assets and respect reduced motion. */
@@ -387,7 +386,6 @@ export function JBStudioPage() {
   ];
   return (
     <>
-      <SiteHeader tone="dark" active="studio" />
       <main id="contenido" className="jbv2-page">
         <section className="jbv2-hero" aria-labelledby="jbv2-title">
           <div className="jbv2-hero-sticky">
