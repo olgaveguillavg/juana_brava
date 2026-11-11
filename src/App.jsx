@@ -17,7 +17,7 @@ import { JBThinkingPage } from "./pages/ThinkingPage.jsx";
 
 const PAGE_TITLES = {
   "/proyectos": "Proyectos — Juana Brava",
-  "/thinking": "Thinking — Juana Brava",
+  "/ideas": "Ideas — Juana Brava",
   "/estudio": "Estudio — Juana Brava",
   "/contacto": "Contacto — Juana Brava",
 };
@@ -27,7 +27,7 @@ const PAGE_TITLES = {
 function headerFor(path) {
   if (path === "/") return { tone: "light", active: "home" };
   if (path === "/estudio") return { tone: "dark", active: "studio" };
-  if (path === "/thinking") return { tone: "light", active: "thinking" };
+  if (path === "/ideas") return { tone: "light", active: "thinking" };
   if (path === "/contacto") return { tone: "dark", active: "contact" };
   if (path === "/proyectos" || path.startsWith("/proyectos/")) return { tone: "dark", active: "projects" };
   return { tone: "dark", active: "" };
@@ -99,7 +99,7 @@ export function App({ initialRoute }) {
       <HomePage />
     ) : route.path === "/proyectos" ? (
       <ProjectsPage />
-    ) : route.path === "/thinking" ? (
+    ) : route.path === "/ideas" ? (
       <JBThinkingPage />
     ) : route.path === "/estudio" ? (
       <JBStudioPage />

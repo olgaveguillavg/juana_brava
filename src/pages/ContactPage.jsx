@@ -3,8 +3,17 @@ import { useState } from "react";
 import { SlideText } from "../components/SlideText.jsx";
 import { projects } from "../data/projects.js";
 
+/*
+ * Envío directo con Formspree (plan gratuito, unos 50 mensajes al mes).
+ * Pega aquí el código del formulario de formspree.io (lo que va después de /f/ en su dirección,
+ * por ejemplo "xyzabcde"). Mientras esté vacío, el formulario abre la aplicación de correo.
+ */
+const FORMSPREE_ID = "";
+
 const JB_CONTACT_DETAILS = {
   email: "juanabrava.agencia@gmail.com",
+  // El formulario abre el correo del usuario con el mensaje ya escrito, dirigido aquí.
+  newBusinessEmail: "juanabrava.agencia@gmail.com",
   phones: ["635 706 837", "696 859 131"],
   socials: [
     {
@@ -20,9 +29,11 @@ const JB_CONTACT_DETAILS = {
 
 export function JBContactPage() {
   const [message, setMessage] = useState("");
-  function submit(ev) {
+  const [sending, setSending] = useState(false);
+  async function submit(ev) {
     ev.preventDefault();
-    const data = new FormData(ev.currentTarget),
+    const form = ev.currentTarget;
+    const data = new FormData(form),
       name = String(data.get("name") || "").trim(),
       email = String(data.get("email") || "").trim(),
       topic = String(data.get("subject") || "").trim(),
@@ -42,6 +53,25 @@ export function JBContactPage() {
       "Mensaje:",
       description,
     ].join("\n");
+    if (FORMSPREE_ID) {
+      setSending(true);
+      setMessage("");
+      try {
+        const res = await fetch("https://formspree.io/f/" + FORMSPREE_ID, {
+          method: "POST",
+          headers: { Accept: "application/json", "Content-Type": "application/json" },
+          body: JSON.stringify({ name, email, _replyto: email, _subject: subject, asunto: topic, mensaje: description }),
+        });
+        if (!res.ok) throw new Error(String(res.status));
+        form.reset();
+        setMessage("¡Gracias! Hemos recibido tu mensaje y te responderemos pronto.");
+      } catch {
+        setMessage("No se ha podido enviar. Escríbenos a " + JB_CONTACT_DETAILS.email + " y te respondemos enseguida.");
+      } finally {
+        setSending(false);
+      }
+      return;
+    }
     if (JB_CONTACT_DETAILS.newBusinessEmail) {
       window.location.href =
         "mailto:" +
@@ -144,12 +174,14 @@ export function JBContactPage() {
                 </label>
                 <div className="jbce-form-send">
                   <p>
-                    {JB_CONTACT_DETAILS.newBusinessEmail
-                      ? "* Campos obligatorios. Al continuar se abrirá tu aplicación de correo."
+                    {FORMSPREE_ID
+                      ? "* Campos obligatorios."
+                      : JB_CONTACT_DETAILS.newBusinessEmail
+                      ? "* Campos obligatorios. Se abrirá tu correo con el mensaje listo para enviar."
                       : "* Campos obligatorios. El envío directo estará disponible al configurar nuestro correo de contacto."}
                   </p>
-                  <button type="submit">
-                    {JB_CONTACT_DETAILS.newBusinessEmail ? "Preparar correo" : "Preparar consulta"}
+                  <button type="submit" disabled={sending} aria-busy={sending}>
+                    {sending ? "Enviando…" : FORMSPREE_ID || JB_CONTACT_DETAILS.newBusinessEmail ? "Enviar mensaje" : "Preparar consulta"}
                     <Arrow />
                   </button>
                 </div>
@@ -209,7 +241,7 @@ export function JBContactPage() {
                 <a href="/">Inicio</a>
                 <a href="/proyectos">Proyectos</a>
                 <a href="/estudio">Estudio</a>
-                <a href="/thinking">Thinking</a>
+                <a href="/ideas">Ideas</a>
                 <a href="/contacto" aria-current="page">Contacto</a>
               </nav>
             </div>

@@ -30,7 +30,7 @@ export function CasePage({ params: t }) {
                 </h1>
               </div>
               <div className="case-hero-side">
-                <span className="case-hero-focus-label">Project Focus</span>
+                <span className="case-hero-focus-label">{projectTypeLabel(e)}</span>
                 <p className="case-hero-focus">{l}</p>
                 <p className="case-hero-lead">{e.lead}</p>
               </div>

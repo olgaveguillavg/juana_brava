@@ -5,8 +5,8 @@ import { projects } from "../data/projects.js";
 const JB_THINKING_ITEMS = [
   {
     slug: "culture-systems",
-    label: "Applied",
-    date: "11.10.26",
+    label: "Práctica",
+    date: "11 oct 2026", iso: "2026-10-11",
     title: "Una identidad no termina en el logo.",
     excerpt: "Cómo pensar sistemas visuales que pasan del tono a la interfaz y de la campaña al producto.",
     image: projects[0].image,
@@ -14,8 +14,8 @@ const JB_THINKING_ITEMS = [
   },
   {
     slug: "ai-direction",
-    label: "Notes",
-    date: "08.10.26",
+    label: "Notas",
+    date: "8 oct 2026", iso: "2026-10-08",
     title: "IA, criterio y dirección de arte.",
     excerpt: "La herramienta acelera, pero la mirada editorial sigue marcando qué entra, qué no y por qué.",
     image: projects[1].image,
@@ -23,8 +23,8 @@ const JB_THINKING_ITEMS = [
   },
   {
     slug: "web-stories",
-    label: "Thinking",
-    date: "02.10.26",
+    label: "Opinión",
+    date: "2 oct 2026", iso: "2026-10-02",
     title: "Webs que cuentan antes de vender.",
     excerpt:
       "Estructuras, ritmo y jerarquía para que una web se sienta como una publicación y no como un catálogo sin intención.",
@@ -33,8 +33,8 @@ const JB_THINKING_ITEMS = [
   },
   {
     slug: "brand-motion",
-    label: "Process",
-    date: "24.09.26",
+    label: "Proceso",
+    date: "24 sept 2026", iso: "2026-09-24",
     title: "Diseñar movimiento con intención.",
     excerpt: "Microtransiciones, continuidad visual y decisiones de timing para que una navegación se sienta natural.",
     image: projects[3].image,
@@ -48,7 +48,7 @@ export function JBThinkingPage() {
       <main id="contenido" className="thinking-page wrap">
         <section className="thinking-intro">
           <h1>
-            <SlideText>Thinking</SlideText>
+            <SlideText>Ideas</SlideText>
           </h1>
         </section>
         <section className="thinking-list">
@@ -61,7 +61,7 @@ export function JBThinkingPage() {
                 <div className="thinking-card-meta">
                   <span>{t.label}</span>
                   <span>{t.topic}</span>
-                  <span>{t.date}</span>
+                  <time dateTime={t.iso}>{t.date}</time>
                 </div>
                 <h3>{t.title}</h3>
                 <p>{t.excerpt}</p>
@@ -77,7 +77,7 @@ export function JBThinkingPage() {
               <section className="thinking-cta">
           <div>
             <h2>Conversaciones, procesos y referencias del estudio.</h2>
-            <p>La idea es que Thinking crezca como un archivo vivo: una mezcla de artículos, apuntes y materiales de trabajo.</p>
+            <p>La idea es que este espacio crezca como un archivo vivo: una mezcla de artículos, apuntes y materiales de trabajo.</p>
           </div>
           <a className="outline-link" href="/contacto">
             {"Hablemos de una idea "}

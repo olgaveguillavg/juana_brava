@@ -25,25 +25,9 @@ export function HomePage() {
               EL TRABAJO
             </span>
           </a>
-          <div className="hero-caption">
-            <span>BARCELONA 2026</span>
-          </div>
-        </section>
-        <section className="intro wrap" aria-labelledby="intro-title">
-          <div className="intro-copy reveal">
-            <h1 id="intro-title">
-              Diseñamos lo que una marca cuenta y cómo se ve.
-            </h1>
-          </div>
-          <div className="intro-brand reveal">
-            <img
-              src="/brand/monograma-clean.svg"
-              alt="Monograma JB de Juana Brava"
-              width="1592"
-              height="1190"
-              loading="lazy"
-            />
-            <span className="brand-claim">IDEAS SIN PERMISO.</span>
+          <div className="hero-copy">
+            <h1 id="intro-title">Diseñamos lo que una marca cuenta y cómo se ve.</h1>
+            <span className="hero-place">BARCELONA 2026</span>
           </div>
         </section>
         <FeaturedWork />
@@ -65,25 +49,6 @@ export function HomePage() {
             ))}
           </div>
         </section>
-        <section className="thinking wrap" id="que-pensamos" aria-labelledby="thinking-title">
-          <div className="section-top reveal">
-            <h2 id="thinking-title">Qué pensamos.</h2>
-            <p>
-              Publicidad, creatividad y cultura digital.
-              <br />
-              Una mirada propia sobre lo que nos mueve.
-            </p>
-          </div>
-          <div className="thinking-body reveal">
-            <h3>Las ideas también se piensan en voz alta.</h3>
-            <div>
-              <p>
-                Un espacio para compartir referencias, cuestionar lo de siempre y hablar de las ideas que hacen avanzar
-                a las marcas.
-              </p>
-            </div>
-          </div>
-        </section>
         <section className="studio wrap" id="estudio" aria-labelledby="studio-title">
           <div className="studio-art reveal">
             <img
@@ -100,10 +65,6 @@ export function HomePage() {
             <p>
               Trabajamos juntas desde la primera idea hasta que sale al mundo. Unimos diseño digital, dirección visual,
               estrategia editorial y producción audiovisual.
-            </p>
-            <p>
-              Creemos en las ideas con intención, el diseño que se entiende y la tecnología que ayuda a avanzar.
-              Escuchamos, cuestionamos y damos forma a una dirección propia para cada marca.
             </p>
             <div className="people">
               <div>

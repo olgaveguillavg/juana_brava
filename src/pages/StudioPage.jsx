@@ -551,7 +551,7 @@ export function JBStudioPage() {
         <div className="wrap">
           <span>© 2026 JUANA BRAVA</span>
           <a href="/proyectos">Proyectos</a>
-          <a href="/thinking">Thinking</a>
+          <a href="/ideas">Ideas</a>
           <a href="/contacto">Contacto</a>
         </div>
       </footer>

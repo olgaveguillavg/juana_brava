@@ -23,7 +23,7 @@ export function SiteHeader({ tone: t = "light", active: e = "" }) {
   let i = [
       ["Proyectos", "/proyectos"],
       ["Estudio", "/estudio"],
-      ["Thinking", "/thinking"],
+      ["Ideas", "/ideas"],
       ["Contacto", "/contacto"],
     ],
     u = (o, c) => e === o && c;
@@ -42,7 +42,7 @@ export function SiteHeader({ tone: t = "light", active: e = "" }) {
               key={c}
               href={c}
               data-active={
-                u("home", c === "/") || u("projects", c === "/proyectos") || u("studio", c === "/estudio") || u("thinking", c === "/thinking")
+                u("home", c === "/") || u("projects", c === "/proyectos") || u("studio", c === "/estudio") || u("thinking", c === "/ideas")
               }
             >
               {o}

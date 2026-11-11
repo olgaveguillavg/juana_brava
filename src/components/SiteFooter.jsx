@@ -49,7 +49,6 @@ export function SiteFooter() {
           </div>
           <div className="footer-bottom">
             <span>© 2026 JUANA BRAVA</span>
-            <a href="/proyectos">Explorar proyectos{" "}<Arrow /></a>
             <a href="#inicio">Volver arriba{" "}<Arrow dir="n" /></a>
           </div>
         </div>
