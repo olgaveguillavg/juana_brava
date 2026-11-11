@@ -116,7 +116,7 @@ export function App({ initialRoute }) {
 
   return (
     <>
-      <SiteHeader {...headerFor(route.path)} />
+      <SiteHeader {...headerFor(route.path)} isHome={route.path === "/"} />
       <Fragment key={route.path}>{page}</Fragment>
       <RevealMotion key={route.path + "-motion"} />
       <PortfolioTransitions />

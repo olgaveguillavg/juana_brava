@@ -539,7 +539,9 @@ export function JBStudioPage() {
             <span className="jbv2-reveal jbv3-text-reveal">IDEAS SIN PERMISO.</span>
             <h2 className="jbv2-reveal jbv3-text-reveal">¿Y si hacemos algo que merezca la pena recordar?</h2>
             <div className="jbv2-finale-actions">
-              <a href="/contacto">Cuéntanos tu proyecto ↗</a>
+              <a href="/contacto">
+                Cuéntanos tu proyecto <span aria-hidden="true">↗</span>
+              </a>
             </div>
           </div>
         </section>

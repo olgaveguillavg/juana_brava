@@ -128,8 +128,8 @@ export function HomePage() {
               <br />
               La dirección creativa la ponemos nosotras.
             </p>
-            <a href="/proyectos/juana-brava" className="case-link studio-case-link">
-              {"Así construimos nuestra identidad "}
+            <a href="/estudio" className="case-link studio-case-link">
+              {"Conoce el estudio "}
               <span aria-hidden="true">↗</span>
             </a>
           </div>

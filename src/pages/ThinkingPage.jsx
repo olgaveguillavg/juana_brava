@@ -47,7 +47,6 @@ export function JBThinkingPage() {
     <>
       <main id="contenido" className="thinking-page wrap">
         <section className="thinking-intro">
-          <span className="eyebrow">Archivo editorial</span>
           <h1>
             <SlideText>Thinking</SlideText>
           </h1>
@@ -60,7 +59,6 @@ export function JBThinkingPage() {
             <img src={projects[0].wide} alt={projects[0].alt} loading="eager" />
           </div>
           <div className="thinking-highlight-copy">
-            <span className="eyebrow">Thinking / destacado</span>
             <h2>Una sección para compartir cómo pensamos antes, durante y después de cada proyecto.</h2>
             <p>
               Textos breves, referencias, procesos y hallazgos que amplían el trabajo del estudio sin romper la estética

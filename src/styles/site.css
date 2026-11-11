@@ -2350,3 +2350,48 @@ body:has(.thinking-page)::before { filter: invert(1); opacity: .07; }
   60% { transform: translate(-2%, -1%); } 80% { transform: translate(3%, 3%); }
 }
 @media (prefers-reduced-motion: reduce) { body::before { animation: none; } }
+
+/* ===== Revisión UX: un solo lenguaje de enlaces, cortes suaves y menos vacío ===== */
+
+/* Una única llamada a la acción: círculo con flecha + texto (igual que «Explorar el caso»). */
+.outline-link, .studio-case-link, .jbv2-finale-actions a, .project-sheet__more, .case-close .outline-link {
+  display: inline-flex; align-items: center; gap: 16px; padding: 0; border: 0; border-radius: 0; background: none;
+  color: var(--ink); font-size: 13px; font-weight: 400; letter-spacing: -.005em; line-height: 1.2; text-transform: none; transform: none;
+}
+.outline-link > span, .studio-case-link > span, .jbv2-finale-actions a > span, .project-sheet__more > span {
+  order: -1; display: grid; place-items: center; flex: none; width: 54px; height: 54px; border-radius: 50%;
+  background: var(--red); color: #fff; font-size: 21px; line-height: 1; margin: 0;
+  transition: background .3s, transform .5s var(--ease-out-bd);
+}
+.outline-link:hover, .studio-case-link:hover, .jbv2-finale-actions a:hover, .project-sheet__more:hover { background: none; color: var(--ink); transform: none; }
+.outline-link:hover > span, .studio-case-link:hover > span, .jbv2-finale-actions a:hover > span, .project-sheet__more:hover > span { background: var(--ink); transform: rotate(45deg); }
+.studio-case-link { margin-top: 28px; border-bottom: 0; }
+/* Sobre rojo o fondo oscuro: círculo blanco */
+.footer .outline-link, .thinking-cta .outline-link { color: #fff; }
+.footer .outline-link:hover, .thinking-cta .outline-link:hover { color: #fff; background: none; border: 0; }
+.footer .outline-link > span, .thinking-cta .outline-link > span { background: #fff; color: var(--red); }
+.thinking-cta .outline-link > span { color: var(--ink); }
+.footer .outline-link:hover > span, .thinking-cta .outline-link:hover > span { background: var(--ink); color: #fff; }
+.jbv2-finale-actions a { font-size: clamp(14px, 1.3vw, 18px); }
+
+
+/* Home: sin rojo suelto; el rojo queda para el punto y los botones. */
+.thinking-body h3 { color: var(--ink); }
+
+/* Estudio: ritmo vertical más compacto (menos blanco entre bloques). */
+.jbv2-page .jbv3-people { padding: clamp(56px, 6vw, 96px) 0 clamp(36px, 4vw, 64px); }
+.jbv2-page .jbv3-people .jbv2-people-head { padding-bottom: 36px; }
+.jbv2-page .jbv3-people-footnote { margin-top: 28px; }
+.jbv2-page .jbv2-method { padding: clamp(40px, 5vw, 80px) 0 clamp(56px, 6vw, 96px); }
+.jbv2-page .jbv2-method h2 { margin-top: 0; }
+.jbv2-page .jbv2-finale { padding: clamp(56px, 6vw, 96px) 0 clamp(64px, 7vw, 110px); }
+.jbv2-page .jbv2-services { padding-bottom: clamp(64px, 7vw, 100px); }
+
+/* Proyectos: el titular enmascarado hereda el negro (antes el primer span salía rojo). */
+.archive-intro h1 .slide-word, .archive-intro h1 .slide-word > span { color: inherit; }
+
+/* Ruleta en pantalla ancha: fondo más alto (190 % de la ventana) y centrado al fijarse, para que los
+   círculos quepan enteros dentro de la sección y nunca se corten contra su borde superior o inferior. */
+.arc-pin[data-layout=wide] { height: 190svh; top: -45svh; }
+.arc-pin[data-layout=wide] .arc-toolbar { top: calc(45svh + 24px); }
+.arc-pin[data-layout=wide] .arc-motion-access { bottom: calc(45svh + 22px); }

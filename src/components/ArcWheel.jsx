@@ -69,7 +69,7 @@ export function ArcWheel({ items: t, archiveCount: e, ariaLabel: a = "Proyectos 
             "deg) scale(" +
             Jt.scale.toFixed(4) +
             ")"),
-            (ct.style.opacity = "1"),
+            (ct.style.opacity = Jt.opacity.toFixed(3)),
             ct.toggleAttribute("data-extracted", m.current.index === dt),
             (ct.style.visibility = Jt.opacity > 0.001 ? "visible" : "hidden"),
             (ct.style.zIndex = String(dt === I ? 120 : 100 - Math.round(Math.abs(Pe) * 10))),

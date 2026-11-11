@@ -27,8 +27,10 @@ export function arcGeometry(t, e, a, l = 7) {
   if (n !== "wide") {
     let d = a?.width ?? (n === "split" ? t * 0.48 - 32 : t - 40),
       m = a?.height ?? (n === "split" ? e - 120 : Math.max(210, e - 320)),
-      S = Math.max(1, Math.min(d * 0.92, m * 0.92, 480)),
-      A = S / u;
+      // Tablet y móvil: la rueda se ve por su parte superior. El proyecto activo queda centrado arriba y
+      // los demás giran hacia los lados y salen por los bordes de la pantalla, nunca por arriba ni por abajo.
+      S = Math.max(1, Math.min(d * 0.62, (m - 16) / 1.62, 420)),
+      A = S / (2 * Math.sin(Math.PI / Math.max(2, l)) * 0.72);
     return {
       layout: n,
       frameW: d,
@@ -36,8 +38,11 @@ export function arcGeometry(t, e, a, l = 7) {
       cardW: S,
       cardH: S,
       radius: A,
-      hubX: d / 2 - A,
-      hubY: m / 2,
+      hubX: d / 2,
+      hubY: 8 + S / 2 + A,
+      orient: "top",
+      // Ángulo máximo con el que un círculo cabe entero por abajo; a partir de ahí se desvanece al salir por el lado.
+      maxAngle: (Math.acos(Math.max(-1, Math.min(1, 1 - (m - 16 - S) / A))) * 180) / Math.PI,
       step: i,
       artHeight: m,
       artTop: 0,
@@ -45,10 +50,11 @@ export function arcGeometry(t, e, a, l = 7) {
     };
   }
   let c = Math.min(e * 1.05, t * 0.68),
-    o = c * 0.98 * 1.3 * 2 * Math.sin(Math.PI / 14) * 0.8,
-    f = o / u,
+    o = c * 0.98 * 1.3 * 2 * Math.sin(Math.PI / 14) * 0.8 * 0.92,
+    // Más separación entre proyectos: cada círculo ocupa el 72 % del hueco entre posiciones (antes el 80 %).
+    f = o / (2 * Math.sin(Math.PI / Math.max(2, l)) * 0.72),
     p = c * 0.64 - f,
-    v = Math.min(e, c);
+    v = Math.min(e, c) * 1.9; // escena más alta que la ventana: la ruleta cabe entera y no se corta
   return {
     layout: n,
     frameW: t,
@@ -60,16 +66,26 @@ export function arcGeometry(t, e, a, l = 7) {
     hubY: v / 2,
     step: i,
     artHeight: v,
-    artTop: (e - v) / 2,
+    artTop: 0,
     captionLeft: Math.max(p + f + o / 2 + Math.max(36, t * 0.035), t * 0.58),
   };
 }
 
 export function arcPoint(t, e) {
   let a = (t * e.step * Math.PI) / 180;
+  if (e.orient === "top") {
+    // Arco superior: x hacia los lados, y hacia abajo; los que quedan muy atrás no se muestran.
+    return {
+      x: e.hubX + e.radius * Math.sin(a),
+      y: e.hubY - e.radius * Math.cos(a),
+      rotation: 0,
+      scale: 1,
+      opacity: Math.max(0, Math.min(1, (e.maxAngle - Math.abs(t * e.step)) / 8)),
+    };
+  }
   return {
     x: e.hubX + e.radius * Math.cos(a),
-    y: e.hubY + e.radius * Math.sin(a),
+    y: e.hubY + e.radius * (e.ry ?? 1) * Math.sin(a),
     rotation: 0,
     scale: 1,
     opacity: 1,
