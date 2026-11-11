@@ -70,7 +70,7 @@ export function CaseExperience({ project: t }) {
         </span>
         <span>
           {t.views[e]}
-          {" · "}
+          {" / "}
           {t.type === "own" ? "Proyecto propio" : "Concepto de estudio"}
         </span>
       </p>

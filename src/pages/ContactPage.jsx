@@ -92,7 +92,6 @@ export function JBContactPage() {
         <div className="jbce-sheet">
           <div className="jbce-intro">
             <div>
-              <span className="jbce-overline">[ Contacto ]</span>
               <h1>
                 <SlideText>Trabajemos juntos.</SlideText>
               </h1>
@@ -169,9 +168,8 @@ export function JBContactPage() {
                 />
               </figure>
               <div className="jbce-aside-details">
-                {detail("New Business · Email", JB_CONTACT_DETAILS.newBusinessEmail, "email")}
-                {detail("Teléfono · New Business", JB_CONTACT_DETAILS.phoneNewBusiness, "tel")}
-                {detail("Teléfono · Contacto", JB_CONTACT_DETAILS.phoneGeneral, "tel")}
+                {detail("Correo de contacto", JB_CONTACT_DETAILS.newBusinessEmail, "email")}
+                {detail("Teléfono de contacto", JB_CONTACT_DETAILS.phoneGeneral, "tel")}
                 <div className="jbce-detail jbce-social">
                   <span className="jbce-detail-label">Social</span>
                   <div className="jbce-social-links">

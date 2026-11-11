@@ -8,7 +8,7 @@ export function CasePage({ params: t }) {
   let e = findProject(t.slug);
   e || notFound();
   let a = nextProject(e.slug),
-    l = [e.sector, e.discipline].filter(Boolean).join(" · ").toUpperCase();
+    l = [e.sector, e.discipline].filter(Boolean).join(" / ").toUpperCase();
   return (
     <>
       <main id="contenido" className={"case-page case-" + e.slug}>

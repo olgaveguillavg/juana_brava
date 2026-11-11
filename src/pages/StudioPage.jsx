@@ -166,11 +166,10 @@ function JBStudioStageMotion() {
       if (reduce.matches || !root.isConnected) return;
       if (hero && items.length) {
         const rect = hero.getBoundingClientRect();
-        const incoming = root.querySelector(".jbv2-manifesto")?.getBoundingClientRect();
         const vh = innerHeight;
         // Move the old composition out as the next section physically enters.
         // Do not fade a full screen of content before the manifesto reaches the viewport.
-        const p = clamp((vh - (incoming?.top ?? vh)) / (vh * 0.94), 0, 1);
+        const p = clamp(-rect.top / (vh * 0.75), 0, 1);
         const rises = [190, 250, 220, 310, 265, 200, 290];
         const shift = [-12, 13, -8, 11, -6, 15, -9];
         items.forEach((el, i) => {
@@ -252,14 +251,12 @@ function JBStudioProfileModal({ person, onClose }) {
       }}
     >
       <div className="jbv3-person-dialog-head">
-        <span>JUANA BRAVA / NOSOTRAS</span>
         <button type="button" aria-label="Cerrar ficha" onClick={onClose}>
           Cerrar ×
         </button>
       </div>
       <div className="jbv3-person-dialog-grid">
         <div className="jbv3-person-dialog-copy">
-          <span className="jbv3-person-dialog-number">{person.number + " / EL EQUIPO"}</span>
           <h2>{person.name}</h2>
           <h3>{person.role}</h3>
           <p>{person.intro}</p>
@@ -272,7 +269,7 @@ function JBStudioProfileModal({ person, onClose }) {
         </div>
         <figure className="jbv3-person-dialog-figure">
           <img src={person.image} alt={person.imageAlt} loading="eager" />
-          <figcaption>IMAGEN CONCEPTUAL · RETRATO REAL PENDIENTE</figcaption>
+          <figcaption>IMAGEN CONCEPTUAL / RETRATO REAL PENDIENTE</figcaption>
         </figure>
       </div>
     </dialog>
@@ -280,7 +277,7 @@ function JBStudioProfileModal({ person, onClose }) {
 }
 
 export function JBStudioPage() {
-  const [open, setOpen] = useState(0),
+  const [open, setOpen] = useState(-1),
     [person, setPerson] = useState(null);
   const serviceData = [
     {
@@ -390,15 +387,7 @@ export function JBStudioPage() {
         <section className="jbv2-hero" aria-labelledby="jbv2-title">
           <div className="jbv2-hero-sticky">
             <div className="jbv2-hero-heading wrap">
-              <div className="jbv2-eyeline">
-                <span>ESTUDIO CREATIVO / BARCELONA</span>
-                <span>01 — 04</span>
-              </div>
               <h1 id="jbv2-title">El estudio.</h1>
-              <div className="jbv2-hero-sub">
-                <span>IDEAS SIN PERMISO.</span>
-                <a href="#manifiesto">DESLIZA PARA CONOCERNOS ↓</a>
-              </div>
             </div>
             <div className="jbv2-film">
               {heroImages.map((photo, i) => (
@@ -407,15 +396,10 @@ export function JBStudioPage() {
                 </figure>
               ))}
             </div>
-            <span className="jbv2-film-caption">UNA MIRADA EN MOVIMIENTO / IMÁGENES DE EXPLORACIÓN Y PROYECTOS</span>
           </div>
         </section>
         <section className="jbv2-manifesto" id="manifiesto">
           <div className="wrap">
-            <div className="jbv2-meta jbv2-reveal">
-              <span>01 / MANIFIESTO</span>
-              <span>NUESTRA FORMA DE VERLO</span>
-            </div>
             <div className="jbv2-manifesto-grid">
               <h2 className="jbv2-reveal jbv3-text-reveal">Bonito no basta.</h2>
               <div className="jbv2-manifesto-copy jbv2-reveal">
@@ -433,21 +417,13 @@ export function JBStudioPage() {
                 </p>
               </div>
             </div>
-            <div className="jbv2-manifesto-sign jbv2-reveal">
-              <span>NO REPETIR. ENCONTRAR.</span>
-              <span>JUANA BRAVA © 2026</span>
-            </div>
           </div>
         </section>
         <section className="jbv2-services" id="capacidades">
           <div className="wrap">
-            <div className="jbv2-meta jbv2-reveal">
-              <span>02 / LO QUE HACEMOS</span>
-              <span>CUATRO FORMAS DE LLEVAR UNA IDEA MÁS LEJOS</span>
-            </div>
-            <div className="jbv2-services-intro jbv2-reveal">
-              <h2>Hacemos que pase.</h2>
-              <p>
+            <div className="jbv2-services-intro">
+              <h2 className="jbv2-reveal jbv3-text-reveal">Hacemos que pase.</h2>
+              <p className="jbv2-reveal">
                 No ofrecemos una lista interminable. Combinamos las disciplinas que cada idea necesita, de la estrategia
                 a su puesta en marcha.
               </p>
@@ -463,7 +439,6 @@ export function JBStudioPage() {
                     aria-controls={"jbv2-service-panel-" + j}
                     onClick={() => setOpen((x) => (x === j ? -1 : j))}
                   >
-                    <span className="jbv2-service-num">{item.number}</span>
                     <span className="jbv2-service-title">{item.name}</span>
                     <span className="jbv2-service-symbol" aria-hidden="true" />
                   </button>
@@ -480,7 +455,6 @@ export function JBStudioPage() {
                         <img src={item.image} alt={item.alt} loading="lazy" />
                         <div className="jbv2-service-image-shade" aria-hidden="true" />
                         <div className="jbv2-service-photo-content">
-                          <span>{"JUANA BRAVA / DISCIPLINA " + item.number}</span>
                           <h3>{item.short}</h3>
                           <p>{item.detail}</p>
                         </div>
@@ -502,10 +476,6 @@ export function JBStudioPage() {
         </section>
         <section className="jbv2-people jbv3-people" id="nosotras">
           <div className="wrap">
-            <div className="jbv2-meta jbv2-reveal">
-              <span>03 / QUIÉNES SOMOS</span>
-              <span>CONOCE A LAS PERSONAS TRAS EL ESTUDIO</span>
-            </div>
             <div className="jbv2-people-head jbv2-reveal">
               <h2>Detrás de las ideas estamos nosotras.</h2>
               <p>
@@ -520,7 +490,7 @@ export function JBStudioPage() {
                   alt="Manos seleccionando muestras y referencias creativas en una mesa de trabajo"
                   loading="lazy"
                 />
-                <figcaption>DESDE LAS IDEAS HASTA EL ÚLTIMO DETALLE · IMAGEN CONCEPTUAL</figcaption>
+                <figcaption>DESDE LAS IDEAS HASTA EL ÚLTIMO DETALLE / IMAGEN CONCEPTUAL</figcaption>
               </figure>
               <div className="jbv3-profile-directory">
                 {teamProfiles.map((personInfo, i) => (
@@ -531,7 +501,6 @@ export function JBStudioPage() {
                     onClick={() => setPerson(personInfo)}
                     aria-label={"Conocer a " + personInfo.name}
                   >
-                    <span className="jbv3-profile-index">{personInfo.number}</span>
                     <span className="jbv3-profile-card-content">
                       <span className="jbv3-profile-name">{personInfo.name}</span>
                       <span className="jbv3-profile-role">{personInfo.role}</span>
@@ -554,15 +523,10 @@ export function JBStudioPage() {
         </section>
         <section className="jbv2-method" id="metodo">
           <div className="wrap">
-            <div className="jbv2-meta jbv2-reveal">
-              <span>04 / CÓMO TRABAJAMOS</span>
-              <span>DE LA IDEA AL MUNDO REAL</span>
-            </div>
             <h2 className="jbv2-reveal jbv3-text-reveal">Pensar bien. Hacerlo mejor.</h2>
             <div className="jbv2-method-grid">
               {process.map((step, j) => (
                 <article key={step.name} className="jbv2-reveal">
-                  <span>{String(j + 1).padStart(2, "0")}</span>
                   <h3>{step.name}</h3>
                   <p>{step.text}</p>
                 </article>
@@ -572,7 +536,7 @@ export function JBStudioPage() {
         </section>
         <section className="jbv2-finale">
           <div className="wrap jbv2-finale-inner">
-            <span className="jbv2-reveal">IDEAS SIN PERMISO.</span>
+            <span className="jbv2-reveal jbv3-text-reveal">IDEAS SIN PERMISO.</span>
             <h2 className="jbv2-reveal jbv3-text-reveal">¿Y si hacemos algo que merezca la pena recordar?</h2>
             <div className="jbv2-finale-actions">
               <a href="/contacto">Cuéntanos tu proyecto ↗</a>

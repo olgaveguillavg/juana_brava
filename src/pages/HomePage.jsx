@@ -1,4 +1,5 @@
 import { FeaturedWork } from "../components/FeaturedWork.jsx";
+import { ProjectSheet } from "../components/ProjectSheet.jsx";
 import { SiteFooter } from "../components/SiteFooter.jsx";
 import { services } from "../data/projects.js";
 
@@ -24,7 +25,7 @@ export function HomePage() {
             </span>
           </a>
           <div className="hero-caption">
-            <span>JUANA BRAVA · ESTUDIO CREATIVO Y DIGITAL</span>
+            <span>JUANA BRAVA / ESTUDIO CREATIVO Y DIGITAL</span>
             <span>BARCELONA / 2026</span>
           </div>
         </section>
@@ -86,7 +87,7 @@ export function HomePage() {
                 Un espacio para compartir referencias, cuestionar lo de siempre y hablar de las ideas que hacen avanzar
                 a las marcas.
               </p>
-              <span className="eyebrow thinking-status">El blog de Juana Brava · Próximamente</span>
+              <span className="eyebrow thinking-status">El blog de Juana Brava / Próximamente</span>
             </div>
           </div>
         </section>
@@ -135,6 +136,7 @@ export function HomePage() {
         </section>
       </main>
       <SiteFooter />
+      <ProjectSheet />
     </>
   );
 }

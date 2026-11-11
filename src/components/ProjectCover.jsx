@@ -11,7 +11,7 @@ export function ProjectCover({ project: t, mode: e = 0, compact: a = false }) {
       }
       style={n}
       role="img"
-      aria-label={t.alt + " · " + t.views[e]}
+      aria-label={t.alt + " / " + t.views[e]}
     >
       <div className="cover-composition" aria-hidden="true">
         {t.slug === "sobremesa" && (
@@ -96,7 +96,7 @@ export function ProjectCover({ project: t, mode: e = 0, compact: a = false }) {
                 <img src={t.image} alt="" />
               </div>
             )}
-            <div className="beauty-foot">IDENTIDAD · PRODUCTO · EXPERIENCIA</div>
+            <div className="beauty-foot">IDENTIDAD / PRODUCTO / EXPERIENCIA</div>
           </div>
         )}
         {t.slug === "umbral" && (
@@ -199,10 +199,10 @@ export function ProjectCover({ project: t, mode: e = 0, compact: a = false }) {
                 <b>{t.name.toUpperCase()}</b>
                 <span>
                   {t.slug === "bruma"
-                    ? "El lugar · Estancias · Descubrir"
+                    ? "El lugar / Estancias / Descubrir"
                     : t.slug === "fuga"
-                      ? "Colección · Universo · Explorar"
-                      : "Artistas · Programa · El festival"}
+                      ? "Colección / Universo / Explorar"
+                      : "Artistas / Programa / El festival"}
                 </span>
               </div>
               <div className="concept-visual">

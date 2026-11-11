@@ -10,7 +10,7 @@ const JB_THINKING_ITEMS = [
     title: "Una identidad no termina en el logo.",
     excerpt: "Cómo pensar sistemas visuales que pasan del tono a la interfaz y de la campaña al producto.",
     image: projects[0].image,
-    topic: "Identidad · Sistemas",
+    topic: "Identidad / Sistemas",
   },
   {
     slug: "ai-direction",

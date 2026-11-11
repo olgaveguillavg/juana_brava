@@ -8,7 +8,7 @@ const wheelItems = featuredProjects.map((t) => ({
   title: t.name,
   sector: t.sector,
   description: t.lead,
-  meta: t.discipline + " · 2026",
+  meta: t.discipline + " / 2026",
   href: projectPath(t),
 }));
 
