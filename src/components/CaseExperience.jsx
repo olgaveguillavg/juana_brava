@@ -10,7 +10,7 @@ export function CaseExperience({ project: t }) {
   return (
     <section className="case-experience" id="experiencia" aria-labelledby="experience-title">
       <div className="experience-heading wrap reveal">
-        <span className="eyebrow">03 / EXPLORA LA PROPUESTA</span>
+        <span className="eyebrow">EXPLORA LA PROPUESTA</span>
         <h2 id="experience-title">
           Una idea.
           <br />
@@ -47,10 +47,6 @@ export function CaseExperience({ project: t }) {
             </button>
           ))}
         </div>
-        <span>
-          {String(e + 1).padStart(2, "0")}
-          {" / 03"}
-        </span>
       </div>
       <div
         id={t.slug + "-experience"}
@@ -63,17 +59,6 @@ export function CaseExperience({ project: t }) {
           <ProjectCover project={t} mode={e} />
         </div>
       </div>
-      <p className="experience-caption wrap">
-        <span>
-          {t.name}
-          {" / Exploración visual interactiva"}
-        </span>
-        <span>
-          {t.views[e]}
-          {" / "}
-          {t.type === "own" ? "Proyecto propio" : "Concepto de estudio"}
-        </span>
-      </p>
     </section>
   );
 }

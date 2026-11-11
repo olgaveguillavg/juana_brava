@@ -1,3 +1,4 @@
+import { Arrow } from "../components/Arrow.jsx";
 import { useEffect, useRef, useState } from "react";
 import { services } from "../data/projects.js";
 
@@ -269,7 +270,6 @@ function JBStudioProfileModal({ person, onClose }) {
         </div>
         <figure className="jbv3-person-dialog-figure">
           <img src={person.image} alt={person.imageAlt} loading="eager" />
-          <figcaption>IMAGEN CONCEPTUAL / RETRATO REAL PENDIENTE</figcaption>
         </figure>
       </div>
     </dialog>
@@ -490,7 +490,6 @@ export function JBStudioPage() {
                   alt="Manos seleccionando muestras y referencias creativas en una mesa de trabajo"
                   loading="lazy"
                 />
-                <figcaption>DESDE LAS IDEAS HASTA EL ÚLTIMO DETALLE / IMAGEN CONCEPTUAL</figcaption>
               </figure>
               <div className="jbv3-profile-directory">
                 {teamProfiles.map((personInfo, i) => (
@@ -540,7 +539,7 @@ export function JBStudioPage() {
             <h2 className="jbv2-reveal jbv3-text-reveal">¿Y si hacemos algo que merezca la pena recordar?</h2>
             <div className="jbv2-finale-actions">
               <a href="/contacto">
-                Cuéntanos tu proyecto <span aria-hidden="true">↗</span>
+                Cuéntanos tu proyecto <Arrow />
               </a>
             </div>
           </div>

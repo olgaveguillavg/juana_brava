@@ -1,4 +1,4 @@
-import { SiteFooter } from "../components/SiteFooter.jsx";
+import { Arrow } from "../components/Arrow.jsx";
 import { SlideText } from "../components/SlideText.jsx";
 import { projects } from "../data/projects.js";
 
@@ -50,21 +50,6 @@ export function JBThinkingPage() {
           <h1>
             <SlideText>Thinking</SlideText>
           </h1>
-          <p>
-            Ideas, observaciones y piezas de proceso sobre identidad, dirección de arte, tecnología y cultura visual.
-          </p>
-        </section>
-        <section className="thinking-highlight reveal">
-          <div className="thinking-highlight-media">
-            <img src={projects[0].wide} alt={projects[0].alt} loading="eager" />
-          </div>
-          <div className="thinking-highlight-copy">
-            <h2>Una sección para compartir cómo pensamos antes, durante y después de cada proyecto.</h2>
-            <p>
-              Textos breves, referencias, procesos y hallazgos que amplían el trabajo del estudio sin romper la estética
-              general de Juana Brava.
-            </p>
-          </div>
         </section>
         <section className="thinking-list">
           {JB_THINKING_ITEMS.map((t) => (
@@ -82,28 +67,34 @@ export function JBThinkingPage() {
                 <p>{t.excerpt}</p>
                 <span className="thinking-card-link">
                   {"Leer nota "}
-                  <span aria-hidden="true">↗</span>
+                  <Arrow />
                 </span>
               </div>
             </article>
           ))}
         </section>
-        <section className="thinking-cta">
+      </main>
+              <section className="thinking-cta">
           <div>
-            <span className="eyebrow">Próximamente</span>
             <h2>Conversaciones, procesos y referencias del estudio.</h2>
-            <p>
-              La idea es que Thinking crezca como un archivo vivo: una mezcla de artículos, apuntes y materiales de
-              trabajo.
-            </p>
+            <p>La idea es que Thinking crezca como un archivo vivo: una mezcla de artículos, apuntes y materiales de trabajo.</p>
           </div>
           <a className="outline-link" href="/contacto">
             {"Hablemos de una idea "}
-            <span aria-hidden="true">↗</span>
+            <Arrow />
           </a>
         </section>
-      </main>
-      <SiteFooter />
+        <div className="thinking-foot">
+          <span>© 2026 JUANA BRAVA</span>
+          <a href="/proyectos">
+            {"Explorar proyectos "}
+            <Arrow />
+          </a>
+          <a href="#inicio">
+            {"Volver arriba "}
+            <Arrow dir="n" />
+          </a>
+        </div>
     </>
   );
 }

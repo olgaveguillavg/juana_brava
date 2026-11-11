@@ -1,3 +1,4 @@
+import { Arrow } from "./Arrow.jsx";
 export function ProjectCover({ project: t, mode: e = 0, compact: a = false }) {
   let l = e === 2,
     n = {
@@ -54,7 +55,7 @@ export function ProjectCover({ project: t, mode: e = 0, compact: a = false }) {
                 </div>
                 <div className="restaurant-caption">
                   <span>COCINA, CONVERSACIÓN Y SOBREMESA.</span>
-                  <span>Descubre la carta ↗</span>
+                  <span>Descubre la carta{" "}<Arrow /></span>
                 </div>
               </>
             )}
@@ -79,7 +80,7 @@ export function ProjectCover({ project: t, mode: e = 0, compact: a = false }) {
                 <img src={t.wide} alt="" />
                 <div>
                   <span>Una misma dirección.</span>
-                  <span>Una colección completa. ↗</span>
+                  <span>Una colección completa.{" "}<Arrow /></span>
                 </div>
               </div>
             ) : (
@@ -91,7 +92,7 @@ export function ProjectCover({ project: t, mode: e = 0, compact: a = false }) {
                     <br />
                     Tu momento.
                   </h3>
-                  <span className="mock-link">Explorar la colección ↗</span>
+                  <span className="mock-link">Explorar la colección{" "}<Arrow /></span>
                 </div>
                 <img src={t.image} alt="" />
               </div>
@@ -127,9 +128,9 @@ export function ProjectCover({ project: t, mode: e = 0, compact: a = false }) {
                 <h3>{e === 1 ? "Tu recorrido." : "Lo que pasa."}</h3>
                 {(e === 1
                   ? [
-                      ["01", "Mirar despacio", "Un recorrido por los detalles"],
-                      ["02", "Fuera del marco", "Otra lectura del espacio"],
-                      ["03", "Entre piezas", "Un punto de partida propio"],
+                      ["", "Mirar despacio", "Un recorrido por los detalles"],
+                      ["", "Fuera del marco", "Otra lectura del espacio"],
+                      ["", "Entre piezas", "Un punto de partida propio"],
                     ]
                   : [
                       ["EXPOSICIÓN", "Lo que deja la luz", "Imagen y memoria"],
@@ -138,11 +139,11 @@ export function ProjectCover({ project: t, mode: e = 0, compact: a = false }) {
                     ]
                 ).map(([i, u, c]) => (
                   <div key={u} className="culture-event">
-                    <span>{i}</span>
+                    {i && <span>{i}</span>}
                     <b>{u}</b>
                     <small>
                       {c}
-                      {" ↗"}
+                      {" "}<Arrow />
                     </small>
                   </div>
                 ))}

@@ -1,23 +1,19 @@
+import { Arrow } from "../components/Arrow.jsx";
 import { useState } from "react";
 import { SlideText } from "../components/SlideText.jsx";
 import { projects } from "../data/projects.js";
 
 const JB_CONTACT_DETAILS = {
-  newBusinessEmail: "",
-  phoneNewBusiness: "",
-  phoneGeneral: "",
+  email: "juanabrava.agencia@gmail.com",
+  phones: ["635 706 837", "696 859 131"],
   socials: [
     {
       label: "Instagram",
-      url: "",
+      url: "https://www.instagram.com/agenciajuanabrava/",
     },
     {
       label: "LinkedIn",
-      url: "",
-    },
-    {
-      label: "Behance",
-      url: "",
+      url: "https://www.linkedin.com/company/juana-brava/home/?viewAsMember=true",
     },
   ],
 };
@@ -72,12 +68,17 @@ export function JBContactPage() {
       );
     }
   }
-  function detail(label, value, type) {
+  function detail(label, values, type) {
+    const list = [].concat(values).filter(Boolean);
     return (
       <div className="jbce-detail">
         <span className="jbce-detail-label">{label}</span>
-        {value ? (
-          <a href={type === "email" ? "mailto:" + value : "tel:" + value.replace(/[^+\d]/g, "")}>{value}</a>
+        {list.length ? (
+          list.map((value) => (
+            <a key={value} className={type === "email" ? "jbce-email" : undefined} href={type === "email" ? "mailto:" + value : "tel:" + value.replace(/[^+\d]/g, "")}>
+              {type === "email" ? value.replace(/([@.])/g, "$1​") : value}
+            </a>
+          ))
         ) : (
           <span className="jbce-detail-pending">
             {type === "email" ? "Correo pendiente de configurar" : "Teléfono pendiente de configurar"}
@@ -149,7 +150,7 @@ export function JBContactPage() {
                   </p>
                   <button type="submit">
                     {JB_CONTACT_DETAILS.newBusinessEmail ? "Preparar correo" : "Preparar consulta"}
-                    <span aria-hidden="true">↗</span>
+                    <Arrow />
                   </button>
                 </div>
                 {message ? (
@@ -168,8 +169,8 @@ export function JBContactPage() {
                 />
               </figure>
               <div className="jbce-aside-details">
-                {detail("Correo de contacto", JB_CONTACT_DETAILS.newBusinessEmail, "email")}
-                {detail("Teléfono de contacto", JB_CONTACT_DETAILS.phoneGeneral, "tel")}
+                {detail("Correo", JB_CONTACT_DETAILS.email, "email")}
+                {detail("Teléfono", JB_CONTACT_DETAILS.phones, "tel")}
                 <div className="jbce-detail jbce-social">
                   <span className="jbce-detail-label">Social</span>
                   <div className="jbce-social-links">
@@ -190,10 +191,6 @@ export function JBContactPage() {
             </aside>
           </section>
           <section className="jbce-visual-end" aria-label="Universo visual de Juana Brava">
-            <div className="jbce-endline">
-              <span>Ideas sin permiso.</span>
-              <span>Juana Brava / Estudio creativo</span>
-            </div>
             <div className="jbce-panorama">
               <img
                 src="/brand/hero.png"
@@ -213,7 +210,7 @@ export function JBContactPage() {
                 <a href="/proyectos">Proyectos</a>
                 <a href="/estudio">Estudio</a>
                 <a href="/thinking">Thinking</a>
-                <a href="/contacto">Contacto</a>
+                <a href="/contacto" aria-current="page">Contacto</a>
               </nav>
             </div>
           </footer>

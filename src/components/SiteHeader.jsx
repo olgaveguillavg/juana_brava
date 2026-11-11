@@ -1,6 +1,7 @@
+import { Arrow } from "./Arrow.jsx";
 import { useEffect, useRef, useState } from "react";
 
-export function SiteHeader({ tone: t = "light", active: e = "", isHome = false }) {
+export function SiteHeader({ tone: t = "light", active: e = "" }) {
   let [a, l] = useState(false),
     n = useRef(null);
   useEffect(() => {
@@ -36,21 +37,20 @@ export function SiteHeader({ tone: t = "light", active: e = "", isHome = false }
           <img src="/brand/logo-horizontal-clean.svg" alt="Juana Brava, agencia creativa" width="1901" height="728" />
         </a>
         <nav className="desktop-nav" aria-label="Navegación principal">
-          {(isHome ? i.slice(0, 3) : [["Home", "/"], ...i.slice(0, 3)]).map(([o, c]) => (
+          {[["Home", "/"], ...i.slice(0, 3)].map(([o, c]) => (
             <a
               key={c}
               href={c}
               data-active={
-                u("projects", c === "/proyectos") || u("studio", c === "/estudio") || u("thinking", c === "/thinking")
+                u("home", c === "/") || u("projects", c === "/proyectos") || u("studio", c === "/estudio") || u("thinking", c === "/thinking")
               }
             >
               {o}
             </a>
           ))}
         </nav>
-        <a className="header-contact" href="/contacto">
-          {"Contacto "}
-          <span aria-hidden="true">↗</span>
+        <a className="header-contact" href="/contacto" data-active={e === "contact" ? "true" : "false"}>
+          Contacto
         </a>
         <button
           ref={n}
@@ -66,7 +66,7 @@ export function SiteHeader({ tone: t = "light", active: e = "", isHome = false }
         </button>
       </header>
       <nav id="mobile-nav" className={"mobile-nav" + (a ? " is-open" : "")} aria-label="Navegación móvil" inert={!a}>
-        {(isHome ? i : [["Home", "/"], ...i]).map(([o, c]) => (
+        {[["Home", "/"], ...i].map(([o, c]) => (
           <a key={c} href={c} onClick={() => l(false)}>
             {o}
           </a>

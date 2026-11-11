@@ -1,3 +1,4 @@
+import { Arrow } from "../components/Arrow.jsx";
 import { FeaturedWork } from "../components/FeaturedWork.jsx";
 import { ProjectSheet } from "../components/ProjectSheet.jsx";
 import { SiteFooter } from "../components/SiteFooter.jsx";
@@ -25,20 +26,14 @@ export function HomePage() {
             </span>
           </a>
           <div className="hero-caption">
-            <span>JUANA BRAVA / ESTUDIO CREATIVO Y DIGITAL</span>
-            <span>BARCELONA / 2026</span>
+            <span>BARCELONA 2026</span>
           </div>
         </section>
         <section className="intro wrap" aria-labelledby="intro-title">
           <div className="intro-copy reveal">
             <h1 id="intro-title">
-              Diseñamos lo que una marca cuenta, cómo se ve y cómo se usa. Identidad, webs y contenidos que nacen de una
-              misma idea.
+              Diseñamos lo que una marca cuenta y cómo se ve.
             </h1>
-            <a className="outline-link" href="/proyectos">
-              {"Explorar proyectos "}
-              <span aria-hidden="true">↗</span>
-            </a>
           </div>
           <div className="intro-brand reveal">
             <img
@@ -64,7 +59,6 @@ export function HomePage() {
           <div className="services-grid">
             {services.map((t, e) => (
               <article key={t.name} className="service reveal">
-                <span className="service-index">0{e + 1}</span>
                 <h3>{t.name}</h3>
                 <p>{t.text}</p>
               </article>
@@ -87,7 +81,6 @@ export function HomePage() {
                 Un espacio para compartir referencias, cuestionar lo de siempre y hablar de las ideas que hacen avanzar
                 a las marcas.
               </p>
-              <span className="eyebrow thinking-status">El blog de Juana Brava / Próximamente</span>
             </div>
           </div>
         </section>
@@ -103,7 +96,6 @@ export function HomePage() {
             <span>JUANA BRAVA / ESTUDIO INDEPENDIENTE</span>
           </div>
           <div className="studio-copy reveal">
-            <span className="eyebrow">Olga y Saray / Juana Brava</span>
             <h2 id="studio-title">Cómo trabajamos.</h2>
             <p>
               Trabajamos juntas desde la primera idea hasta que sale al mundo. Unimos diseño digital, dirección visual,
@@ -130,7 +122,7 @@ export function HomePage() {
             </p>
             <a href="/estudio" className="case-link studio-case-link">
               {"Conoce el estudio "}
-              <span aria-hidden="true">↗</span>
+              <Arrow />
             </a>
           </div>
         </section>

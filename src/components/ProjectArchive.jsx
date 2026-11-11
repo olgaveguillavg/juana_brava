@@ -117,10 +117,6 @@ export function ProjectArchive() {
                     <EditorialCover project={o} />
                     <div className="archive-card-title">
                       <h2>{o.name}</h2>
-                      <span className="archive-card-number">{String(projects.indexOf(o) + 1).padStart(2, "0")}</span>
-                    </div>
-                    <div className="archive-card-caption">
-                      <span>{o.discipline}</span>
                     </div>
                   </a>
                 </article>
@@ -155,7 +151,6 @@ export function ProjectArchive() {
                       };
                     }}
                   >
-                    <span className="archive-row-number">{String(projects.indexOf(o) + 1).padStart(2, "0")}</span>
                     <span className="archive-row-name">{o.name}</span>
                     <span className="archive-row-type">{o.discipline}</span>
                   </a>

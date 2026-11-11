@@ -310,6 +310,19 @@ export class PortfolioFlight {
     for (let u of [this.wash, this.stage, this.skipButton]) this.layer.appendChild(u);
     document.body.appendChild(this.layer),
       this.lockContent(),
+      // La animación nunca bloquea al usuario: cualquier clic, toque, rueda o tecla (salvo Tab) la termina.
+      ["pointerdown", "touchstart", "wheel", "keydown"].forEach((type) =>
+        window.addEventListener(
+          type,
+          (event) => {
+            if (type === "keydown" && event.key === "Tab") return;
+            this.skip();
+          },
+          { passive: true, capture: true },
+        ),
+      ),
+      // Tope de seguridad: si algo tarda demasiado, la página se libera igualmente.
+      (this.safety = setTimeout(() => this.skip(), 3200)),
       this.layer.focus({
         preventScroll: true,
       }),
@@ -672,6 +685,7 @@ export class PortfolioFlight {
   cleanup(e = false) {
     this.done ||
       ((this.done = true),
+      clearTimeout(this.safety),
       this.animations.forEach((a) => a.cancel()),
       this.animations.clear(),
       this.layer.remove(),

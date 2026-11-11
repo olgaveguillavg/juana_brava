@@ -1,3 +1,4 @@
+import { Arrow } from "./Arrow.jsx";
 import { useCallback, useId, useMemo, useRef, useState } from "react";
 import {
   ArcMotion,
@@ -115,7 +116,7 @@ export function ArcWheel({ items: t, archiveCount: e, ariaLabel: a = "Proyectos 
       let Re = Q.querySelector("img");
       (Re.src = ct.src),
         (Re.style.objectPosition = ct.id === "mara" ? "center 32%" : "center"),
-        (Q.querySelector("span").textContent = ct.title + " ↗"),
+        (Q.querySelector("span").textContent = ct.title),
         s.current();
     };
   useIsomorphicLayoutEffect(() => {
@@ -336,7 +337,18 @@ export function ArcWheel({ items: t, archiveCount: e, ariaLabel: a = "Proyectos 
               s.current();
           }}
         >
-          <span aria-hidden="true">{r || g ? "▷" : "Ⅱ"}</span>
+          <span aria-hidden="true">
+            {r || g ? (
+              <svg viewBox="0 0 10 12" width="10" height="12" focusable="false">
+                <path d="M0 0L10 6L0 12Z" fill="currentColor" />
+              </svg>
+            ) : (
+              <svg viewBox="0 0 10 12" width="10" height="12" focusable="false">
+                <rect x="0" y="0" width="3" height="12" fill="currentColor" />
+                <rect x="7" y="0" width="3" height="12" fill="currentColor" />
+              </svg>
+            )}
+          </span>
           {g ? "Activar" : r ? "Reanudar" : "Pausar"}
         </button>
         <div
@@ -443,7 +455,6 @@ export function ArcWheel({ items: t, archiveCount: e, ariaLabel: a = "Proyectos 
                   <span>.</span>
                 </h3>
                 <p className="arc-lead">{T.description}</p>
-                <p className="arc-meta">{T.meta}</p>
                 <a
                   className="case-link arc-explore"
                   href={T.href}
@@ -456,7 +467,7 @@ export function ArcWheel({ items: t, archiveCount: e, ariaLabel: a = "Proyectos 
                   }}
                 >
                   {"Explorar el caso "}
-                  <span aria-hidden="true">↗</span>
+                  <Arrow />
                 </a>
               </div>
             ))}
@@ -475,7 +486,7 @@ export function ArcWheel({ items: t, archiveCount: e, ariaLabel: a = "Proyectos 
           <img src={t[0].src} alt="" draggable={false} />
           <span aria-hidden="true">
             {t[0].title}
-            {" ↗"}
+            {" "}<Arrow />
           </span>
         </a>
       </div>

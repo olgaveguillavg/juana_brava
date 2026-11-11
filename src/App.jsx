@@ -1,3 +1,4 @@
+import { Arrow } from "./components/Arrow.jsx";
 import { Fragment, useEffect, useRef, useState } from "react";
 import { flushSync } from "react-dom";
 import { PortfolioTransitions } from "./components/PortfolioTransitions.jsx";
@@ -6,6 +7,7 @@ import { SiteFooter } from "./components/SiteFooter.jsx";
 import { SiteHeader } from "./components/SiteHeader.jsx";
 import { projects } from "./data/projects.js";
 import { parseRoute } from "./lib/router.js";
+import { startSmoothScroll } from "./lib/smoothScroll.js";
 import { CasePage } from "./pages/CasePage.jsx";
 import { JBContactPage } from "./pages/ContactPage.jsx";
 import { HomePage } from "./pages/HomePage.jsx";
@@ -23,7 +25,7 @@ const PAGE_TITLES = {
 // La cabecera es única y permanente: cambia de color y de enlace activo, pero nunca se vuelve a montar
 // ni se anima al cambiar de página (como en basicagency.com).
 function headerFor(path) {
-  if (path === "/") return { tone: "light", active: "" };
+  if (path === "/") return { tone: "light", active: "home" };
   if (path === "/estudio") return { tone: "dark", active: "studio" };
   if (path === "/thinking") return { tone: "light", active: "thinking" };
   if (path === "/contacto") return { tone: "dark", active: "contact" };
@@ -41,6 +43,9 @@ function scrollToRoute(route, animated) {
 }
 
 export function App({ initialRoute }) {
+  // Scroll suave con inercia (como en basicagency.com), activo mientras la página está montada.
+  useEffect(() => startSmoothScroll(), []);
+
   const [route, setRoute] = useState(() => initialRoute ?? parseRoute(window.location.hash));
   const current = useRef(route);
   current.current = route;
@@ -65,7 +70,7 @@ export function App({ initialRoute }) {
         }
       }
 
-      // El contenido cambia al instante; la entrada (titulares, fundidos) la resuelve el CSS.
+      // El contenido cambia al instante, debajo de la cortinilla; la entrada la resuelve el CSS.
       flushSync(() => setRoute(next));
       scrollToRoute(next, samePage && !reduced);
       shown.current = next;
@@ -107,7 +112,7 @@ export function App({ initialRoute }) {
         <main className="archive-page wrap" id="contenido">
           <h1>Esta página no existe.</h1>
           <a className="all-work-link" href="/proyectos">
-            Explorar los proyectos ↗
+            Explorar los proyectos{" "}<Arrow />
           </a>
         </main>
         <SiteFooter />
@@ -116,7 +121,7 @@ export function App({ initialRoute }) {
 
   return (
     <>
-      <SiteHeader {...headerFor(route.path)} isHome={route.path === "/"} />
+      <SiteHeader {...headerFor(route.path)} />
       <Fragment key={route.path}>{page}</Fragment>
       <RevealMotion key={route.path + "-motion"} />
       <PortfolioTransitions />

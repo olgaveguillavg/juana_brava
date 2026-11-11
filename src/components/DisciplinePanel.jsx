@@ -186,7 +186,6 @@ export function JBDisciplinePanel({ options: t, matching: e, selected: a, onChoo
         <div className="jb-filter-foot jb-filter-foot-minimal">
           <button type="button" className="jb-filter-apply" onClick={() => exit(c.id)}>
             {"Ver proyectos "}
-            <span className="jb-filter-count">{String(m.length).padStart(2, "0")}</span>
           </button>
         </div>
       </section>

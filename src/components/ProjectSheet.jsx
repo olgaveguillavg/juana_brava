@@ -1,3 +1,4 @@
+import { Arrow } from "./Arrow.jsx";
 import { useCallback, useEffect, useRef, useState } from "react";
 import { findProject } from "../data/projects.js";
 import { SlideText } from "./SlideText.jsx";
@@ -72,11 +73,13 @@ export function ProjectSheet() {
     if (!slug) return undefined;
     const previousOverflow = document.body.style.overflow;
     document.body.style.overflow = "hidden";
+    window.__jbLenis?.stop();
     const onKey = (event) => event.key === "Escape" && close();
     document.addEventListener("keydown", onKey);
     const frame = requestAnimationFrame(() => closeButton.current?.focus({ preventScroll: true }));
     return () => {
       document.body.style.overflow = previousOverflow;
+      window.__jbLenis?.start();
       document.removeEventListener("keydown", onKey);
       cancelAnimationFrame(frame);
     };
@@ -103,6 +106,7 @@ export function ProjectSheet() {
       <button type="button" className="project-sheet__backdrop" aria-label="Cerrar ficha" tabIndex={-1} onClick={close} />
       <section
         className="project-sheet__panel"
+        data-lenis-prevent
         role="dialog"
         aria-modal="true"
         aria-labelledby="project-sheet-title"
@@ -135,7 +139,7 @@ export function ProjectSheet() {
             </div>
           </div>
           <a className="project-sheet__more" href={"#!/proyectos/" + project.slug} onClick={openCase}>
-            Saber más <span aria-hidden="true">↗</span>
+            Saber más <Arrow />
           </a>
         </div>
       </section>

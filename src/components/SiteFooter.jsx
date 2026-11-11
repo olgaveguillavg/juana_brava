@@ -1,3 +1,4 @@
+import { Arrow } from "./Arrow.jsx";
 import { useRef, useState } from "react";
 import { services } from "../data/projects.js";
 
@@ -42,14 +43,14 @@ export function SiteFooter() {
               </h2>
               <a className="outline-link" href="/contacto">
                 {"Cuéntanos tu proyecto "}
-                <span aria-hidden="true">↗</span>
+                <Arrow />
               </a>
             </div>
           </div>
           <div className="footer-bottom">
             <span>© 2026 JUANA BRAVA</span>
-            <a href="/proyectos">Explorar proyectos ↗</a>
-            <a href="#inicio">Volver arriba ↑</a>
+            <a href="/proyectos">Explorar proyectos{" "}<Arrow /></a>
+            <a href="#inicio">Volver arriba{" "}<Arrow dir="n" /></a>
           </div>
         </div>
       </footer>
@@ -101,7 +102,7 @@ export function SiteFooter() {
             />
             <button className="solid-link" type="submit">
               {"Descargar briefing "}
-              <span aria-hidden="true">↓</span>
+              <Arrow dir="s" />
             </button>
             <p className="brief-status" role="status">
               {e ? "Briefing preparado. Puedes compartir el archivo con nosotras." : ""}
