@@ -23,7 +23,7 @@ export function FooterBar() {
   const isCurrent = (href) => (href === "/" ? path === "/" : path === href || path.startsWith(href + "/"));
   return (
     <div className="footer-bar">
-      <span className="footer-bar__copy">© 2026 JUANA BRAVA</span>
+      <span className="footer-bar__copy">© 2026 Juana Brava</span>
       <nav className="footer-bar__nav" aria-label="Navegación de pie de página">
         {LINKS.map(([label, href]) => (
           <a key={href} href={href} aria-current={isCurrent(href) ? "page" : undefined}>

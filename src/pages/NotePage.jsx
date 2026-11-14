@@ -59,13 +59,11 @@ export function NotePage({ note }) {
     <>
       <main id="contenido" className="note-page" data-theme={theme}>
         <header className="note-head wrap">
-          <nav className="note-crumbs" aria-label="Estás en">
+          <nav className="note-crumbs" aria-label="Volver">
             <a href="/ideas" className="note-back">
               <Arrow dir="w" />
               {" Ideas"}
             </a>
-            <span aria-hidden="true">/</span>
-            <span>{note.label}</span>
           </nav>
           <h1 className="note-title">
             <SlideText delay={0.35} step={0.07}>{note.title.replace(/\.$/, "")}</SlideText>

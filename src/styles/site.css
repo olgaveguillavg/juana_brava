@@ -3315,3 +3315,71 @@ html[data-project-transition] .work-sel__title, html[data-project-transition] .w
 }
 /* Cierre de la home: el titular reparte sus líneas para no dejar "hacer?" suelto. */
 .footer--signature .footer-contact h2 { text-wrap: balance; max-width: 18ch; }
+
+/* ===== Ajustes de móvil y de Ideas (revisión de noviembre 2026) ===== */
+
+/* Pie de la home en móvil: una sola columna (la regla de escritorio de dos columnas se solapaba con el logo). */
+@media (max-width: 760px) {
+  .footer-main { grid-template-columns: 1fr !important; gap: 36px !important; }
+  .footer-brand { width: 150px !important; }
+  .footer-contact h2 { font-size: 36px !important; line-height: 1.05 !important; }
+  .footer-mail { font-size: 17px !important; overflow-wrap: anywhere; }
+}
+
+/* Barra inferior: la misma tipografía y grosor que el resto de la web (sin mayúsculas ni negrita). */
+.footer-bar { font-size: 15px; font-weight: 400; letter-spacing: -.01em; text-transform: none; }
+.footer-bar__copy { font-size: 14px; }
+
+/* Página de proyecto en móvil: la foto de portada ocupa exactamente la pantalla, sin el zoom de 1,035 que la
+   cortaba por los lados, y la campaña se ve entera (sin recortar a 4:3). */
+@media (max-width: 760px) {
+  .case-hero-image { transform: none !important; }
+  .case-campaign > img { aspect-ratio: auto !important; height: auto !important; }
+}
+
+/* Ideas: los títulos en azul (al pasar el ratón, un azul más claro) y, en móvil, a todo el ancho en vez de
+   apilados en una columna estrecha. */
+.thinking-card-copy h3, .note-title { color: var(--sky); }
+.thinking-card:hover .thinking-card-copy h3, .thinking-card:focus-within .thinking-card-copy h3 { color: #c3dcf4; }
+.note-page[data-theme="light"] .note-title { color: var(--ink); }
+.note-page[data-theme="light"] .thinking-card-copy h3 { color: var(--ink); }
+@media (max-width: 760px) {
+  .thinking-card-copy h3 { max-width: none; }
+  .note-title { max-width: none; }
+}
+
+/* Etiquetas de cada nota («Opinión», «Web y producto»…): en blanco y más pequeñas. */
+.thinking-card-meta { color: #fff !important; font-size: 11px; letter-spacing: .06em; }
+/* Ideas: el fondo oscuro entra de golpe. Antes, body tenía un fundido de .65 s a oscuro y al entrar se veía
+   un destello blanco que se oscurecía poco a poco. */
+body:has(.thinking-page) { transition: none !important; }
+/* Nota: el encabezado (miga, titular, entradilla y línea de metadatos) va al mismo margen que la foto de
+   portada. Antes tenía un ancho máximo centrado (980 px) y quedaba 60 px más adentro que la foto y la línea. */
+.note-head { max-width: none !important; }
+
+/* ===== Proyecto y Estudio en móvil (segunda revisión) =====
+   Solo se aplica en móvil; el escritorio no cambia. */
+
+/* Proyecto en móvil: la foto de portada entera (sin recortar) encima, y el texto debajo sobre fondo oscuro. */
+@media (max-width: 760px) {
+  .case-return-link { display: none !important; }
+  .case-hero.case-hero-editorial { display: block; height: auto; min-height: 0; background: #171717; }
+  .case-hero.case-hero-editorial .case-hero-image { position: relative; inset: auto; width: 100%; height: auto; display: block; transform: none !important; }
+  .case-hero.case-hero-editorial .case-hero-shade { display: none; }
+  .case-hero.case-hero-editorial .case-hero-content { min-height: 0; height: auto; padding: 28px var(--gutter) 48px; }
+  .case-hero-editorial-layout { min-height: 0 !important; margin-top: 0; gap: 18px; }
+}
+
+/* Estudio en móvil: el punto de cada paso queda a la altura del centro de su título (26 px, línea de 28 px),
+   y la línea une los puntos entre sí. Solo en móvil; el escritorio no cambia. */
+@media (max-width: 760px) {
+  .jbv2-page .jbv2-method-grid article::after { top: 42px; }
+  .jbv2-page .jbv2-method-grid article::before { top: 48px; bottom: -93px; left: 5px; }
+  .jbv2-page .jbv2-method-grid article:last-child::before { display: none; }
+}
+
+/* Menú hamburguesa en móvil: tipografía más fina y elegante (antes 500 y muy compacta), y un poco más
+   pequeña para que las cinco opciones respiren. Solo en móvil. */
+@media (max-width: 760px) {
+  .mobile-nav > a { font-size: clamp(34px, 9.5vw, 48px) !important; font-weight: 300 !important; letter-spacing: -.02em !important; line-height: 1.1 !important; }
+}
