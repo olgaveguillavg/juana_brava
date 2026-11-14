@@ -1,4 +1,5 @@
 import { Arrow } from "./Arrow.jsx";
+import { FooterBar } from "./FooterBar.jsx";
 import { useRef, useState } from "react";
 import { services } from "../data/projects.js";
 
@@ -47,10 +48,7 @@ export function SiteFooter() {
               </a>
             </div>
           </div>
-          <div className="footer-bottom">
-            <span>© 2026 JUANA BRAVA</span>
-            <a href="#inicio">Volver arriba{" "}<Arrow dir="n" /></a>
-          </div>
+          <FooterBar />
         </div>
       </footer>
       <dialog

@@ -37,7 +37,7 @@ export function SiteHeader({ tone: t = "light", active: e = "" }) {
           <img src="/brand/logo-horizontal-clean.svg" alt="Juana Brava, agencia creativa" width="1901" height="728" />
         </a>
         <nav className="desktop-nav" aria-label="Navegación principal">
-          {[["Home", "/"], ...i.slice(0, 3)].map(([o, c]) => (
+          {[["Inicio", "/"], ...i.slice(0, 3)].map(([o, c]) => (
             <a
               key={c}
               href={c}
@@ -66,7 +66,7 @@ export function SiteHeader({ tone: t = "light", active: e = "" }) {
         </button>
       </header>
       <nav id="mobile-nav" className={"mobile-nav" + (a ? " is-open" : "")} aria-label="Navegación móvil" inert={!a}>
-        {[["Home", "/"], ...i].map(([o, c]) => (
+        {[["Inicio", "/"], ...i].map(([o, c]) => (
           <a key={c} href={c} onClick={() => l(false)}>
             {o}
           </a>

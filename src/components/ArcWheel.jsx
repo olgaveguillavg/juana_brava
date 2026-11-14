@@ -452,7 +452,6 @@ export function ArcWheel({ items: t, archiveCount: e, ariaLabel: a = "Proyectos 
                 <p className="arc-category">{T.sector}</p>
                 <h3>
                   {T.title}
-                  <span>.</span>
                 </h3>
                 <p className="arc-lead">{T.description}</p>
                 <a

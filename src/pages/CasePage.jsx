@@ -54,15 +54,15 @@ export function CasePage({ params: t }) {
             </dl>
           </aside>
           <div className="case-story-copy reveal">
-            <h2>El reto.</h2>
+            <h2>El reto</h2>
             <p>{e.challenge}</p>
-            <h2>La idea.</h2>
+            <h2>La idea</h2>
             <p>{e.idea}</p>
           </div>
         </section>
         <section className="case-decisions wrap" id="propuesta">
           <div className="section-label">
-            <h2>DECISIONES DE DISEÑO</h2>
+            <h2>Decisiones de diseño</h2>
             <span>Qué da sentido a la propuesta</span>
           </div>
           <div className="decisions-grid">
@@ -92,9 +92,6 @@ export function CasePage({ params: t }) {
               <img src={a.image} alt={a.alt} loading="lazy" />
             </div>
           </div>
-        </a>
-        <a className="back-to-work wrap case-return-footer" href="/proyectos">
-          <Arrow dir="w" />{" "}Volver a todos los proyectos
         </a>
       </main>
       <SiteFooter />

@@ -299,18 +299,22 @@ export const nextProject = (t) => projects[(projects.findIndex((e) => e.slug ===
 export const services = [
   {
     name: "Identidad y dirección de arte",
+    work: ["pulso", "bruma", "fuga"],
     text: "Concepto, identidad visual y campañas. Damos forma a la marca y al lenguaje que conecta todas sus piezas.",
   },
   {
     name: "Web y producto digital",
+    work: ["sobremesa", "umbral", "nacar"],
     text: "Arquitectura, diseño y desarrollo de webs, tiendas y experiencias digitales. De la primera idea a la puesta en marcha.",
   },
   {
     name: "Contenido y posicionamiento",
+    work: ["nacar", "sobremesa"],
     text: "Estrategia editorial, textos y producción audiovisual. Contenidos conectados con SEO, búsqueda y campañas.",
   },
   {
     name: "IA y automatización",
+    work: ["mara"],
     text: "Imagen generativa, personajes virtuales y asistentes. Conectamos las herramientas digitales con el trabajo diario.",
   },
 ];

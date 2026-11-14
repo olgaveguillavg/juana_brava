@@ -1,4 +1,5 @@
 import { Arrow } from "../components/Arrow.jsx";
+import { FooterBar } from "../components/FooterBar.jsx";
 import { useEffect, useRef, useState } from "react";
 import { services } from "../data/projects.js";
 
@@ -277,7 +278,11 @@ function JBStudioProfileModal({ person, onClose }) {
 }
 
 export function JBStudioPage() {
-  const [open, setOpen] = useState(-1),
+  const [open, setOpen] = useState(() => {
+      // Llegar con #!/estudio?section=servicio-N abre ese servicio.
+      const m = typeof window !== "undefined" && window.location.hash.match(/section=servicio-(\d+)/);
+      return m ? Number(m[1]) : -1;
+    }),
     [person, setPerson] = useState(null);
   const serviceData = [
     {
@@ -387,7 +392,7 @@ export function JBStudioPage() {
         <section className="jbv2-hero" aria-labelledby="jbv2-title">
           <div className="jbv2-hero-sticky">
             <div className="jbv2-hero-heading wrap">
-              <h1 id="jbv2-title">El estudio.</h1>
+              <h1 id="jbv2-title">El estudio</h1>
             </div>
             <div className="jbv2-film">
               {heroImages.map((photo, i) => (
@@ -430,7 +435,7 @@ export function JBStudioPage() {
             </div>
             <div className="jbv2-accordion">
               {serviceData.map((item, j) => (
-                <article key={item.name} className="jbv2-accordion-item" data-open={open === j}>
+                <article key={item.name} id={"servicio-" + j} className="jbv2-accordion-item" data-open={open === j}>
                   <button
                     type="button"
                     className="jbv2-service-toggle"
@@ -440,7 +445,7 @@ export function JBStudioPage() {
                     onClick={() => setOpen((x) => (x === j ? -1 : j))}
                   >
                     <span className="jbv2-service-title">{item.name}</span>
-                    <span className="jbv2-service-symbol" aria-hidden="true" />
+                    <span className="jbv2-service-symbol" aria-hidden="true">{open === j ? "−" : "+"}</span>
                   </button>
                   <div
                     className="jbv2-service-panel"
@@ -504,9 +509,7 @@ export function JBStudioPage() {
                       <span className="jbv3-profile-name">{personInfo.name}</span>
                       <span className="jbv3-profile-role">{personInfo.role}</span>
                     </span>
-                    <span className="jbv3-profile-arrow" aria-hidden="true">
-                      +
-                    </span>
+                    <span className="jbv3-profile-arrow jbv2-service-symbol" aria-hidden="true">+</span>
                   </button>
                 ))}
               </div>
@@ -549,10 +552,7 @@ export function JBStudioPage() {
       <JBStudioProfileModal person={person} onClose={() => setPerson(null)} />
       <footer className="jbv3-min-footer">
         <div className="wrap">
-          <span>© 2026 JUANA BRAVA</span>
-          <a href="/proyectos">Proyectos</a>
-          <a href="/ideas">Ideas</a>
-          <a href="/contacto">Contacto</a>
+          <FooterBar />
         </div>
       </footer>
     </>

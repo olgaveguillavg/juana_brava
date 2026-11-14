@@ -1,4 +1,5 @@
 import { Arrow } from "../components/Arrow.jsx";
+import { FooterBar } from "../components/FooterBar.jsx";
 import { SlideText } from "../components/SlideText.jsx";
 import { projects } from "../data/projects.js";
 
@@ -65,10 +66,6 @@ export function JBThinkingPage() {
                 </div>
                 <h3>{t.title}</h3>
                 <p>{t.excerpt}</p>
-                <span className="thinking-card-link">
-                  {"Leer nota "}
-                  <Arrow />
-                </span>
               </div>
             </article>
           ))}
@@ -76,25 +73,15 @@ export function JBThinkingPage() {
       </main>
               <section className="thinking-cta">
           <div>
-            <h2>Conversaciones, procesos y referencias del estudio.</h2>
-            <p>La idea es que este espacio crezca como un archivo vivo: una mezcla de artículos, apuntes y materiales de trabajo.</p>
-          </div>
+            <h2>Conversaciones, procesos y referencias del estudio.</h2>          </div>
           <a className="outline-link" href="/contacto">
             {"Hablemos de una idea "}
             <Arrow />
           </a>
         </section>
-        <div className="thinking-foot">
-          <span>© 2026 JUANA BRAVA</span>
-          <a href="/proyectos">
-            {"Explorar proyectos "}
-            <Arrow />
-          </a>
-          <a href="#inicio">
-            {"Volver arriba "}
-            <Arrow dir="n" />
-          </a>
-        </div>
+        <footer className="thinking-foot">
+          <FooterBar />
+        </footer>
     </>
   );
 }

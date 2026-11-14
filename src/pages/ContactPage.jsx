@@ -1,4 +1,5 @@
 import { Arrow } from "../components/Arrow.jsx";
+import { FooterBar } from "../components/FooterBar.jsx";
 import { useState } from "react";
 import { SlideText } from "../components/SlideText.jsx";
 import { projects } from "../data/projects.js";
@@ -181,8 +182,7 @@ export function JBContactPage() {
                       : "* Campos obligatorios. El envío directo estará disponible al configurar nuestro correo de contacto."}
                   </p>
                   <button type="submit" disabled={sending} aria-busy={sending}>
-                    {sending ? "Enviando…" : FORMSPREE_ID || JB_CONTACT_DETAILS.newBusinessEmail ? "Enviar mensaje" : "Preparar consulta"}
-                    <Arrow />
+                    {sending ? "Enviando…" : "Enviar formulario"}
                   </button>
                 </div>
                 {message ? (
@@ -235,16 +235,7 @@ export function JBContactPage() {
             <a href="/" className="jbce-footer-logo" aria-label="Juana Brava, volver al inicio">
               <img src="/brand/logo-horizontal-clean.svg" alt="Juana Brava" loading="lazy" />
             </a>
-            <div className="jbce-footer-meta">
-              <span>© 2026 JUANA BRAVA</span>
-              <nav aria-label="Navegación de pie de página">
-                <a href="/">Inicio</a>
-                <a href="/proyectos">Proyectos</a>
-                <a href="/estudio">Estudio</a>
-                <a href="/ideas">Ideas</a>
-                <a href="/contacto" aria-current="page">Contacto</a>
-              </nav>
-            </div>
+            <FooterBar />
           </footer>
         </div>
       </main>

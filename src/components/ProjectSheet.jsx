@@ -112,29 +112,25 @@ export function ProjectSheet() {
         aria-labelledby="project-sheet-title"
         key={project.slug}
       >
-        <div className="project-sheet__bar">
-          <span>{project.sector}</span>
-          <button type="button" ref={closeButton} className="project-sheet__close" onClick={close}>
-            Cerrar <span aria-hidden="true">×</span>
-          </button>
-        </div>
+        <button type="button" ref={closeButton} className="project-sheet__close" onClick={close}>
+          Cerrar <span aria-hidden="true">×</span>
+        </button>
         <figure className="project-sheet__media">
           <img src={project.image} alt={project.alt} />
         </figure>
         <div className="project-sheet__body">
-          <p className="project-sheet__meta">{project.discipline} / 2026</p>
+          <p className="project-sheet__meta">{project.sector}</p>
           <h2 id="project-sheet-title" className="project-sheet__title">
             <SlideText delay={0.38}>{project.name}</SlideText>
-            <span className="project-sheet__dot">.</span>
           </h2>
           <p className="project-sheet__lead">{project.lead}</p>
           <div className="project-sheet__story">
             <div>
-              <h3>El reto.</h3>
+              <h3>El reto</h3>
               <p>{project.challenge}</p>
             </div>
             <div>
-              <h3>La idea.</h3>
+              <h3>La idea</h3>
               <p>{project.idea}</p>
             </div>
           </div>
