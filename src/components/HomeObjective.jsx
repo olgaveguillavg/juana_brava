@@ -17,8 +17,8 @@ export function HomeObjective() {
           Nuestro objetivo
         </h2>
         <p className="home-goal__lead reveal">
-          Que tu marca se entienda, se recuerde y se elija. Trabajamos la idea, la imagen y la presencia digital
-          como una sola cosa, para que cada pieza sume en la misma dirección.
+          Darle a tu marca algo que decir y una forma inconfundible de decirlo. La idea, la imagen y la presencia
+          digital, trabajadas como una sola cosa.
         </p>
       </div>
       <ul className="home-goal__list">

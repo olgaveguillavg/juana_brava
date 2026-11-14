@@ -55,22 +55,37 @@ function collapsedPose(t) {
   };
 }
 
+/*
+ * Recogida hacia «+ proyectos», en dos tiempos:
+ *  1. (0–72 %) cada foto viaja en arco hasta el enlace y se queda del tamaño de un «paquete»
+ *     (64–110 px, como medían las fotos de la ruleta al juntarse), apilada sobre las demás con un
+ *     pequeño giro, como un mazo de cartas;
+ *  2. (72–100 %) el paquete se reduce a un punto y se desvanece; después llega la página de Proyectos.
+ * Antes el tamaño bajaba de forma continua hasta el punto, y con fotos pequeñas no llegaba a verse el
+ * paquete: parecía que se juntaban «en uno» directamente.
+ */
+const PILE_AT = 0.72;
 function flightPose(t, e, a, l) {
   if (l === 1) return e;
-  let n = smoothstep(l),
-    i = 1 - n,
+  let p = smoothstep(Math.min(1, l / PILE_AT)),
+    i = 1 - p,
     u = t.x + t.width / 2,
     c = t.y + t.height / 2,
     o = lerp(u, e.x, 0.58) - 45 - a * 8,
-    f = Math.min(c, e.y) - 90 - a * 10;
+    f = Math.min(c, e.y) - 90 - a * 10,
+    pile = Math.max(64, Math.min(110, (typeof window !== "undefined" ? window.innerWidth : 1440) * 0.065)),
+    shrink = l <= PILE_AT ? 0 : smoothstep((l - PILE_AT) / (1 - PILE_AT)),
+    size = (from) => (l <= PILE_AT ? lerp(from, pile, p) : lerp(pile, e.width, shrink)),
+    tilt = (a % 2 ? 1 : -1) * (3 + (a % 4) * 2.5);
   return {
-    x: i * i * u + 2 * i * n * o + n * n * e.x,
-    y: i * i * c + 2 * i * n * f + n * n * e.y,
-    width: lerp(t.width, e.width, n),
-    height: lerp(t.height, e.height, n),
-    angle: Math.sin(Math.PI * n) * (a % 2 ? 5 : -5),
-    round: 50,
-    opacity: 1 - Math.max(0, Math.min(1, (n - 0.9) / 0.1)),
+    x: i * i * u + 2 * i * p * o + p * p * e.x,
+    y: i * i * c + 2 * i * p * f + p * p * e.y,
+    width: size(t.width),
+    height: size(t.height),
+    angle: lerp(0, tilt, p) * (1 - shrink),
+    // Las fotos de la ruleta ya eran círculos (round 50); las rectangulares se redondean poco a poco.
+    round: lerp(t.round ?? 50, 50, Math.min(1, p * 1.4)),
+    opacity: 1 - Math.max(0, Math.min(1, (l - 0.9) / 0.1)),
   };
 }
 
@@ -183,10 +198,11 @@ function rectOf(t) {
 }
 
 export function arcCardImages() {
-  return [...document.querySelectorAll(".arc-card .arc-circle-link > img")]
+  return [...document.querySelectorAll(".arc-card .arc-circle-link > img, .floating__photo")]
     .map((t) => ({
       image: t,
-      rect: rectOf(t),
+      // Las fotos flotantes de la portada son rectangulares: empiezan sin redondear.
+      rect: { ...rectOf(t), round: t.classList.contains("floating__photo") ? 0 : 50 },
     }))
     .filter((t) => t.rect.width > 0 && t.rect.height > 0);
 }
@@ -311,15 +327,12 @@ export class PortfolioFlight {
     document.body.appendChild(this.layer),
       this.lockContent(),
       // La animación nunca bloquea al usuario: cualquier clic, toque, rueda o tecla (salvo Tab) la termina.
+      (this.interrupt = (event) => {
+        if (event.type === "keydown" && event.key === "Tab") return;
+        this.skip();
+      }),
       ["pointerdown", "touchstart", "wheel", "keydown"].forEach((type) =>
-        window.addEventListener(
-          type,
-          (event) => {
-            if (type === "keydown" && event.key === "Tab") return;
-            this.skip();
-          },
-          { passive: true, capture: true },
-        ),
+        window.addEventListener(type, this.interrupt, { passive: true, capture: true }),
       ),
       // Tope de seguridad: si algo tarda demasiado, la página se libera igualmente.
       (this.safety = setTimeout(() => this.skip(), 3200)),
@@ -391,8 +404,10 @@ export class PortfolioFlight {
         .map((o, f) => {
           let p = this.figure(o.rect),
             v = o.image.cloneNode();
-          v.removeAttribute("id"), (v.alt = ""), p.appendChild(v);
-          let d = o.image.closest(".arc-card").dataset.project,
+          // La copia no conserva las clases ni los estilos de la foto original: los de las fotos flotantes
+          // (opacidad 0 fuera de su bloque, ancho propio) la dejaban invisible durante todo el vuelo.
+          v.removeAttribute("id"), v.removeAttribute("class"), v.removeAttribute("style"), v.removeAttribute("loading"), (v.alt = ""), p.appendChild(v);
+          let d = o.image.closest(".arc-card, .floating__el").dataset.project,
             m = collapsedPose(this.origin);
           return (
             this.stack.set(d, {
@@ -441,7 +456,8 @@ export class PortfolioFlight {
               o,
               poseKeyframes((d) => flightPose(f, p, v, d), f, 48),
               {
-                duration: 620,
+                // Algo más larga que antes para que el «paquete» se vea antes de reducirse.
+                duration: 820,
                 delay: v * 12,
                 easing: "linear",
               },
@@ -459,8 +475,8 @@ export class PortfolioFlight {
               },
             ],
             {
-              duration: 230,
-              delay: 360,
+              duration: 260,
+              delay: 520,
               easing: "ease",
             },
             u,
@@ -570,6 +586,8 @@ export class PortfolioFlight {
       this.abort.signal,
     ),
       (document.documentElement.dataset.projectTransition = "arriving");
+    // El tope de seguridad se renueva al empezar la llegada: si no, cortaba las últimas fotos antes de posarse.
+    clearTimeout(this.safety), (this.safety = setTimeout(() => this.skip(), 4200));
     let i = document.timeline?.currentTime,
       u = typeof i == "number" ? i : undefined;
     if (
@@ -686,6 +704,9 @@ export class PortfolioFlight {
     this.done ||
       ((this.done = true),
       clearTimeout(this.safety),
+      ["pointerdown", "touchstart", "wheel", "keydown"].forEach((type) =>
+        window.removeEventListener(type, this.interrupt, { capture: true }),
+      ),
       this.animations.forEach((a) => a.cancel()),
       this.animations.clear(),
       this.layer.remove(),

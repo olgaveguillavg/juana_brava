@@ -1,3 +1,4 @@
+import { useEffect, useRef, useState } from "react";
 import { Arrow } from "../components/Arrow.jsx";
 import { SiteFooter } from "../components/SiteFooter.jsx";
 import { SlideText } from "../components/SlideText.jsx";
@@ -14,13 +15,49 @@ import { ideaPath, ideas, readingMinutes } from "../data/ideas.js";
  *    termina en el punto rojo de la marca e imágenes algo más anchas que el texto.
  *  - Al final, «Más ideas» con el resto de notas y el pie común.
  */
+/*
+ * Cambio de color al hacer scroll (como en basicagency.com): la nota empieza en oscuro, igual que el
+ * listado de Ideas del que viene, y cuando el texto llega a la mitad de la pantalla todo pasa a claro con
+ * un fundido (0,65 s). Al volver arriba, vuelve a oscuro. La cabecera cambia de color con la página.
+ */
+function useScrollTheme(ref) {
+  const [theme, setTheme] = useState("dark");
+  useEffect(() => {
+    let frame = 0;
+    const update = () => {
+      frame = 0;
+      const el = ref.current;
+      if (!el) return;
+      setTheme(el.getBoundingClientRect().top < window.innerHeight * 0.55 ? "light" : "dark");
+    };
+    const onScroll = () => {
+      if (!frame) frame = requestAnimationFrame(update);
+    };
+    update();
+    window.addEventListener("scroll", onScroll, { passive: true });
+    window.addEventListener("resize", onScroll);
+    return () => {
+      window.removeEventListener("scroll", onScroll);
+      window.removeEventListener("resize", onScroll);
+      cancelAnimationFrame(frame);
+      delete document.documentElement.dataset.noteTheme;
+    };
+  }, [ref]);
+  useEffect(() => {
+    document.documentElement.dataset.noteTheme = theme;
+  }, [theme]);
+  return theme;
+}
+
 export function NotePage({ note }) {
+  const bodyRef = useRef(null);
+  const theme = useScrollTheme(bodyRef);
   const others = ideas.filter((n) => n.slug !== note.slug).slice(0, 3);
   const minutes = readingMinutes(note);
 
   return (
     <>
-      <main id="contenido" className="note-page">
+      <main id="contenido" className="note-page" data-theme={theme}>
         <header className="note-head wrap">
           <nav className="note-crumbs" aria-label="Estás en">
             <a href="/ideas" className="note-back">
@@ -31,7 +68,7 @@ export function NotePage({ note }) {
             <span>{note.label}</span>
           </nav>
           <h1 className="note-title">
-            <SlideText>{note.title.replace(/\.$/, "")}</SlideText>
+            <SlideText delay={0.35} step={0.07}>{note.title.replace(/\.$/, "")}</SlideText>
           </h1>
           <p className="note-lead reveal">{note.excerpt}</p>
           <div className="note-meta reveal">
@@ -47,7 +84,7 @@ export function NotePage({ note }) {
           <figcaption>{note.caption}</figcaption>
         </figure>
 
-        <article className="note-body">
+        <article className="note-body" ref={bodyRef}>
           {note.body.map((block, i) => {
             if (block.type === "h2") return <h2 key={i} className="reveal">{block.text}</h2>;
             if (block.type === "quote")

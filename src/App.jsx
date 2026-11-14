@@ -30,7 +30,7 @@ function headerFor(path) {
   if (path === "/") return { tone: "light", active: "home" };
   if (path === "/estudio") return { tone: "dark", active: "studio" };
   if (path === "/ideas") return { tone: "light", active: "thinking" };
-  if (path.startsWith("/ideas/")) return { tone: "dark", active: "thinking" };
+  if (path.startsWith("/ideas/")) return { tone: "light", active: "thinking" };
   if (path === "/contacto") return { tone: "dark", active: "contact" };
   if (path === "/proyectos" || path.startsWith("/proyectos/")) return { tone: "dark", active: "projects" };
   return { tone: "dark", active: "" };

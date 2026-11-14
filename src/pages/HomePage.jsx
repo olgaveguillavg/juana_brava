@@ -1,13 +1,12 @@
-import { FeaturedWork } from "../components/FeaturedWork.jsx";
 import { HomeObjective } from "../components/HomeObjective.jsx";
 import { HomeTeam } from "../components/HomeTeam.jsx";
-import { ProjectSheet } from "../components/ProjectSheet.jsx";
+import { ProjectsFloat } from "../components/ProjectsFloat.jsx";
 import { ServicesShowcase } from "../components/ServicesShowcase.jsx";
 import { SiteFooter } from "../components/SiteFooter.jsx";
 
 /*
  * Orden de la portada (inspirado en anonima.es):
- * lema → nuestro objetivo → qué hacemos → casos de éxito → quiénes somos → cierre (pie rojo).
+ * lema → nuestro objetivo → qué hacemos → casos de éxito (fotos flotantes) → quiénes somos → cierre.
  */
 export function HomePage() {
   return (
@@ -30,11 +29,10 @@ export function HomePage() {
         </section>
         <HomeObjective />
         <ServicesShowcase />
-        <FeaturedWork />
+        <ProjectsFloat />
         <HomeTeam />
       </main>
       <SiteFooter />
-      <ProjectSheet />
     </>
   );
 }

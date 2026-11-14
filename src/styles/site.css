@@ -3046,3 +3046,117 @@ span.jbv3-text-reveal { font-weight: 500 !important; }
 .services-carousel { aspect-ratio: 4 / 5; min-height: 0 !important; align-self: start; }
 .services-carousel img, .services-carousel img[data-on] { position: absolute !important; inset: 0; height: 100% !important; }
 @media (max-width: 860px) { .services-carousel { aspect-ratio: 4 / 3; } }
+
+/* ===== Nota: de oscuro a claro al hacer scroll (como basicagency.com) =====
+   Empieza en Tinta con texto blanco, como el listado de Ideas; al llegar al texto pasa a blanco con un
+   fundido de 0,65 s. Todos los colores de la nota salen de estas variables. */
+.note-page {
+  --note-bg: #fff; --note-fg: var(--ink); --note-muted: var(--muted); --note-line: var(--line); --note-accent: var(--red);
+  background: var(--note-bg) !important; color: var(--note-fg) !important;
+  transition: background-color .65s cubic-bezier(.72, 0, .28, 1), color .65s cubic-bezier(.72, 0, .28, 1);
+}
+.note-page[data-theme="dark"] { --note-bg: var(--ink); --note-fg: #fff; --note-muted: rgb(255 255 255 / 66%); --note-line: rgb(255 255 255 / 22%); --note-accent: var(--sky); }
+.note-page :is(.note-crumbs, .note-meta, .note-cover figcaption, .note-figure figcaption, .note-sign, .note-card__meta) {
+  color: var(--note-muted) !important; transition: color .65s cubic-bezier(.72, 0, .28, 1), border-color .65s cubic-bezier(.72, 0, .28, 1);
+}
+.note-page :is(.note-back, .note-sign strong, .note-card) { color: var(--note-fg) !important; transition: color .65s cubic-bezier(.72, 0, .28, 1); }
+.note-page .note-back:hover { color: var(--note-accent) !important; }
+.note-page .note-meta > :first-child { color: var(--note-accent) !important; }
+.note-page :is(.note-meta, .note-sign, .note-more__top) { border-color: var(--note-line) !important; }
+.note-page .note-more__all { color: var(--note-accent); }
+/* Fuera de la nota (rebote del scroll y bordes) se ve el mismo color. */
+html[data-note-theme] body { transition: background-color .65s cubic-bezier(.72, 0, .28, 1); }
+html[data-note-theme="dark"] body { background: var(--ink); }
+html[data-note-theme="dark"] body::before { filter: invert(1); opacity: .07; }
+/* Cabecera: blanca sobre oscuro y tinta sobre claro, con el mismo fundido. */
+.site-header, .site-header .brand img { transition: color .65s cubic-bezier(.72, 0, .28, 1), filter .65s cubic-bezier(.72, 0, .28, 1); }
+html[data-note-theme="light"] .site-header:not(.menu-is-open) { color: var(--ink); }
+html[data-note-theme="light"] .site-header:not(.menu-is-open) .brand img { filter: none; }
+html[data-note-theme="light"] .site-header:not(.menu-is-open) .menu-toggle > span { background: var(--red) !important; }
+/* Entrada: el titular sube palabra a palabra; después la entradilla, los datos y la portada. */
+[data-page-entry] .note-page .note-crumbs { animation: bd-fade-in .6s var(--ease-out-bd) .15s both; }
+[data-page-entry] .note-page .note-lead { animation: bd-fade-in .8s var(--ease-out-bd) .75s both; }
+[data-page-entry] .note-page .note-meta { animation: bd-fade-in .8s var(--ease-out-bd) .9s both; }
+[data-page-entry] .note-page .note-cover { animation: note-cover-in 1.1s var(--ease-out-bd) 1s both; }
+@keyframes note-cover-in { from { opacity: 0; transform: translateY(40px); } to { opacity: 1; transform: none; } }
+@media (prefers-reduced-motion: reduce) {
+  .note-page, .site-header, .site-header .brand img, html[data-note-theme] body { transition: none !important; }
+  [data-page-entry] .note-page :is(.note-lead, .note-meta, .note-crumbs, .note-cover) { animation: none !important; }
+}
+
+/* ===== Portada: casos de éxito con fotos flotantes =====
+   Bloque oscuro de una pantalla: la frase en el centro y las fotos de los proyectos alrededor, que se
+   mueven con el ratón a distintas profundidades. Al pulsar «Ver proyectos» se recogen hacia el centro. */
+.projects-float {
+  position: relative; overflow: hidden; background: var(--ink); color: #fff;
+  min-height: max(640px, 100svh); display: grid; place-items: center; isolation: isolate;
+}
+.projects-float__center { position: relative; z-index: 2; text-align: center; display: grid; justify-items: center; gap: 30px; padding: 0 var(--gutter); }
+.projects-float__center h2 { font-size: var(--fs-section); line-height: 1.07; letter-spacing: -.045em; font-weight: 400; }
+.projects-float .outline-link { color: #fff !important; }
+.projects-float .outline-link > .jb-arrow { background: #fff !important; color: var(--red) !important; }
+.projects-float .outline-link:hover > .jb-arrow { background: var(--red) !important; color: #fff !important; }
+.floating { position: absolute; inset: 0; z-index: 1; }
+.floating__el { position: absolute; will-change: transform; }
+.floating__photo {
+  display: block; object-fit: cover; background: rgb(255 255 255 / 8%);
+  opacity: 0; transform: translate(0, 0) scale(.96);
+  transition: opacity .6s ease calc(var(--i) * .12s), transform .45s cubic-bezier(.22, 1, .36, 1);
+}
+.projects-float[data-visible] .floating__photo { opacity: 1; transform: none; }
+.projects-float[data-visible] .floating__photo:hover { transform: scale(1.04); }
+.projects-float__center { opacity: 0; transform: translateY(14px); transition: opacity .8s ease .9s, transform .8s cubic-bezier(.22, 1, .36, 1) .9s; }
+.projects-float[data-visible] .projects-float__center { opacity: 1; transform: none; }
+/* Recogida: cada foto viaja al centro, se hace pequeña y se desvanece, escalonadas. */
+.projects-float[data-gathering] .floating__photo {
+  transform: translate(var(--gx, 0), var(--gy, 0)) scale(.25) !important; opacity: 0 !important;
+  transition: transform .8s cubic-bezier(.65, 0, .35, 1) calc(var(--i) * .03s), opacity .5s ease calc(.35s + var(--i) * .03s) !important;
+}
+.projects-float[data-gathering] .projects-float__center { opacity: 0; transform: scale(.96); transition: opacity .4s ease, transform .4s ease; }
+@media (max-width: 760px) {
+  .projects-float { min-height: 620px; }
+  .floating__photo { max-width: 26vw; }
+}
+@media (prefers-reduced-motion: reduce) {
+  .floating__photo, .projects-float__center { transition: none !important; opacity: 1 !important; transform: none !important; }
+}
+/* Posición de cada foto: la de ordenador y, en móvil, arriba y abajo de la frase (nunca detrás). */
+.floating__el { top: var(--t); left: var(--l); }
+@media (max-width: 760px) {
+  .floating__el { top: var(--tm); left: var(--lm); }
+  .floating__photo { width: 20vw !important; max-width: 92px; }
+}
+
+/* Más aire entre "Nuestro objetivo" y "Qué hacemos". */
+.home-goal { padding-bottom: clamp(110px, 11vw, 170px) !important; }
+.home-goal + .services-edit { padding-top: clamp(20px, 2vw, 36px) !important; }
+
+/* "Quiénes somos" compacto: cabe en una pantalla sin hacer scroll en ordenador. */
+.home-team { padding-block: clamp(56px, 5.5vw, 88px) !important; min-height: 100svh; display: flex; flex-direction: column; justify-content: center; box-sizing: border-box; }
+.home-team__list { margin-top: clamp(28px, 3vw, 44px) !important; gap: clamp(18px, 2.2vw, 36px) !important; }
+.home-team__person img { aspect-ratio: 16 / 9 !important; }
+.home-team__person h3 { margin-bottom: 12px !important; }
+.home-team__cta { margin-top: clamp(28px, 3vw, 44px) !important; }
+@media (max-width: 760px) {
+  .home-team { min-height: 0; }
+  .home-team__person img { aspect-ratio: 4 / 3 !important; }
+}
+
+/* Casos de éxito (fotos flotantes): fondo blanco, frase centrada y más grande, "+ proyectos" en rojo. */
+.projects-float { background: transparent !important; color: var(--ink) !important; }
+.floating__photo { background: var(--mist) !important; }
+.projects-float__center { gap: 22px !important; width: min(100%, 760px); }
+.projects-float__center h2 { font-size: var(--fs-phrase) !important; line-height: 1.04 !important; letter-spacing: -.05em !important; text-align: center; max-width: 12ch; margin-inline: auto; }
+.projects-float .arc-more-projects { color: var(--red) !important; font-size: 20px !important; min-height: 44px; justify-content: center; }
+.projects-float .arc-more-projects::after { left: 18px; }
+@media (max-width: 760px) { .floating__photo { width: 25vw !important; max-width: 112px !important; } }
+
+/* Casos de éxito: frase en dos líneas, aire debajo (que "Quiénes somos" no quede pegado) y fotos ocultas
+   durante el vuelo a Proyectos. */
+.projects-float { margin-bottom: clamp(48px, 7vw, 110px); }
+.projects-float__center { width: min(100%, 900px) !important; }
+.projects-float__center h2 { max-width: 16ch !important; }
+.projects-float[data-flying] .floating__photo { opacity: 0 !important; transition: none !important; }
+@media (max-width: 760px) { .projects-float { min-height: 740px; } }
+/* Durante el vuelo a Proyectos se oculta la frase (como hacía la ruleta con su texto); queda "+ proyectos". */
+html[data-project-transition] .projects-float__center h2 { opacity: 0; transition: opacity .18s; }
