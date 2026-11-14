@@ -42,6 +42,7 @@ export function SiteFooter() {
                 <br />
                 Démosle forma.
               </h2>
+              <a className="footer-mail" href="mailto:juanabrava.agencia@gmail.com">juanabrava.agencia@gmail.com</a>
               <a className="outline-link" href="/contacto">
                 {"Cuéntanos tu proyecto "}
                 <Arrow />
