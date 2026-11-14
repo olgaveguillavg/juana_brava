@@ -1,22 +1,22 @@
 import { Arrow } from "./Arrow.jsx";
 
 /*
- * Portada: quiénes somos (a la manera del «Leader team» de anonima.es): una frase de presentación y una
- * ficha por persona con imagen, nombre, especialidad y una línea sobre su forma de trabajar.
+ * Portada: quiénes somos. Una presentación grande en primera persona y una ficha por persona con imagen,
+ * nombre, especialidad y una línea sobre lo que hace.
  * Las imágenes son las mismas conceptuales que usa Estudio, hasta tener retratos reales.
  */
 const TEAM = [
   {
     name: "Olga Veguilla",
     role: "Diseño digital y dirección visual",
-    text: "Ideas que se construyen desde lo visual, con atención al concepto y al detalle.",
+    text: "Da forma visual a las ideas: identidad, dirección de arte y webs que se reconocen de un vistazo.",
     image: "/brand/umbral.webp",
     alt: "Arquitectura de tonos cálidos; imagen conceptual del universo visual del estudio",
   },
   {
     name: "Saray Cruz",
     role: "Estrategia editorial y contenido",
-    text: "Encontrar la historia, darle estructura y llevarla a formatos que conecten con las personas.",
+    text: "Busca la historia que tiene cada marca, la ordena y la lleva a los formatos donde la gente la va a leer.",
     image: "/brand/bruma.webp",
     alt: "Arquitectura mediterránea y mar; imagen conceptual del universo visual del estudio",
   },
@@ -25,15 +25,10 @@ const TEAM = [
 export function HomeTeam() {
   return (
     <section className="home-team wrap" id="equipo" aria-labelledby="team-title">
-      <div className="home-team__top">
-        <h2 id="team-title" className="reveal">
-          Quiénes somos
-        </h2>
-        <p className="home-team__lead reveal">
-          Somos Olga y Saray. Dos miradas complementarias que encuentran sentido en juntar lo visual, lo digital y
-          las buenas historias.
-        </p>
-      </div>
+      {/* Presentación en primera persona, a todo el ancho (no el esquema «título a un lado, texto al otro»). */}
+      <h2 id="team-title" className="home-team__title reveal">
+        Somos Olga y Saray.
+      </h2>
       <ul className="home-team__list">
         {TEAM.map((p) => (
           <li key={p.name} className="home-team__person reveal">

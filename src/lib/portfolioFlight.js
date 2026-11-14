@@ -197,13 +197,20 @@ function rectOf(t) {
   };
 }
 
+/*
+ * Fotos que se recogen en el paquete al pulsar «+ proyectos»: las de la ruleta antigua (círculos) y las de
+ * la selección de trabajos de la portada (rectangulares, dentro de un marco que las recorta: se parte del
+ * marco, que es lo que se ve). Cada foto necesita un contenedor con `data-project`.
+ */
 export function arcCardImages() {
-  return [...document.querySelectorAll(".arc-card .arc-circle-link > img, .floating__photo")]
-    .map((t) => ({
-      image: t,
-      // Las fotos flotantes de la portada son rectangulares: empiezan sin redondear.
-      rect: { ...rectOf(t), round: t.classList.contains("floating__photo") ? 0 : 50 },
-    }))
+  return [...document.querySelectorAll(".arc-card .arc-circle-link > img, .work-pick__img")]
+    .map((t) => {
+      const editorial = t.classList.contains("work-pick__img");
+      return {
+        image: t,
+        rect: { ...rectOf(editorial ? t.parentElement : t), round: editorial ? 0 : 50 },
+      };
+    })
     .filter((t) => t.rect.width > 0 && t.rect.height > 0);
 }
 
@@ -407,7 +414,7 @@ export class PortfolioFlight {
           // La copia no conserva las clases ni los estilos de la foto original: los de las fotos flotantes
           // (opacidad 0 fuera de su bloque, ancho propio) la dejaban invisible durante todo el vuelo.
           v.removeAttribute("id"), v.removeAttribute("class"), v.removeAttribute("style"), v.removeAttribute("loading"), (v.alt = ""), p.appendChild(v);
-          let d = o.image.closest(".arc-card, .floating__el").dataset.project,
+          let d = o.image.closest(".arc-card, .work-pick").dataset.project,
             m = collapsedPose(this.origin);
           return (
             this.stack.set(d, {

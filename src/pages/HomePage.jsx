@@ -1,12 +1,13 @@
 import { HomeObjective } from "../components/HomeObjective.jsx";
 import { HomeTeam } from "../components/HomeTeam.jsx";
-import { ProjectsFloat } from "../components/ProjectsFloat.jsx";
 import { ServicesShowcase } from "../components/ServicesShowcase.jsx";
 import { SiteFooter } from "../components/SiteFooter.jsx";
+import { WorkSelection } from "../components/WorkSelection.jsx";
 
 /*
  * Orden de la portada (inspirado en anonima.es):
- * lema → nuestro objetivo → qué hacemos → casos de éxito (fotos flotantes) → quiénes somos → cierre.
+ * lema → manifiesto (rojo, a pantalla completa) → trabajos → qué hacemos → quiénes somos → cierre (rojo).
+ * Cada bloque tiene una composición distinta para que la página no parezca hecha con una sola plantilla.
  */
 export function HomePage() {
   return (
@@ -23,13 +24,15 @@ export function HomePage() {
           />
           <div className="hero-shade" />
           <div className="hero-copy">
-            <h1 id="intro-title">Diseñamos lo que una marca cuenta y cómo se ve.</h1>
-            <span className="hero-place">BARCELONA 2026</span>
+            <h1 id="intro-title">Ideas sin permiso.</h1>
+            <p className="hero-sub">
+              Agencia creativa en Barcelona. Diseñamos lo que una marca cuenta y cómo se ve.
+            </p>
           </div>
         </section>
         <HomeObjective />
+        <WorkSelection />
         <ServicesShowcase />
-        <ProjectsFloat />
         <HomeTeam />
       </main>
       <SiteFooter />

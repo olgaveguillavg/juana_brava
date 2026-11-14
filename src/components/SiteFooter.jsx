@@ -3,7 +3,12 @@ import { FooterBar } from "./FooterBar.jsx";
 import { useRef, useState } from "react";
 import { services } from "../data/projects.js";
 
-export function SiteFooter() {
+/*
+ * Pie común. Con `signature` (solo en la portada), el logo horizontal de Juana Brava se pone a todo el
+ * ancho al final del bloque rojo, como firma; el logo pequeño de la izquierda se quita para no repetirlo.
+ * En el resto de páginas el pie mantiene la altura de los demás bloques de cierre.
+ */
+export function SiteFooter({ signature = false }) {
   let t = useRef(null),
     [e, a] = useState(false);
   function l(n) {
@@ -30,17 +35,19 @@ export function SiteFooter() {
   }
   return (
     <>
-      <footer className="footer" id="contacto">
+      <footer className={"footer" + (signature ? " footer--signature" : "")} id="contacto">
         <div className="wrap">
           <div className="footer-main">
-            <a className="footer-brand" href="/" aria-label="Juana Brava, inicio">
-              <img src="/brand/logo-integrado-clean.svg" alt="Juana Brava" width="1569" height="1836" loading="lazy" />
-            </a>
+            {!signature && (
+              <a className="footer-brand" href="/" aria-label="Juana Brava, inicio">
+                <img src="/brand/logo-integrado-clean.svg" alt="Juana Brava" width="1569" height="1836" loading="lazy" />
+              </a>
+            )}
             <div className="footer-contact">
               <h2>
-                ¿Tienes algo en mente?
+                ¿Una idea que nadie se atreve a hacer?
                 <br />
-                Démosle forma.
+                Hagámosla.
               </h2>
               <a className="footer-mail" href="mailto:juanabrava.agencia@gmail.com">juanabrava.agencia@gmail.com</a>
               <a className="outline-link" href="/contacto">
@@ -49,6 +56,11 @@ export function SiteFooter() {
               </a>
             </div>
           </div>
+          {signature && (
+            <a className="footer-signature reveal" href="/" aria-label="Juana Brava, inicio">
+              <img src="/brand/logo-horizontal-clean.svg" alt="Juana Brava, agencia creativa" width="1901" height="728" loading="lazy" />
+            </a>
+          )}
           <FooterBar />
         </div>
       </footer>

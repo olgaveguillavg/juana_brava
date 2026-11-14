@@ -1,10 +1,9 @@
 import { useEffect, useState } from "react";
-import { Arrow } from "./Arrow.jsx";
 import { services } from "../data/projects.js";
 
 /*
- * «Qué hacemos», en formato editorial: los cuatro servicios escritos como un solo titular grande,
- * separados por un punto rojo, y a la derecha un carrusel de imágenes del estudio que se funden una tras
+ * «Qué hacemos», en formato editorial: una sola frase («Hacemos identidad y dirección de arte ● …»)
+ * con los servicios separados por un punto rojo, y a la derecha un carrusel de imágenes del estudio que se funden una tras
  * otra (sin desplazamientos). Con «reducir movimiento» se queda en la primera imagen.
  * Las imágenes se cambian en SLIDES.
  */
@@ -47,27 +46,23 @@ export function ServicesShowcase() {
     <section className="services services-index services-edit wrap" id="servicios" aria-labelledby="services-title">
       <div className="services-edit__grid">
         <div className="services-edit__copy">
-          <h2 id="services-title" className="reveal">
-            Qué hacemos
-          </h2>
-          <p className="services-edit__headline reveal">
+          {/* Una sola frase en lugar de título + titular (a la manera de BASIC): así no compiten dos
+              niveles. Los servicios se separan con el punto rojo de la marca. */}
+          <h2 id="services-title" className="services-edit__headline reveal">
+            Hacemos{" "}
             {services.map((s, i) => (
               <span key={s.name}>
-                {s.name}
-                {i < services.length - 1 && <span className="services-edit__dot" aria-hidden="true" />}{" "}
+                {/* En minúscula dentro de la frase, salvo siglas como «IA». En gris; rojo al pasar el ratón. */}
+                <span className="services-edit__service">
+                  {/^[A-ZÁÉÍÓÚ]{2}/.test(s.name) ? s.name : s.name.charAt(0).toLowerCase() + s.name.slice(1)}
+                </span>
+                {i < services.length - 1 ? <span className="services-edit__dot" aria-hidden="true" /> : "."}{" "}
               </span>
             ))}
-          </p>
+          </h2>
           <p className="services-edit__lead reveal">
-            De la idea a su puesta en marcha.
-            <br />
-            Diseño, contenido y tecnología en el mismo equipo.
+            De la primera idea a que esté funcionando, sin pasar de mano en mano.
           </p>
-          <p className="services-edit__tag reveal">Juana Brava, agencia creativa</p>
-          <a className="case-link studio-case-link services-edit__cta reveal" href="/proyectos">
-            {"Ver proyectos "}
-            <Arrow />
-          </a>
         </div>
         <figure className="services-edit__photo services-carousel reveal" aria-roledescription="carrusel" aria-label="Imágenes del estudio">
           {SLIDES.map((s, i) => (

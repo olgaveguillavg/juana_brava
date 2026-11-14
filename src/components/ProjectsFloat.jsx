@@ -1,5 +1,5 @@
 import { createContext, useCallback, useContext, useEffect, useRef, useState } from "react";
-import { projects } from "../data/projects.js";
+import { projectPath, projects } from "../data/projects.js";
 import { PORTFOLIO_END_EVENT, PORTFOLIO_LEAVE_EVENT } from "../lib/portfolioFlight.js";
 
 /*
@@ -8,9 +8,13 @@ import { PORTFOLIO_END_EVENT, PORTFOLIO_LEAVE_EVENT } from "../lib/portfolioFlig
  * «parallax-floating» (21st.dev) a este proyecto: React con JavaScript y CSS propio, sin Tailwind ni
  * dependencias nuevas.
  *
+ * Además del ratón, las fotos se mueven con el scroll a distintas velocidades. Cada foto lleva a su
+ * proyecto; al pasar el ratón por una, se ve su nombre y las demás se apagan.
+ *
  * Al pulsar «+ proyectos» se usa la transición de siempre (PortfolioTransitions): las fotos se recogen en
- * el enlace y vuelan hasta su sitio en la página de Proyectos. Con «reducir movimiento» no hay paralaje ni
- * vuelo: se va directamente.
+ * un paquete junto al enlace y vuelan hasta su sitio en la página de Proyectos. Esta transición debe
+ * mantenerse en cualquier cambio de este bloque. Con «reducir movimiento» no hay paralaje ni vuelo: se va
+ * directamente.
  */
 
 const FloatingContext = createContext(null);
@@ -35,7 +39,7 @@ function useMousePositionRef(containerRef) {
   return position;
 }
 
-function Floating({ children, sensitivity = 1, easing = 0.05, className = "" }) {
+function Floating({ children, sensitivity = 1, easing = 0.05, scrollStrength = 22, className = "" }) {
   const containerRef = useRef(null);
   const elements = useRef(new Map());
   const mouse = useMousePositionRef(containerRef);
@@ -49,17 +53,23 @@ function Floating({ children, sensitivity = 1, easing = 0.05, className = "" }) 
     if (matchMedia("(prefers-reduced-motion: reduce)").matches) return undefined;
     let frame = 0;
     const tick = () => {
+      // Paralaje con el scroll: con el bloque centrado en pantalla las fotos están en su sitio; al
+      // entrar y salir, las de delante (más profundidad) se desplazan más que las del fondo.
+      const box = containerRef.current?.getBoundingClientRect();
+      const vh = window.innerHeight || 1;
+      const progress = box ? Math.max(-1.5, Math.min(1.5, (box.top + box.height / 2 - vh / 2) / vh)) : 0;
       elements.current.forEach((data) => {
         const strength = (data.depth * sensitivity) / 20;
+        const scrollY = progress * data.depth * scrollStrength;
         data.x += (mouse.current.x * strength - data.x) * easing;
-        data.y += (mouse.current.y * strength - data.y) * easing;
+        data.y += (mouse.current.y * strength + scrollY - data.y) * easing * 2;
         data.element.style.transform = `translate3d(${data.x.toFixed(2)}px, ${data.y.toFixed(2)}px, 0)`;
       });
       frame = requestAnimationFrame(tick);
     };
     frame = requestAnimationFrame(tick);
     return () => cancelAnimationFrame(frame);
-  }, [sensitivity, easing, mouse]);
+  }, [sensitivity, easing, scrollStrength, mouse]);
 
   return (
     <FloatingContext.Provider value={{ register, unregister }}>
@@ -88,19 +98,21 @@ function FloatingElement({ children, depth = 1, style, project }) {
 
 /*
  * Posición (en % del bloque), tamaño y profundidad de cada foto.
- * Los tamaños son el menor entre un ancho (vw) y un alto (svh), así que no invaden la frase central en
- * pantallas muy anchas ni muy bajas. Fila de arriba y de abajo: por encima y por debajo del texto;
- * laterales: fuera de la columna central (del 30 % al 70 % del ancho).
+ * Como en las composiciones de referencia, el tamaño va con la profundidad: las fotos de delante son las
+ * más grandes y las que más se mueven; las del fondo, pequeñas y casi quietas. Las de los lados se salen
+ * de la pantalla, como en un editorial. Los tamaños son el menor entre un ancho (vw) y un alto (svh), y
+ * la zona central (del 28 % al 72 % de ancho y del 35 % al 65 % de alto) queda libre para la frase.
+ * Ordenador: top/left/w. Móvil: mt/ml/wm (fotos arriba y abajo de la frase).
  */
 const LAYOUT = [
-  { mt: "3%", ml: "4%", top: "5%", left: "4%", w: "min(12vw, 24svh)", ratio: "1", depth: 0.5 },
-  { mt: "4%", ml: "40%", top: "8%", left: "18%", w: "min(13vw, 26svh)", ratio: "1", depth: 1 },
-  { mt: "2%", ml: "72%", top: "3%", left: "52%", w: "min(15.5vw, 19.5svh)", ratio: "3 / 4", depth: 2 },
-  { mt: "22%", ml: "20%", top: "6%", left: "80%", w: "min(13vw, 26svh)", ratio: "1", depth: 1 },
-  { mt: "23%", ml: "52%", top: "40%", left: "1%", w: "min(14vw, 24svh)", ratio: "1", depth: 1 },
-  { mt: "72%", ml: "4%", top: "44%", left: "83%", w: "min(12vw, 19svh)", ratio: "3 / 4", depth: 2 },
-  { mt: "74%", ml: "66%", top: "70%", left: "8%", w: "min(18vw, 30svh)", ratio: "4 / 3", depth: 3 },
-  { mt: "82%", ml: "34%", top: "72%", left: "58%", w: "min(13vw, 22svh)", ratio: "1", depth: 1 },
+  { top: "6%", left: "-4%", w: "min(23vw, 40svh)", mt: "3%", ml: "-8%", wm: "42vw", ratio: "4 / 5", depth: 2 },
+  { top: "5%", left: "25%", w: "min(11vw, 20svh)", mt: "6%", ml: "40%", wm: "22vw", ratio: "1", depth: 0.6 },
+  { top: "3%", left: "45%", w: "min(15vw, 26svh)", mt: "2%", ml: "70%", wm: "38vw", ratio: "3 / 4", depth: 1.4 },
+  { top: "2%", left: "76%", w: "min(26vw, 46svh)", mt: "24%", ml: "34%", wm: "26vw", ratio: "1", depth: 3 },
+  { top: "56%", left: "6%", w: "min(14vw, 24svh)", mt: "64%", ml: "-6%", wm: "36vw", ratio: "1", depth: 1 },
+  { top: "50%", left: "74%", w: "min(19vw, 34svh)", mt: "62%", ml: "60%", wm: "46vw", ratio: "3 / 4", depth: 2 },
+  { top: "66%", left: "22%", w: "min(28vw, 48svh)", mt: "84%", ml: "12%", wm: "44vw", ratio: "4 / 3", depth: 4 },
+  { top: "74%", left: "55%", w: "min(12vw, 21svh)", mt: "27%", ml: "72%", wm: "24vw", ratio: "1", depth: 0.8 },
 ];
 
 export function ProjectsFloat() {
@@ -153,14 +165,30 @@ export function ProjectsFloat() {
         {images.map((p, i) => {
           const l = LAYOUT[i];
           return (
-            <FloatingElement key={p.slug} project={p.slug} depth={l.depth} style={{ "--t": l.top, "--l": l.left, "--tm": l.mt, "--lm": l.ml }}>
-              <img
-                className="floating__photo"
-                src={p.image}
-                alt=""
-                loading="lazy"
-                style={{ width: l.w, aspectRatio: l.ratio, "--i": i }}
-              />
+            <FloatingElement
+              key={p.slug}
+              project={p.slug}
+              depth={l.depth}
+              style={{
+                "--t": l.top,
+                "--l": l.left,
+                "--tm": l.mt,
+                "--lm": l.ml,
+                "--w": l.w,
+                "--wm": l.wm,
+                "--r": l.ratio,
+                "--i": i,
+                // Las de delante, por encima de las del fondo.
+                zIndex: Math.round(l.depth * 10),
+              }}
+            >
+              <a className="floating__link" href={projectPath(p)}>
+                <img className="floating__photo" src={p.image} alt={p.alt || p.name} loading="lazy" />
+                <span className="floating__caption" aria-hidden="true">
+                  {p.name}
+                  <small>{p.sector}</small>
+                </span>
+              </a>
             </FloatingElement>
           );
         })}
