@@ -5,6 +5,7 @@ import { PortfolioTransitions } from "./components/PortfolioTransitions.jsx";
 import { RevealMotion } from "./components/RevealMotion.jsx";
 import { SiteFooter } from "./components/SiteFooter.jsx";
 import { SiteHeader } from "./components/SiteHeader.jsx";
+import { findIdea } from "./data/ideas.js";
 import { projects } from "./data/projects.js";
 import { parseRoute } from "./lib/router.js";
 import { startSmoothScroll } from "./lib/smoothScroll.js";
@@ -13,6 +14,7 @@ import { JBContactPage } from "./pages/ContactPage.jsx";
 import { HomePage } from "./pages/HomePage.jsx";
 import { ProjectsPage } from "./pages/ProjectsPage.jsx";
 import { JBStudioPage } from "./pages/StudioPage.jsx";
+import { NotePage } from "./pages/NotePage.jsx";
 import { JBThinkingPage } from "./pages/ThinkingPage.jsx";
 
 const PAGE_TITLES = {
@@ -28,6 +30,7 @@ function headerFor(path) {
   if (path === "/") return { tone: "light", active: "home" };
   if (path === "/estudio") return { tone: "dark", active: "studio" };
   if (path === "/ideas") return { tone: "light", active: "thinking" };
+  if (path.startsWith("/ideas/")) return { tone: "dark", active: "thinking" };
   if (path === "/contacto") return { tone: "dark", active: "contact" };
   if (path === "/proyectos" || path.startsWith("/proyectos/")) return { tone: "dark", active: "projects" };
   return { tone: "dark", active: "" };
@@ -81,9 +84,12 @@ export function App({ initialRoute }) {
 
   useEffect(() => {
     const project = projects.find((item) => route.path === "/proyectos/" + item.slug);
+    const idea = route.path.startsWith("/ideas/") ? findIdea(route.path.slice(7)) : null;
     document.title = project
       ? project.name + " — Juana Brava"
-      : (PAGE_TITLES[route.path] ?? "Juana Brava — Ideas sin permiso");
+      : idea
+        ? idea.title.replace(/\.$/, "") + " — Juana Brava"
+        : (PAGE_TITLES[route.path] ?? "Juana Brava — Ideas sin permiso");
 
     // Carga inicial con #!/…?section=…: coloca la página en su sección.
     if (shown.current === null) {
@@ -94,6 +100,7 @@ export function App({ initialRoute }) {
   }, [route.path, route.section]);
 
   const project = projects.find((item) => route.path === "/proyectos/" + item.slug);
+  const note = route.path.startsWith("/ideas/") ? findIdea(route.path.slice(7)) : null;
   const page =
     route.path === "/" ? (
       <HomePage />
@@ -107,6 +114,8 @@ export function App({ initialRoute }) {
       <JBContactPage />
     ) : project ? (
       <CasePage params={{ slug: project.slug }} />
+    ) : note ? (
+      <NotePage note={note} />
     ) : (
       <>
         <main className="archive-page wrap" id="contenido">

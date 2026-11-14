@@ -1,8 +1,14 @@
 import { FeaturedWork } from "../components/FeaturedWork.jsx";
+import { HomeObjective } from "../components/HomeObjective.jsx";
+import { HomeTeam } from "../components/HomeTeam.jsx";
 import { ProjectSheet } from "../components/ProjectSheet.jsx";
 import { ServicesShowcase } from "../components/ServicesShowcase.jsx";
 import { SiteFooter } from "../components/SiteFooter.jsx";
 
+/*
+ * Orden de la portada (inspirado en anonima.es):
+ * lema → nuestro objetivo → qué hacemos → casos de éxito → quiénes somos → cierre (pie rojo).
+ */
 export function HomePage() {
   return (
     <>
@@ -22,8 +28,10 @@ export function HomePage() {
             <span className="hero-place">BARCELONA 2026</span>
           </div>
         </section>
-        <FeaturedWork />
+        <HomeObjective />
         <ServicesShowcase />
+        <FeaturedWork />
+        <HomeTeam />
       </main>
       <SiteFooter />
       <ProjectSheet />
