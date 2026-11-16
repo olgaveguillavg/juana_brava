@@ -13,6 +13,7 @@ export function CasePage({ params: t }) {
   return (
     <>
       <main id="contenido" className={"case-page case-" + e.slug}>
+        {/* En móvil esta cabecera se coloca como una nota de Ideas (ver site.css); en escritorio, foto a pantalla completa. */}
         <section className="case-hero case-hero-editorial" aria-labelledby="case-hero-title">
           <img className="case-hero-image" src={e.image} alt={e.alt} loading="eager" fetchPriority="high" />
           <div className="case-hero-shade" aria-hidden="true" />

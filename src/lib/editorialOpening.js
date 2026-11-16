@@ -15,6 +15,9 @@ function JBEditorialOpening() {
   }
   let current = null;
   const reduced = matchMedia("(prefers-reduced-motion: reduce)");
+  // En móvil la cabecera del proyecto no es una foto a pantalla completa (va con márgenes, como en
+  // BASIC), así que la transición foto → pantalla completa no se usa: producía un pestañeo al terminar.
+  const narrow = matchMedia("(max-width: 760px)");
   function nextFrame(signal) {
     return new Promise((resolve, reject) => {
       const frame = requestAnimationFrame(() => {
@@ -151,7 +154,7 @@ function JBEditorialOpening() {
         event.preventDefault();
         return;
       }
-      if (reduced.matches || typeof HTMLElement.prototype.animate !== "function") return;
+      if (reduced.matches || narrow.matches || typeof HTMLElement.prototype.animate !== "function") return;
       const raw = link.getAttribute("href") || "";
       const target = raw.startsWith("#!") ? raw : "#!" + new URL(raw, location.href).pathname;
       const slug = target.match(/^#!\/proyectos\/([a-z0-9-]+)\/?$/)?.[1];
@@ -384,7 +387,9 @@ function JBEditorialOpening() {
         await nextFrame(abort.signal);
         if (abort.signal.aborted) return;
         for (const [index, node] of [
-          ...heroSection.querySelectorAll(".case-hero-title-block,.case-hero-side"),
+          // El título no se anima como bloque: sus palabras suben una a una (SlideText) en cuanto termina la
+          // foto; su animación queda en pausa mientras dura la apertura (ver site.css).
+          ...heroSection.querySelectorAll(".case-hero-side"),
         ].entries()) {
           node
             .animate(
@@ -431,7 +436,7 @@ function JBEditorialOpening() {
 
   // One reversible photographic transition shared by UI control and browser history.
   function JBReverseCase(slug, historyMode = false) {
-    if (current || reduced.matches || typeof HTMLElement.prototype.animate !== "function") return false;
+    if (current || reduced.matches || narrow.matches || typeof HTMLElement.prototype.animate !== "function") return false;
     const hero = document.querySelector(".case-" + slug + " .case-hero-image");
     if (!hero?.naturalWidth) return false;
     const controller = new AbortController(),
@@ -710,7 +715,7 @@ function JBEditorialOpening() {
   // If browser Forward re-opens a project, use the same image-to-viewport motion.
   window.JBHistoryZoomIn = function (toPath) {
     const slug = toPath?.match(/^\/proyectos\/([a-z0-9-]+)\/?$/)?.[1];
-    if (!slug || current || reduced.matches || typeof HTMLElement.prototype.animate !== "function") return false;
+    if (!slug || current || reduced.matches || narrow.matches || typeof HTMLElement.prototype.animate !== "function") return false;
     const source = document.getElementById(slug)?.querySelector(".editorial-cover img");
     if (!source?.naturalWidth) return false;
     const cover = source.closest(".editorial-cover"),

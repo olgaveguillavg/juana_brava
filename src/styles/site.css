@@ -2466,7 +2466,7 @@ body:has(.thinking-page)::before { filter: invert(1); opacity: .07; }
 /* Contacto: correo y teléfonos del mismo tamaño, sin cortes; etiquetas en negrita. */
 .jbce-detail > a { font-size: clamp(16px, 1.8vw, 22px) !important; line-height: 1.25 !important; white-space: nowrap; letter-spacing: -.01em; }
 .jbce-detail > a.jbce-email { white-space: normal; overflow-wrap: normal; word-break: normal; }
-.jbce-detail-label { font-weight: 700 !important; }
+.jbce-detail-label { font-weight: 500 !important; }
 .jbce-social-links a, .jbce-social-links span { font-size: clamp(17px, 1.9vw, 22px); }
 
 /* Pie de Thinking: copyright y enlaces, bajo el bloque azul. */
@@ -3190,7 +3190,8 @@ html[data-project-transition] .projects-float__center h2 { opacity: 0; transitio
 /* Manifiesto: fondo claro y las dos frases centradas a escala gigante, de borde a borde, en dos líneas.
    El bloque mide casi dos pantallas; dentro, el escenario se queda fijo (sticky) mientras las palabras
    pasan de negro a rojo (--on, lo calcula HomeObjective.jsx). */
-.manifesto { position: relative; height: 220svh; }
+/* Recorrido corto: la frase se pone roja con un scroll (50 % de pantalla en ordenador). */
+.manifesto { position: relative; height: 150svh; }
 .manifesto__stage { position: sticky; top: 0; height: 100svh; display: grid; place-items: center; overflow: hidden; }
 .manifesto__title {
   width: calc(100% - 2 * clamp(16px, 2vw, 32px)); margin-inline: auto;
@@ -3203,7 +3204,10 @@ html[data-project-transition] .projects-float__center h2 { opacity: 0; transitio
 .manifesto[data-static] .manifesto__stage { position: static; height: auto; padding-block: var(--space-section); }
 .manifesto[data-static] .manifesto__word { color: var(--red); }
 @media (max-width: 760px) {
-  .manifesto { height: 190svh; }
+  /* Móvil: escenario de 62 % de pantalla y recorrido de 40 %; así, al terminar, no queda hueco blanco
+     bajo la frase y se pone roja con un solo scroll. */
+  .manifesto { height: 90svh; }
+  .manifesto__stage { height: 50svh; }
   .manifesto__title { font-size: clamp(44px, 13vw, 64px) !important; }
 }
 
@@ -3360,15 +3364,6 @@ body:has(.thinking-page) { transition: none !important; }
 /* ===== Proyecto y Estudio en móvil (segunda revisión) =====
    Solo se aplica en móvil; el escritorio no cambia. */
 
-/* Proyecto en móvil: la foto de portada entera (sin recortar) encima, y el texto debajo sobre fondo oscuro. */
-@media (max-width: 760px) {
-  .case-return-link { display: none !important; }
-  .case-hero.case-hero-editorial { display: block; height: auto; min-height: 0; background: #171717; }
-  .case-hero.case-hero-editorial .case-hero-image { position: relative; inset: auto; width: 100%; height: auto; display: block; transform: none !important; }
-  .case-hero.case-hero-editorial .case-hero-shade { display: none; }
-  .case-hero.case-hero-editorial .case-hero-content { min-height: 0; height: auto; padding: 28px var(--gutter) 48px; }
-  .case-hero-editorial-layout { min-height: 0 !important; margin-top: 0; gap: 18px; }
-}
 
 /* Estudio en móvil: el punto de cada paso queda a la altura del centro de su título (26 px, línea de 28 px),
    y la línea une los puntos entre sí. Solo en móvil; el escritorio no cambia. */
@@ -3383,3 +3378,133 @@ body:has(.thinking-page) { transition: none !important; }
 @media (max-width: 760px) {
   .mobile-nav > a { font-size: clamp(34px, 9.5vw, 48px) !important; font-weight: 300 !important; letter-spacing: -.02em !important; line-height: 1.1 !important; }
 }
+
+/* Estudio en móvil: las fotos se apoyan directamente sobre el bloque rojo de "Bonito no basta" (antes
+   quedaban 68 px por encima, con una franja blanca entre las fotos y el rojo). Al hacer scroll se van
+   hacia arriba como siempre. */
+@media (max-width: 760px) {
+  .jbv2-film { bottom: 0 !important; }
+  .jbv2-film-caption { bottom: 8px !important; }
+}
+
+/* ===== Ficha de proyecto en móvil =====
+   Colocada igual que una nota de Ideas en móvil: "← Proyectos", el nombre, la frase de presentación, una
+   línea fina con el tipo y el sector, y la foto entera dentro de los márgenes. Con los colores de la web
+   (fondo claro y texto en tinta), sin foto a pantalla completa. El escritorio no cambia. */
+@media (max-width: 760px) {
+  .case-hero.case-hero-editorial {
+    display: flex; flex-direction: column; height: auto; min-height: 0;
+    padding: 130px var(--gutter) 0; background: transparent !important; color: var(--ink) !important;
+  }
+  .case-hero.case-hero-editorial .case-hero-shade { display: none; }
+  .case-hero.case-hero-editorial .case-hero-content,
+  .case-hero.case-hero-editorial .case-hero-editorial-layout { display: contents; }
+
+  /* "← Proyectos", como "← Ideas" en las notas. */
+  .case-hero.case-hero-editorial .case-return-link {
+    order: 1; position: static !important; align-self: flex-start; height: auto !important;
+    display: inline-flex !important; flex-direction: row !important; align-items: center; gap: 8px; min-height: 44px;
+    padding: 0 !important; border: 0 !important; color: var(--ink) !important;
+  }
+  .case-hero.case-hero-editorial .case-return-skin { width: auto; height: auto; border: 0; border-radius: 0; background: none !important; color: inherit !important; }
+  .case-hero.case-hero-editorial .case-return-label {
+    max-width: none; opacity: 1; margin: 0;
+    font-size: 12px !important; font-weight: 500; letter-spacing: .055em; text-transform: uppercase;
+  }
+
+  /* Nombre, como el titular de una nota. */
+  .case-hero.case-hero-editorial .case-hero-title-block { order: 2; align-self: stretch; margin-top: 18px; }
+  .case-hero.case-hero-editorial .case-hero-title-block h1 {
+    color: var(--ink); font-size: var(--fs-phrase) !important; line-height: 1.02 !important; letter-spacing: -.045em !important;
+    max-width: none; text-shadow: none;
+  }
+
+  /* Entradilla y, debajo de una línea fina, tipo y sector (como la línea de datos de las notas). */
+  .case-hero.case-hero-editorial .case-hero-side {
+    order: 3; align-self: stretch; justify-self: auto; max-width: none; padding: 0; gap: 0;
+    display: flex; flex-direction: column;
+  }
+  .case-hero.case-hero-editorial .case-hero-lead {
+    order: 0; margin-top: 28px; max-width: 34ch; color: var(--ink) !important;
+    font-size: var(--fs-lead) !important; line-height: 1.4 !important; letter-spacing: -.015em;
+  }
+  .case-hero.case-hero-editorial .case-hero-focus-label {
+    order: 1; margin-top: 32px; padding-top: 18px; border-top: 1px solid var(--line);
+    color: var(--red) !important; font-size: 12px !important; font-weight: 500 !important; letter-spacing: .055em !important;
+  }
+  .case-hero.case-hero-editorial .case-hero-focus {
+    order: 2; margin-top: 6px; max-width: none; color: var(--muted) !important;
+    font-size: 12px !important; font-weight: 500; letter-spacing: .055em !important; line-height: 1.5;
+  }
+
+  /* Foto entera, dentro de los márgenes, como la portada de una nota. */
+  .case-hero.case-hero-editorial .case-hero-image {
+    order: 4; position: static; inset: auto; width: 100%; height: auto; display: block; margin-top: var(--space-block);
+    transform: none !important; animation: none !important;
+  }
+
+  /* La cabecera de la web, con sus colores normales (logo rojo, menú rojo) sobre el fondo claro. */
+  body:has(.case-hero) .site-header:not(.menu-is-open) { color: var(--ink) !important; }
+  body:has(.case-hero) .site-header:not(.menu-is-open) .brand img { filter: none !important; }
+  body:has(.case-hero) .site-header:not(.menu-is-open) .menu-toggle > span { background: var(--red) !important; }
+}
+@media (max-width: 760px) {
+  /* La línea fina de encima del tipo de proyecto, a todo el ancho (como en las notas). */
+  .case-hero.case-hero-editorial .case-hero-focus-label { align-self: stretch; }
+}
+
+/* Apertura de un proyecto (escritorio): las palabras del título esperan a que la foto termine de ocupar
+   la pantalla y entonces suben una a una. Antes subían mientras el título estaba oculto y, al aparecer,
+   ya habían terminado (se veía un simple fundido). */
+html[data-case-opening] .case-hero-title-block .slide-word > span { animation-play-state: paused; }
+/* Ficha de proyecto en móvil: los textos entran en el orden en que se leen (como en las notas):
+   "← Proyectos", el nombre palabra a palabra, la entradilla, el tipo y el sector, y la foto. */
+@media (max-width: 760px) {
+  [data-page-entry] .case-hero.case-hero-editorial .case-hero-lead { animation-delay: .45s !important; }
+  [data-page-entry] .case-hero.case-hero-editorial .case-hero-focus-label { animation-delay: .6s !important; }
+  [data-page-entry] .case-hero.case-hero-editorial .case-hero-focus { animation-delay: .68s !important; }
+  [data-page-entry] .case-hero.case-hero-editorial .case-hero-image { animation: bd-fade-in .9s var(--ease-out-bd) .75s both !important; }
+}
+@media (max-width: 760px) {
+  [data-page-entry] .case-hero.case-hero-editorial .case-return-link { animation-delay: .05s !important; }
+}
+
+/* Entrada más ágil en notas y fichas de proyecto: antes la foto de una nota no terminaba de aparecer
+   hasta 2,1 s después de entrar; ahora todo está en pantalla en menos de 1 s. */
+[data-page-entry] .note-page .note-crumbs { animation-delay: 0s !important; animation-duration: .4s !important; }
+[data-page-entry] .note-page .note-lead { animation-delay: .3s !important; animation-duration: .5s !important; }
+[data-page-entry] .note-page .note-meta { animation-delay: .38s !important; animation-duration: .5s !important; }
+[data-page-entry] .note-page .note-cover { animation-delay: .3s !important; animation-duration: .65s !important; }
+@media (max-width: 760px) {
+  [data-page-entry] .case-hero.case-hero-editorial .case-return-link { animation-delay: 0s !important; animation-duration: .4s !important; }
+  [data-page-entry] .case-hero.case-hero-editorial .case-hero-lead { animation-delay: .25s !important; animation-duration: .5s !important; }
+  [data-page-entry] .case-hero.case-hero-editorial .case-hero-focus-label { animation-delay: .32s !important; animation-duration: .5s !important; }
+  [data-page-entry] .case-hero.case-hero-editorial .case-hero-focus { animation-delay: .36s !important; animation-duration: .5s !important; }
+  [data-page-entry] .case-hero.case-hero-editorial .case-hero-image { animation-delay: .3s !important; animation-duration: .6s !important; }
+}
+
+/* Titulares animados (SlideText): cada palabra es una capa animada del alto del interlineado, y con
+   interlineados apretados recortaba los rasgos descendentes (la "g" de Fuga, la "y" de Proyectos) y los
+   acentos. Se le da margen interior arriba y abajo, compensado para no mover el texto. */
+.slide-word > span { padding: .18em .06em .3em 0; margin: -.18em -.06em -.3em 0; }
+/* La máscara de cada palabra es justa por abajo: la palabra sale de detrás de una línea, no aparece ya
+   medio visible (antes la máscara dejaba ver .7em por debajo y el efecto se perdía). */
+.slide-word { clip-path: inset(-.4em -.5em 0 -.5em); }
+/* Estudio: el título entra igual que en Proyectos e Ideas (palabras que suben), no con su fundido propio. */
+.jbv2-hero h1 { animation: none !important; }
+
+/* Barra inferior idéntica en todas las páginas: en Ideas y Estudio otras reglas antiguas la dejaban en
+   mayúsculas, a 12 px y en negrita. */
+.footer-bar, .footer-bar a, .thinking-foot .footer-bar a, .jbv3-min-footer .footer-bar a, .jbce-footer .footer-bar a {
+  font-size: 15px !important; font-weight: 400 !important; letter-spacing: -.01em !important; text-transform: none !important;
+}
+.footer-bar .footer-bar__copy { font-size: 14px !important; font-weight: 400 !important; letter-spacing: -.01em !important; text-transform: none !important; }
+/* Quiénes somos en móvil: más aire entre la ficha de Olga y la de Saray (el nombre de Saray quedaba
+   pegado al texto de Olga). */
+@media (max-width: 760px) { .home-team__list { gap: 44px !important; } }
+
+/* Servicios de "Qué hacemos" como enlaces: sin subrayado, en gris como texto y en rojo al pasar el ratón
+   o con el teclado. */
+.services-edit__service { color: #8c8681; text-decoration: none; transition: color .25s ease; }
+.services-edit__service:hover, .services-edit__service:focus-visible { color: var(--red); }
+.services-edit__service:focus-visible { outline: 2px solid var(--red); outline-offset: 4px; border-radius: 2px; }

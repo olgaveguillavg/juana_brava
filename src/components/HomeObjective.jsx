@@ -9,7 +9,8 @@ import { useEffect, useRef } from "react";
 const LINES = ["Hay demasiadas marcas que se parecen.", "Nosotras hacemos las que no."];
 
 // Tramo del recorrido en el que se colorean las palabras (0 = el bloque llega arriba, 1 = se suelta).
-const FILL_RANGE = [0.08, 0.78];
+// Se completa en la primera mitad del recorrido: con un scroll ya está todo en rojo.
+const FILL_RANGE = [0, 0.55];
 
 const clamp01 = (v) => Math.max(0, Math.min(1, v));
 
@@ -32,7 +33,9 @@ export function HomeObjective() {
       frame = 0;
       const box = section.getBoundingClientRect();
       if (box.bottom < 0 || box.top > window.innerHeight) return;
-      const travel = box.height - window.innerHeight;
+      // Recorrido real: alto del bloque menos alto del escenario fijo (ya no es el alto de la pantalla).
+      const stage = section.querySelector(".manifesto__stage");
+      const travel = section.offsetHeight - (stage?.offsetHeight ?? window.innerHeight);
       const p = travel > 0 ? clamp01(-box.top / travel) : 1;
       // Cada palabra cambia de color en su parte del tramo, con un pequeño solape para que fluya.
       list.forEach((w, i) => w.style.setProperty("--on", clamp01((p - (from + i * step)) / (step * 1.8)).toFixed(3)));

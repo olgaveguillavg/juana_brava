@@ -38,9 +38,16 @@ function headerFor(path) {
 
 function scrollToRoute(route, animated) {
   const target = route.section ? document.getElementById(route.section) : null;
+  const lenis = window.__jbLenis;
   if (target) {
-    target.scrollIntoView({ block: "start", behavior: animated ? "smooth" : "instant" });
+    // Con Lenis activo, el scroll nativo se lo dejaba a su destino anterior: se le pide a él directamente.
+    if (lenis) lenis.scrollTo(target, { immediate: !animated, force: true, offset: 0 });
+    else target.scrollIntoView({ block: "start", behavior: animated ? "smooth" : "instant" });
   } else {
+    // El scroll suave (Lenis) guarda su propio destino: si la página anterior aún se estaba moviendo, lo
+    // volvía a aplicar y la nueva página se abría abajo del todo. Se reinicia también arriba, al instante.
+    lenis?.resize();
+    lenis?.scrollTo(0, { immediate: true, force: true });
     window.scrollTo({ top: 0, behavior: "instant" });
   }
 }

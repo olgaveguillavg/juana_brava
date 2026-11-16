@@ -66,7 +66,7 @@ export function NotePage({ note }) {
             </a>
           </nav>
           <h1 className="note-title">
-            <SlideText delay={0.35} step={0.07}>{note.title.replace(/\.$/, "")}</SlideText>
+            <SlideText delay={0.1} step={0.05}>{note.title.replace(/\.$/, "")}</SlideText>
           </h1>
           <p className="note-lead reveal">{note.excerpt}</p>
           <div className="note-meta reveal">

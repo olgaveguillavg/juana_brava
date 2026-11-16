@@ -52,10 +52,11 @@ export function ServicesShowcase() {
             Hacemos{" "}
             {services.map((s, i) => (
               <span key={s.name}>
-                {/* En minúscula dentro de la frase, salvo siglas como «IA». En gris; rojo al pasar el ratón. */}
-                <span className="services-edit__service">
+                {/* En minúscula dentro de la frase, salvo siglas como «IA». En gris; rojo al pasar el ratón.
+                    Cada servicio lleva a su pestaña en «Hacemos que pase» (página Estudio). */}
+                <a className="services-edit__service" href={"/estudio#servicio-" + i}>
                   {/^[A-ZÁÉÍÓÚ]{2}/.test(s.name) ? s.name : s.name.charAt(0).toLowerCase() + s.name.slice(1)}
-                </span>
+                </a>
                 {i < services.length - 1 ? <span className="services-edit__dot" aria-hidden="true" /> : "."}{" "}
               </span>
             ))}

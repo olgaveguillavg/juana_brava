@@ -1,5 +1,5 @@
 import { Arrow } from "./Arrow.jsx";
-import { useEffect, useRef, useState } from "react";
+import { useEffect, useLayoutEffect, useRef, useState } from "react";
 
 export function SiteHeader({ tone: t = "light", active: e = "" }) {
   let [a, l] = useState(false),
@@ -20,6 +20,25 @@ export function SiteHeader({ tone: t = "light", active: e = "" }) {
       }
     );
   }, [a]);
+  // Al abrir o cerrar el menú la cabecera pasa de moverse con la página a quedarse fija arriba (y al
+  // revés). Si la página estaba un poco bajada, el logo daba un salto: ahora se desliza hasta su sitio.
+  let headerRef = useRef(null),
+    lastTop = useRef(null);
+  let toggle = () => {
+    lastTop.current = headerRef.current?.getBoundingClientRect().top ?? null;
+    l(!a);
+  };
+  useLayoutEffect(() => {
+    let el = headerRef.current;
+    if (!el || lastTop.current === null) return;
+    let delta = lastTop.current - el.getBoundingClientRect().top;
+    lastTop.current = null;
+    if (Math.abs(delta) < 1 || matchMedia("(prefers-reduced-motion: reduce)").matches) return;
+    el.animate([{ transform: `translateY(${delta}px)` }, { transform: "none" }], {
+      duration: 450,
+      easing: "cubic-bezier(.2,.7,.2,1)",
+    });
+  }, [a]);
   let i = [
       ["Proyectos", "/proyectos"],
       ["Estudio", "/estudio"],
@@ -32,7 +51,7 @@ export function SiteHeader({ tone: t = "light", active: e = "" }) {
       <a className="skip-link" href="#contenido">
         Saltar al contenido
       </a>
-      <header id="inicio" className={"site-header header-" + t + (a ? " menu-is-open" : "")}>
+      <header ref={headerRef} id="inicio" className={"site-header header-" + t + (a ? " menu-is-open" : "")}>
         <a href="/" className="brand" aria-label="Juana Brava, inicio">
           <img src="/brand/logo-horizontal-clean.svg" alt="Juana Brava, agencia creativa" width="1901" height="728" />
         </a>
@@ -59,7 +78,7 @@ export function SiteHeader({ tone: t = "light", active: e = "" }) {
           aria-label={a ? "Cerrar menú" : "Abrir menú"}
           aria-controls="mobile-nav"
           aria-expanded={a}
-          onClick={() => l(!a)}
+          onClick={toggle}
         >
           <span />
           <span />

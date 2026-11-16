@@ -1,5 +1,6 @@
 import { Arrow } from "../components/Arrow.jsx";
 import { FooterBar } from "../components/FooterBar.jsx";
+import { SlideText } from "../components/SlideText.jsx";
 import { useEffect, useRef, useState } from "react";
 import { services } from "../data/projects.js";
 
@@ -392,7 +393,9 @@ export function JBStudioPage() {
         <section className="jbv2-hero" aria-labelledby="jbv2-title">
           <div className="jbv2-hero-sticky">
             <div className="jbv2-hero-heading wrap">
-              <h1 id="jbv2-title">El estudio</h1>
+              <h1 id="jbv2-title">
+                <SlideText>El estudio</SlideText>
+              </h1>
             </div>
             <div className="jbv2-film">
               {heroImages.map((photo, i) => (
