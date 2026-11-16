@@ -10,7 +10,9 @@ const LINES = ["Hay demasiadas marcas que se parecen.", "Nosotras hacemos las qu
 
 // Tramo del recorrido en el que se colorean las palabras (0 = el bloque llega arriba, 1 = se suelta).
 // Se completa en la primera mitad del recorrido: con un scroll ya está todo en rojo.
-const FILL_RANGE = [0, 0.55];
+const FILL_RANGE = [0, 0.6];
+// Distancia de scroll (px) en la que todas las palabras ya están rojas: unos 110 px, es decir, un gesto de rueda.
+const FILL_PX = 110;
 
 const clamp01 = (v) => Math.max(0, Math.min(1, v));
 
@@ -20,6 +22,7 @@ export function HomeObjective() {
   useEffect(() => {
     const section = sectionRef.current;
     if (!section) return undefined;
+    // Con «reducir movimiento» la frase se ve ya en rojo, sin escenario fijo.
     if (matchMedia("(prefers-reduced-motion: reduce)").matches) {
       section.dataset.static = "";
       return undefined;
@@ -33,10 +36,9 @@ export function HomeObjective() {
       frame = 0;
       const box = section.getBoundingClientRect();
       if (box.bottom < 0 || box.top > window.innerHeight) return;
-      // Recorrido real: alto del bloque menos alto del escenario fijo (ya no es el alto de la pantalla).
-      const stage = section.querySelector(".manifesto__stage");
-      const travel = section.offsetHeight - (stage?.offsetHeight ?? window.innerHeight);
-      const p = travel > 0 ? clamp01(-box.top / travel) : 1;
+      // Progreso por píxeles de scroll, no por la altura de la pantalla: así se completa con un solo gesto
+      // en cualquier monitor (antes tardaba casi tres gestos en pantallas grandes).
+      const p = clamp01(-box.top / FILL_PX);
       // Cada palabra cambia de color en su parte del tramo, con un pequeño solape para que fluya.
       list.forEach((w, i) => w.style.setProperty("--on", clamp01((p - (from + i * step)) / (step * 1.8)).toFixed(3)));
     };

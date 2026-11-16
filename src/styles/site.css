@@ -3508,3 +3508,34 @@ html[data-case-opening] .case-hero-title-block .slide-word > span { animation-pl
 .services-edit__service { color: #8c8681; text-decoration: none; transition: color .25s ease; }
 .services-edit__service:hover, .services-edit__service:focus-visible { color: var(--red); }
 .services-edit__service:focus-visible { outline: 2px solid var(--red); outline-offset: 4px; border-radius: 2px; }
+
+/* Manifiesto en móvil: el escenario fijo dura solo un gesto (el color cambia en esos 110 px) y el
+   recorrido es corto, así no queda media pantalla vacía. Texto centrado en el escenario. */
+@media (max-width: 760px) {
+  .manifesto { height: 48svh; }
+  .manifesto__stage { height: 36svh; }
+  .manifesto__title { font-size: clamp(34px, 9.5vw, 44px) !important; }
+}
+
+/* Recogida de «+ proyectos»: las fotos desaparecen de su sitio sin dejar el marco de color. */
+.work-sel[data-flying] .work-pick__frame { visibility: hidden; }
+
+/* Redes sociales (Contacto): más separación entre Instagram y LinkedIn. */
+.jbce-social-links { column-gap: 30px !important; }
+
+/* Proyecto en ordenador: «← PROYECTOS» como «← IDEAS» en las notas: texto con flecha arriba a la izquierda,
+   sin el círculo y con la etiqueta siempre visible. Va bajo la cabecera, sin tapar la foto ni el logo. */
+@media (min-width: 761px) {
+  .case-hero.case-hero-editorial .case-return-link {
+    top: clamp(124px, 14vh, 150px) !important; left: var(--gutter) !important; right: auto !important;
+    height: auto !important; min-height: 44px; flex-direction: row !important; align-items: center; gap: 10px;
+    padding: 0 !important; border: 0 !important; color: #fff !important;
+  }
+  .case-hero.case-hero-editorial .case-return-skin { width: auto; height: auto; border: 0; border-radius: 0; background: none !important; color: inherit !important; }
+  .case-hero.case-hero-editorial .case-return-skin .jb-arrow { font-size: 14px; }
+  .case-hero.case-hero-editorial .case-return-label {
+    max-width: none; margin: 0; opacity: 1; font-size: 12px !important; font-weight: 500; letter-spacing: .055em;
+    text-transform: uppercase;
+  }
+  .case-hero.case-hero-editorial .case-return-link:hover .case-return-label { margin: 0; }
+}
