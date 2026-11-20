@@ -3604,3 +3604,18 @@ h1 { font-family: var(--font-display); font-weight: 400 !important; font-synthes
 
 /* Nombres de proyecto de la home en negrita */
 .work-pick__caption h3 { font-weight: 700 !important; }
+
+/* Pestaña Proyectos: nombres en negrita */
+.archive-row-name { font-weight: 700 !important; }
+
+
+/* Filtro Lab: siempre en negrita, con la fuente de su sitio */
+.jb-filter-lab { font-weight: 700 !important; }
+
+/* Pestaña Proyectos, cuadrícula: nombres en negrita */
+.archive-card-title h2 { font-weight: 700 !important; }
+
+/* Menú móvil: los enlaces con la misma letra que los titulares grandes (Anton, mayúsculas) */
+@media (max-width: 760px) {
+  .mobile-nav > a { font-family: var(--font-display), var(--sans) !important; font-weight: 400 !important; font-synthesis: none; text-transform: uppercase !important; letter-spacing: .02em !important; line-height: 1 !important; }
+}
