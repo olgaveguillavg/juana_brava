@@ -13,7 +13,7 @@
   --line: #d9d5d2;
   --muted: #625c58;
   --gutter: clamp(26px, 5.6vw, 120px);
-  --sans: 'Helvetica Neue', Helvetica, Arial, sans-serif;
+  --sans: "Barlow", "Helvetica Neue", Helvetica, Arial, sans-serif;
 }
 *, *::before, *::after { box-sizing: border-box; }
 html { scroll-padding-top: 35px; }
@@ -3539,3 +3539,54 @@ html[data-case-opening] .case-hero-title-block .slide-word > span { animation-pl
   }
   .case-hero.case-hero-editorial .case-return-link:hover .case-return-label { margin: 0; }
 }
+
+/* ===== Sistema tipográfico (en preparación) =====
+   Cuatro papeles, cada uno con su variable. Hasta que existan los archivos de las fuentes, todos caen en la
+   pila actual, así que el aspecto no cambia. Al añadir un @font-face con el nombre de cada familia, el papel
+   se activa solo.
+   - --font-display: titulares principales (Hochland Regular)
+   - --font-text: textos, descripciones de proyectos y navegación (Barlow)
+   - --font-subtitle: subtítulos editoriales (Mencken Std Head Compress)
+   - --font-accent: acentos puntuales (Aston Script Bold) */
+:root {
+  --font-text: "Barlow", "Helvetica Neue", Helvetica, Arial, sans-serif;
+  --font-display: "Hochland", var(--font-text);
+  --font-subtitle: "Mencken Std Head Compress", var(--font-text);
+  --font-accent: "Aston Script Bold", var(--font-text);
+}
+
+/* ===== Títulos de página: Anton (fuente libre, licencia OFL) =====
+   Titular muy grueso, compacto y condensado, en mayúsculas. Para los titulares grandes con mucha actitud (los h1:
+   portada, títulos de página, nombres de proyecto y títulos de notas); en mayúsculas los cuatro títulos de página
+   (PROYECTOS, EL ESTUDIO, IDEAS, TRABAJEMOS JUNTOS). El resto de titulares y textos usan Barlow. Alojada en la
+   propia web (public/fonts), un solo peso. «font-synthesis: none» evita que el navegador engorde
+   artificialmente un peso que no existe. */
+@font-face {
+  font-family: "Anton"; font-style: normal; font-weight: 400; font-display: swap; size-adjust: 108%;
+  src: url("/fonts/anton-latin.woff2") format("woff2");
+  unicode-range: U+0000-00FF, U+0131, U+0152-0153, U+02BB-02BC, U+02C6, U+02DA, U+02DC, U+0304, U+0308, U+0329, U+2000-206F, U+20AC, U+2122, U+2191, U+2193, U+2212, U+2215, U+FEFF, U+FFFD;
+}
+@font-face {
+  font-family: "Anton"; font-style: normal; font-weight: 400; font-display: swap; size-adjust: 108%;
+  src: url("/fonts/anton-latinext.woff2") format("woff2");
+  unicode-range: U+0100-02BA, U+02BD-02C5, U+02C7-02CC, U+02CE-02D7, U+02DD-02FF, U+0304, U+0308, U+0329, U+1D00-1DBF, U+1E00-1E9F, U+1EF2-1EFF, U+2020, U+20A0-20AB, U+20AD-20C4, U+2113, U+2C60-2C7F, U+A720-A7FF;
+}
+:root { --font-display: "Anton", var(--font-text); }
+h1 { font-family: var(--font-display); font-weight: 400 !important; font-synthesis: none; letter-spacing: .005em !important; }
+.archive-intro h1, .jbv2-hero h1, .jbce-intro h1, .thinking-intro h1 { text-transform: uppercase; }
+/* Móvil: tamaño ajustado para que los títulos no se salgan de la pantalla. */
+@media (max-width: 760px) {
+  .archive-intro h1, .jbv2-hero h1, .thinking-intro h1 { font-size: clamp(38px, 15vw, 60px) !important; }
+}
+
+/* ===== Textos, descripciones de proyectos y navegación: Barlow (fuente libre, licencia OFL) =====
+   Alojada en la propia web (public/fonts), pesos 400, 500, 600 y 700, en dos tramos cada uno: latín y latín
+   ampliado (acentos, ñ, ¿ y ¡). */
+@font-face { font-family: "Barlow"; font-style: normal; font-weight: 400; font-display: swap; src: url("/fonts/barlow-400-latin.woff2") format("woff2"); unicode-range: U+0000-00FF, U+0131, U+0152-0153, U+02BB-02BC, U+02C6, U+02DA, U+02DC, U+0304, U+0308, U+0329, U+2000-206F, U+20AC, U+2122, U+2191, U+2193, U+2212, U+2215, U+FEFF, U+FFFD; }
+@font-face { font-family: "Barlow"; font-style: normal; font-weight: 400; font-display: swap; src: url("/fonts/barlow-400-latinext.woff2") format("woff2"); unicode-range: U+0100-02BA, U+02BD-02C5, U+02C7-02CC, U+02CE-02D7, U+02DD-02FF, U+0304, U+0308, U+0329, U+1D00-1DBF, U+1E00-1E9F, U+1EF2-1EFF, U+2020, U+20A0-20AB, U+20AD-20C4, U+2113, U+2C60-2C7F, U+A720-A7FF; }
+@font-face { font-family: "Barlow"; font-style: normal; font-weight: 500; font-display: swap; src: url("/fonts/barlow-500-latin.woff2") format("woff2"); unicode-range: U+0000-00FF, U+0131, U+0152-0153, U+02BB-02BC, U+02C6, U+02DA, U+02DC, U+0304, U+0308, U+0329, U+2000-206F, U+20AC, U+2122, U+2191, U+2193, U+2212, U+2215, U+FEFF, U+FFFD; }
+@font-face { font-family: "Barlow"; font-style: normal; font-weight: 500; font-display: swap; src: url("/fonts/barlow-500-latinext.woff2") format("woff2"); unicode-range: U+0100-02BA, U+02BD-02C5, U+02C7-02CC, U+02CE-02D7, U+02DD-02FF, U+0304, U+0308, U+0329, U+1D00-1DBF, U+1E00-1E9F, U+1EF2-1EFF, U+2020, U+20A0-20AB, U+20AD-20C4, U+2113, U+2C60-2C7F, U+A720-A7FF; }
+@font-face { font-family: "Barlow"; font-style: normal; font-weight: 600; font-display: swap; src: url("/fonts/barlow-600-latin.woff2") format("woff2"); unicode-range: U+0000-00FF, U+0131, U+0152-0153, U+02BB-02BC, U+02C6, U+02DA, U+02DC, U+0304, U+0308, U+0329, U+2000-206F, U+20AC, U+2122, U+2191, U+2193, U+2212, U+2215, U+FEFF, U+FFFD; }
+@font-face { font-family: "Barlow"; font-style: normal; font-weight: 600; font-display: swap; src: url("/fonts/barlow-600-latinext.woff2") format("woff2"); unicode-range: U+0100-02BA, U+02BD-02C5, U+02C7-02CC, U+02CE-02D7, U+02DD-02FF, U+0304, U+0308, U+0329, U+1D00-1DBF, U+1E00-1E9F, U+1EF2-1EFF, U+2020, U+20A0-20AB, U+20AD-20C4, U+2113, U+2C60-2C7F, U+A720-A7FF; }
+@font-face { font-family: "Barlow"; font-style: normal; font-weight: 700; font-display: swap; src: url("/fonts/barlow-700-latin.woff2") format("woff2"); unicode-range: U+0000-00FF, U+0131, U+0152-0153, U+02BB-02BC, U+02C6, U+02DA, U+02DC, U+0304, U+0308, U+0329, U+2000-206F, U+20AC, U+2122, U+2191, U+2193, U+2212, U+2215, U+FEFF, U+FFFD; }
+@font-face { font-family: "Barlow"; font-style: normal; font-weight: 700; font-display: swap; src: url("/fonts/barlow-700-latinext.woff2") format("woff2"); unicode-range: U+0100-02BA, U+02BD-02C5, U+02C7-02CC, U+02CE-02D7, U+02DD-02FF, U+0304, U+0308, U+0329, U+1D00-1DBF, U+1E00-1E9F, U+1EF2-1EFF, U+2020, U+20A0-20AB, U+20AD-20C4, U+2113, U+2C60-2C7F, U+A720-A7FF; }
