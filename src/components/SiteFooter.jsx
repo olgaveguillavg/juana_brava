@@ -40,7 +40,7 @@ export function SiteFooter({ signature = false }) {
           <div className="footer-main">
             {!signature && (
               <a className="footer-brand" href="/" aria-label="Juana Brava, inicio">
-                <img src="/brand/logo-integrado-clean.svg" alt="Juana Brava" width="1569" height="1836" loading="lazy" />
+                <img src="/brand/logo-integrado.png" alt="Juana Brava" width="560" height="711" loading="lazy" />
               </a>
             )}
             <div className="footer-contact">
@@ -58,7 +58,7 @@ export function SiteFooter({ signature = false }) {
           </div>
           {signature && (
             <a className="footer-signature reveal" href="/" aria-label="Juana Brava, inicio">
-              <img src="/brand/logo-horizontal-clean.svg" alt="Juana Brava, agencia creativa" width="1901" height="728" loading="lazy" />
+              <img src="/brand/logo-horizontal.png" alt="Juana Brava, agencia creativa" width="820" height="379" loading="lazy" />
             </a>
           )}
           <FooterBar />

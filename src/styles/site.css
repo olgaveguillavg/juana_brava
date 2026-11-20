@@ -1349,10 +1349,10 @@ html[data-case-opening="closing"] .case-hero-image{animation:none!important;}
 .jb-filter-labwrap{display:inline-flex;align-items:center;gap:9px;white-space:nowrap;}
 .jb-filter-lab{font-size:40px!important;}
 .jb-filter-labmark{width:29px;height:29px;display:inline-block;flex:0 0 29px;background-repeat:no-repeat;background-size:contain;background-position:center;
- background-image:url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 64 64'%3E%3Cg fill='none' stroke='%23a7241f' stroke-width='5' stroke-linecap='square'%3E%3Cpath d='M4 18V4h14'/%3E%3Cpath d='M60 18V4H46'/%3E%3Cpath d='M4 46v14h14'/%3E%3Cpath d='M60 46v14H46'/%3E%3Cpath d='M32 20v24M20 32h24'/%3E%3C/g%3E%3C/svg%3E");
+ background-image:url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 64 64'%3E%3Cg fill='none' stroke='%239c2425' stroke-width='5' stroke-linecap='square'%3E%3Cpath d='M4 18V4h14'/%3E%3Cpath d='M60 18V4H46'/%3E%3Cpath d='M4 46v14h14'/%3E%3Cpath d='M60 46v14H46'/%3E%3Cpath d='M32 20v24M20 32h24'/%3E%3C/g%3E%3C/svg%3E");
  transition:transform .3s cubic-bezier(.2,.7,.2,1),opacity .25s ease;opacity:1;}
 .jb-filter-trigger:hover .jb-filter-labmark{transform:translateY(-1px);opacity:.9;}
-.jb-filter-trigger[data-active="true"] .jb-filter-labmark{background-image:url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 64 64'%3E%3Cg fill='none' stroke='%23a7241f' stroke-width='5' stroke-linecap='square'%3E%3Cpath d='M4 18V4h14'/%3E%3Cpath d='M60 18V4H46'/%3E%3Cpath d='M4 46v14h14'/%3E%3Cpath d='M60 46v14H46'/%3E%3Cpath d='M32 20v24M20 32h24'/%3E%3C/g%3E%3C/svg%3E");}
+.jb-filter-trigger[data-active="true"] .jb-filter-labmark{background-image:url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 64 64'%3E%3Cg fill='none' stroke='%239c2425' stroke-width='5' stroke-linecap='square'%3E%3Cpath d='M4 18V4h14'/%3E%3Cpath d='M60 18V4H46'/%3E%3Cpath d='M4 46v14h14'/%3E%3Cpath d='M60 46v14H46'/%3E%3Cpath d='M32 20v24M20 32h24'/%3E%3C/g%3E%3C/svg%3E");}
 @media(max-width:700px){.jb-filter-lab{font-size:36px!important;}.jb-filter-labmark{width:25px;height:25px;flex-basis:25px;}}
 
 .jb-filter-trigger:focus-visible{outline:2px solid var(--red)!important;outline-offset:3px;}

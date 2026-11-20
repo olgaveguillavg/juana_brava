@@ -53,7 +53,7 @@ export function SiteHeader({ tone: t = "light", active: e = "" }) {
       </a>
       <header ref={headerRef} id="inicio" className={"site-header header-" + t + (a ? " menu-is-open" : "")}>
         <a href="/" className="brand" aria-label="Juana Brava, inicio">
-          <img src="/brand/logo-horizontal-clean.svg" alt="Juana Brava, agencia creativa" width="1901" height="728" />
+          <img src="/brand/logo-horizontal.png" alt="Juana Brava, agencia creativa" width="820" height="379" />
         </a>
         <nav className="desktop-nav" aria-label="Navegación principal">
           {[["Inicio", "/"], ...i.slice(0, 3)].map(([o, c]) => (

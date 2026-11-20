@@ -233,7 +233,7 @@ export function JBContactPage() {
           </section>
           <footer className="jbce-footer">
             <a href="/" className="jbce-footer-logo" aria-label="Juana Brava, volver al inicio">
-              <img src="/brand/logo-horizontal-clean.svg" alt="Juana Brava" loading="lazy" />
+              <img src="/brand/logo-horizontal.png" alt="Juana Brava" loading="lazy" />
             </a>
             <FooterBar />
           </footer>
