@@ -1,0 +1,5 @@
+Space Grotesk (variable, peso 300-700)
+Copyright 2020 The Space Grotesk Project Authors (https://github.com/floriankarsten/space-grotesk)
+Licencia: SIL Open Font License, Version 1.1 — https://scripts.sil.org/OFL
+Fuente libre: se puede usar, incrustar y redistribuir, también con fines comerciales.
+Descargada de Google Fonts (https://fonts.google.com/specimen/Space+Grotesk).

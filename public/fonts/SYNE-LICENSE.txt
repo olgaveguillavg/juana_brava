@@ -1,0 +1,5 @@
+Syne (variable, peso 400-800)
+Copyright 2017 The Syne Project Authors (https://gitlab.com/bonjour-monde/fonderie/syne-typeface)
+Licencia: SIL Open Font License, Version 1.1 — https://scripts.sil.org/OFL
+Fuente libre: se puede usar, incrustar y redistribuir, también con fines comerciales.
+Descargada de Google Fonts (https://fonts.google.com/specimen/Syne).
