@@ -261,14 +261,17 @@ th{letter-spacing:.045em;text-transform:uppercase}
 .login{max-width:380px;margin:12vh auto;padding:0 22px;display:grid;gap:6px}
 .login h1{font:400 56px/1.05 var(--display);text-transform:uppercase;color:var(--accent)}
 .login p{margin-bottom:12px}
+.remember{display:flex;align-items:center;gap:9px;margin:2px 0 14px;font-size:14px;cursor:pointer}
+.remember input{width:17px;height:17px;margin:0;accent-color:var(--accent)}
 </style>
 </head>
 <body>
 <form id="login" class="login" hidden>
   <h1>Juana Brava</h1>
   <p>Entra para gestionar las publicaciones de Ideas.</p>
-  <label class="form-group"><span class="label">Correo</span><input class="field" id="login-email" type="email" autocomplete="username" required></label>
-  <label class="form-group"><span class="label">Contraseña</span><input class="field" id="login-pass" type="password" autocomplete="current-password" required></label>
+  <label class="form-group"><span class="label">Correo</span><input class="field" id="login-email" name="email" type="email" autocomplete="username" required></label>
+  <label class="form-group"><span class="label">Contraseña</span><input class="field" id="login-pass" name="password" type="password" autocomplete="current-password" required></label>
+  <label class="remember"><input type="checkbox" id="login-remember" checked> Recordarme en este ordenador</label>
   <button class="btn primary" type="submit">Entrar</button>
   <p class="error" id="login-error" role="alert" hidden></p>
 </form>
@@ -433,12 +436,25 @@ function demo(){
 // La clave "publishable" es pública: quién puede leer y escribir lo deciden los permisos de la base de datos.
 const CLOUD_URL='https://jkksnyueshgqnjaodukj.supabase.co';
 const CLOUD_KEY='sb_publishable_63Uodmg8t0ADdV3jplKUKg_CxjcztNW';
-const SESSION='juana-brava-cms-sesion';
+const SESSION='juana-brava-cms-sesion',EMAIL='juana-brava-cms-correo';
 let session=null,synced=new Map(),queue=Promise.resolve();
-try{session=JSON.parse(localStorage.getItem(SESSION));}catch{}
+let remember=true,renewing=null;
+function storedSession(){
+  try{
+    const tab=sessionStorage.getItem(SESSION);
+    if(tab){remember=false;return JSON.parse(tab);}
+    const kept=localStorage.getItem(SESSION);
+    if(kept){remember=true;return JSON.parse(kept);}
+  }catch{}
+  return null;
+}
+session=storedSession();
 function saveSession(next){
   session=next;
-  try{if(next)localStorage.setItem(SESSION,JSON.stringify(next));else localStorage.removeItem(SESSION);}catch{}
+  try{
+    localStorage.removeItem(SESSION);sessionStorage.removeItem(SESSION);
+    if(next)(remember?localStorage:sessionStorage).setItem(SESSION,JSON.stringify(next));
+  }catch{}
 }
 async function authRequest(grant,body){
   const res=await fetch(CLOUD_URL+'/auth/v1/token?grant_type='+grant,{method:'POST',headers:{apikey:CLOUD_KEY,'Content-Type':'application/json'},body:JSON.stringify(body)});
@@ -446,11 +462,20 @@ async function authRequest(grant,body){
   if(!res.ok){const error=new Error(json.error_description||json.msg||'No se pudo entrar.');error.status=res.status;throw error;}
   saveSession({access:json.access_token,refresh:json.refresh_token,until:Date.now()+(json.expires_in-60)*1000,email:json.user?.email});
 }
+function renew(){
+  const run=async()=>{
+    const latest=storedSession();
+    if(latest&&latest.refresh!==session?.refresh){session=latest;if(Date.now()<session.until)return;}
+    await authRequest('refresh_token',{refresh_token:session.refresh});
+  };
+  renewing ||= (navigator.locks?navigator.locks.request(SESSION,run):run()).finally(()=>{renewing=null;});
+  return renewing;
+}
 async function api(path,options={}){
   if(!session)throw new Error('Sesión cerrada.');
   if(Date.now()>session.until){
-    try{await authRequest('refresh_token',{refresh_token:session.refresh});}
-    catch(error){if(error.status&&error.status<500){saveSession(null);showLogin('La sesión ha caducado. Vuelve a entrar.');}throw error;}
+    try{await renew();}
+    catch(error){if([400,401,403].includes(error.status)){saveSession(null);showLogin('La sesión ha caducado. Vuelve a entrar.');}throw error;}
   }
   const res=await fetch(CLOUD_URL+path,{...options,headers:{apikey:CLOUD_KEY,Authorization:'Bearer '+session.access,...options.headers}});
   if(!res.ok)throw new Error('Error '+res.status+': '+(await res.text()).slice(0,200));
@@ -1316,6 +1341,8 @@ const login=document.querySelector('#login');
 function showLogin(message=''){
   login.hidden=false;document.querySelector('.layout').hidden=true;
   const error=document.querySelector('#login-error');error.textContent=message;error.hidden=!message;
+  const email=document.querySelector('#login-email');
+  try{email.value ||= localStorage.getItem(EMAIL)||'';}catch{}
 }
 async function enter(){
   await load();
@@ -1327,8 +1354,13 @@ login.addEventListener('submit',async event=>{
   event.preventDefault();event.stopPropagation();
   const button=login.querySelector('button');button.disabled=true;
   try{
-    await authRequest('password',{email:document.querySelector('#login-email').value.trim(),password:document.querySelector('#login-pass').value});
-    document.querySelector('#login-pass').value='';
+    const email=document.querySelector('#login-email').value.trim(),field=document.querySelector('#login-pass'),password=field.value;
+    remember=document.querySelector('#login-remember').checked;
+    await authRequest('password',{email,password});
+    try{if(remember)localStorage.setItem(EMAIL,email);else localStorage.removeItem(EMAIL);}catch{}
+    // La contraseña no la guarda el panel: se le ofrece al gestor de contraseñas del navegador.
+    if(remember&&window.PasswordCredential)navigator.credentials.store(new PasswordCredential({id:email,password,name:'Juana Brava CMS'})).catch(()=>{});
+    field.value='';
     await enter();
   }catch(error){
     showLogin(error.status===400?'El correo o la contraseña no son correctos.':'No se pudo conectar. Inténtalo de nuevo.');

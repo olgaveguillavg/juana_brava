@@ -19,10 +19,15 @@ begin
   if (tg_op = 'DELETE' and old.publicada is not null)
      or (tg_op = 'INSERT' and new.publicada is not null)
      or (tg_op = 'UPDATE' and new.publicada is distinct from old.publicada) then
-    select valor into hook from public.ajustes where clave = 'deploy_hook';
-    if hook is not null then
-      perform net.http_post(url := hook);
-    end if;
+    -- Un fallo en el aviso nunca debe impedir publicar o borrar.
+    begin
+      select valor into hook from public.ajustes where clave = 'deploy_hook';
+      if hook like 'https://api.vercel.com/v1/integrations/deploy/%' then
+        perform net.http_post(url := hook);
+      end if;
+    exception when others then
+      raise warning 'No se pudo avisar a la web';
+    end;
   end if;
   return null;
 end;
