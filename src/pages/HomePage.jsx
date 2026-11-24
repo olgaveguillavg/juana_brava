@@ -16,7 +16,7 @@ export function HomePage() {
         <section className="hero" aria-label="El universo visual de Juana Brava">
           <img
             className="hero-image"
-            src="/brand/hero.png"
+            src="/brand/hero.jpg"
             alt="Campaña conceptual de Juana Brava: gafas rojas, chaqueta roja y blanca y cielo azul"
             width="1672"
             height="941"

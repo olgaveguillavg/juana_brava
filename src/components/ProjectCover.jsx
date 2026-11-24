@@ -249,7 +249,7 @@ export function ProjectCover({ project: t, mode: e = 0, compact: a = false }) {
                 <span>Proyectos   Servicios   Estudio</span>
               </div>
               <div className="agency-screen-hero">
-                <img src="/brand/hero.png" alt="" />
+                <img src="/brand/hero.jpg" alt="" />
                 <span>
                   VER
                   <br />

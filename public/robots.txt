@@ -1,5 +1,23 @@
-# Toda la web es pública, también para buscadores e IA. El panel de publicaciones queda fuera.
+# Toda la web es pública, también para buscadores e IA. Solo el panel de publicaciones queda fuera.
 User-agent: *
+Allow: /
+Disallow: /cms.html
+
+# Buscadores e IA, permitidos expresamente
+User-agent: Googlebot
+User-agent: Google-Extended
+User-agent: Bingbot
+User-agent: GPTBot
+User-agent: OAI-SearchBot
+User-agent: ChatGPT-User
+User-agent: ClaudeBot
+User-agent: Claude-SearchBot
+User-agent: Claude-User
+User-agent: PerplexityBot
+User-agent: Perplexity-User
+User-agent: Applebot
+User-agent: Applebot-Extended
+User-agent: DuckDuckBot
 Allow: /
 Disallow: /cms.html
 

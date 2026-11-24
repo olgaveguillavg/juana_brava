@@ -225,7 +225,7 @@ export function JBContactPage() {
           <section className="jbce-visual-end" aria-label="Universo visual de Juana Brava">
             <div className="jbce-panorama">
               <img
-                src="/brand/hero.png"
+                src="/brand/hero.jpg"
                 alt="Imagen editorial de Juana Brava con estilismo rojo y cielo azul"
                 loading="lazy"
               />

@@ -25,7 +25,7 @@ export const ideas = [
     iso: "2026-10-11",
     title: "Una identidad no termina en el logo.",
     excerpt: "Cómo pensar sistemas visuales que pasan del tono a la interfaz y de la campaña al producto.",
-    image: "/brand/hero.png",
+    image: "/brand/hero.jpg",
     imageAlt: "Universo visual de Juana Brava: gafas rojas, chaqueta roja y blanca y cielo azul",
     caption: "Juana Brava: la identidad aplicada a su propio universo visual.",
     body: [

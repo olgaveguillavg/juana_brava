@@ -4,6 +4,14 @@ import { JBEditorialOpening } from "./lib/editorialOpening.js";
 import { normalizeHref, parseRoute } from "./lib/router.js";
 import "./styles/site.css";
 
+// Las páginas tienen dirección propia (/estudio, /ideas/…) para buscadores e IA; dentro de la web la
+// navegación sigue con #!. Se cambia la dirección sin recargar ni redirigir.
+const initialPath = location.pathname.replace(/\/$/, "");
+if (!location.hash.startsWith("#!") && initialPath) {
+  const section = location.hash.slice(1);
+  history.replaceState(null, "", "/#!" + initialPath + (section ? "?section=" + encodeURIComponent(section) : ""));
+}
+
 const appRoot = document.getElementById("app");
 // El texto estático del HTML (para lectores sin JavaScript) se retira antes de montar la web.
 appRoot.replaceChildren();
