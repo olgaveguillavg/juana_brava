@@ -5,6 +5,8 @@ import { normalizeHref, parseRoute } from "./lib/router.js";
 import "./styles/site.css";
 
 const appRoot = document.getElementById("app");
+// El texto estático del HTML (para lectores sin JavaScript) se retira antes de montar la web.
+appRoot.replaceChildren();
 
 const normalizeAnchorHref = (t) => {
   let e = t.getAttribute("href") || "",

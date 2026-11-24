@@ -25,6 +25,20 @@ const escapeHtml = (value) =>
 
 const parse = (html) => new DOMParser().parseFromString(html || "", "text/html").body;
 
+// Fuera del navegador (al compilar) solo se necesita el texto, sin formato.
+const plainBlocks = (block) =>
+  String(block.html || "")
+    .replace(/<br\s*\/?>|<\/(div|p|li)>/g, "\n")
+    .replace(/<[^>]*>/g, "")
+    .replace(/&nbsp;/g, " ")
+    .replace(/&lt;/g, "<")
+    .replace(/&gt;/g, ">")
+    .replace(/&quot;/g, '"')
+    .replace(/&amp;/g, "&")
+    .split("\n")
+    .filter((line) => line.trim())
+    .map((text) => ({ type: block.style === "h2" || block.style === "h3" ? "h2" : block.style === "quote" ? "quote" : "p", text }));
+
 // Solo se conserva el formato que ofrece el editor: negrita, cursiva, enlaces y saltos de línea.
 function clean(node) {
   if (node.nodeType === 3) return escapeHtml(node.textContent);
@@ -42,6 +56,7 @@ function clean(node) {
 }
 
 function textBlocks(block) {
+  if (typeof DOMParser === "undefined") return plainBlocks(block);
   const body = parse(block.html);
   const text = body.textContent.trim();
   if (!text) return [];
@@ -111,18 +126,24 @@ function toNote(row) {
   };
 }
 
-// `ideas` se actualiza en su sitio y se avisa a la aplicación para que vuelva a pintar.
-export async function loadCloudIdeas(onChange) {
+// `ideas` se actualiza en su sitio. Devuelve true si había notas publicadas.
+export async function addPublishedIdeas() {
   try {
     const res = await fetch(CLOUD_URL + "/rest/v1/ideas_publicas?select=*", { headers: { apikey: CLOUD_KEY } });
-    if (!res.ok) return;
+    if (!res.ok) return false;
     const notes = (await res.json()).filter((row) => row.contenido?.slug).map(toNote);
-    if (!notes.length) return;
+    if (!notes.length) return false;
     const merged = [...notes, ...ideas.filter((local) => !notes.some((n) => n.slug === local.slug))];
     merged.sort((a, b) => b.iso.localeCompare(a.iso));
     ideas.splice(0, ideas.length, ...merged);
-    onChange();
+    return true;
   } catch {
     // Sin conexión, la web sigue mostrando las notas incluidas en el código.
+    return false;
   }
+}
+
+// Avisa a la aplicación para que vuelva a pintar.
+export async function loadCloudIdeas(onChange) {
+  if (await addPublishedIdeas()) onChange();
 }

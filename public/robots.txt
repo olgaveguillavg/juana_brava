@@ -1,0 +1,6 @@
+# Toda la web es pública, también para buscadores e IA. El panel de publicaciones queda fuera.
+User-agent: *
+Allow: /
+Disallow: /cms.html
+
+Sitemap: https://www.juanabrava.com/sitemap.xml

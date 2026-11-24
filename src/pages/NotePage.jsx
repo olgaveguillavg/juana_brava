@@ -133,7 +133,7 @@ function Share({ title }) {
   return (
     <div className="nf-share">
       <a
-        href={"https://www.linkedin.com/sharing/share-offsite/?url=" + encodeURIComponent(window.location.href)}
+        href={"https://www.linkedin.com/sharing/share-offsite/?url=" + encodeURIComponent(typeof window === "undefined" ? "" : window.location.href)}
         target="_blank"
         rel="noreferrer"
         aria-label={"Compartir en LinkedIn: " + title}
