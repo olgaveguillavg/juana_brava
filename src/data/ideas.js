@@ -6,7 +6,11 @@
  *   { type: "p", text }                     párrafo
  *   { type: "h2", text }                    subtítulo
  *   { type: "quote", text }                 cita destacada (termina con el punto rojo de la marca)
- *   { type: "figure", src, alt, caption }   imagen intercalada con pie de foto
+ *   { type: "figure", src, alt, caption }   imagen a todo el ancho con pie de foto
+ *   { type: "duo", images }                 pareja de fotos escalonadas ({ src, alt, caption })
+ *   { type: "swatches", colors }            muestrario de colores ({ name, hex, ink })
+ *   { type: "steps", steps }                pasos numerados ({ title, text, src, alt })
+ * En las notas de opinión la cita se muestra como frase gigante a todo el ancho.
  *
  * Para añadir una nota nueva basta con copiar una de estas y cambiar el contenido; la ficha, el
  * listado de Ideas y «Más ideas» se actualizan solos.
@@ -15,6 +19,7 @@ export const ideas = [
   {
     slug: "una-identidad-no-termina-en-el-logo",
     label: "Práctica",
+    type: "identity",
     topic: "Identidad / Sistemas",
     date: "11 oct 2026",
     iso: "2026-10-11",
@@ -57,11 +62,14 @@ export const ideas = [
         type: "p",
         text: "La pregunta que nos hacemos al cerrar una identidad es sencilla: si quitamos el logo, ¿se sigue reconociendo? Si la respuesta es sí, el sistema funciona.",
       },
+      { type: "swatches", colors: [{ name: "Ácido", hex: "#D9F23C", ink: "#111111"},{ name: "Burdeos", hex: "#5A1220", ink: "#ffffff"},{ name: "Negro", hex: "#111111", ink: "#ffffff"},{ name: "Papel", hex: "#E0DBD0", ink: "#111111"}] },
+      { type: "duo", images: [{ src: "/brand/pulso.webp", alt: "Cartel", caption: "Cartel"},{ src: "/brand/umbral.webp", alt: "Pantalla", caption: "Pantalla"}] },
     ],
   },
   {
     slug: "ia-criterio-y-direccion-de-arte",
     label: "Notas",
+    type: "note",
     topic: "Campaña e IA",
     date: "8 oct 2026",
     iso: "2026-10-08",
@@ -94,11 +102,14 @@ export const ideas = [
         type: "p",
         text: "Usamos la IA para explorar, producir más rápido y automatizar tareas repetitivas. No la usamos para sustituir la conversación con la marca, la idea de partida ni la última revisión. La IA amplía nuestras herramientas; la dirección creativa la ponemos nosotras.",
       },
+      { type: "duo", images: [{ src: "/brand/fuga.webp", alt: "Prueba de color", caption: "Prueba de color"},{ src: "/brand/bruma.webp", alt: "Textura", caption: "Textura"}] },
+      { type: "duo", images: [{ src: "/brand/sobremesa.webp", alt: "Espacio", caption: "Espacio"},{ src: "/brand/pulso.webp", alt: "Cartel", caption: "Cartel"}] },
     ],
   },
   {
     slug: "webs-que-cuentan-antes-de-vender",
     label: "Opinión",
+    type: "opinion",
     topic: "Web y producto",
     date: "2 oct 2026",
     iso: "2026-10-02",
@@ -139,6 +150,7 @@ export const ideas = [
   {
     slug: "disenar-movimiento-con-intencion",
     label: "Proceso",
+    type: "process",
     topic: "Dirección de arte",
     date: "24 sept 2026",
     iso: "2026-09-24",
@@ -167,6 +179,7 @@ export const ideas = [
         type: "p",
         text: "Los detalles marcan la diferencia: la duración, la curva de aceleración y el orden en que aparecen los elementos. Preferimos movimientos cortos y suaves, que terminen antes de que nadie tenga que esperar, y siempre respetamos a quien prefiere reducir el movimiento en su dispositivo.",
       },
+      { type: "steps", steps: [{ title: "Preguntar", text: "¿Ayuda a entender dónde estás y a dónde vas?", src: "/brand/umbral.webp", alt: ""},{ title: "Probar", text: "Duración, curva de aceleración y orden de entrada.", src: "/brand/bruma.webp", alt: ""},{ title: "Quitar", text: "Si una animación no explica nada, sobra.", src: "/brand/fuga.webp", alt: ""}] },
     ],
   },
 ];
