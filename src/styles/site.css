@@ -3733,3 +3733,8 @@ html[data-note-head="ink"] .site-header:not(.menu-is-open) .menu-toggle > span {
 }
 .nf-sign { margin-top: 40px; padding-top: 18px; border-top: 1px solid var(--note-line); font-size: 14px; color: var(--note-muted); }
 @media (min-width: 761px) { .nf-cover .nf-photo img { object-position: 50% 30%; } }
+
+/* Texto para lectores de pantalla y buscadores, sin presencia visual */
+.hero-copy h1.sr-only, .sr-only { position: absolute !important; width: 1px; height: 1px; margin: -1px; overflow: hidden; clip-path: inset(50%); white-space: nowrap; }
+/* Sin lema en la portada, la entradilla se queda a la derecha como antes */
+@media (min-width: 761px) { .hero-copy .hero-sub { margin-left: auto; } }

@@ -226,7 +226,7 @@ export function ProjectCover({ project: t, mode: e = 0, compact: a = false }) {
             <div className="jb-identity">
               <img className="jb-identity-logo" src="/brand/logo-horizontal.png" alt="" />
               <div className="jb-identity-line">
-                <span>IDEAS SIN PERMISO.</span>
+                <span>AGENCIA CREATIVA</span>
                 <img src="/brand/monograma.png" alt="" />
               </div>
               <div className="jb-swatches">

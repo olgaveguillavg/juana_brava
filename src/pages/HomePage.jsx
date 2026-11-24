@@ -6,7 +6,7 @@ import { WorkSelection } from "../components/WorkSelection.jsx";
 
 /*
  * Orden de la portada (inspirado en anonima.es):
- * lema → manifiesto (rojo, a pantalla completa) → trabajos → qué hacemos → quiénes somos → cierre (rojo).
+ * portada → manifiesto (rojo, a pantalla completa) → trabajos → qué hacemos → quiénes somos → cierre (rojo).
  * Cada bloque tiene una composición distinta para que la página no parezca hecha con una sola plantilla.
  */
 export function HomePage() {
@@ -24,7 +24,7 @@ export function HomePage() {
           />
           <div className="hero-shade" />
           <div className="hero-copy">
-            <h1 id="intro-title">Ideas sin permiso.</h1>
+            <h1 id="intro-title" className="sr-only">Juana Brava. Agencia creativa</h1>
             <p className="hero-sub">
               Agencia creativa en Barcelona. Diseñamos lo que una marca cuenta y cómo se ve.
             </p>

@@ -91,8 +91,6 @@ export function SiteHeader({ tone: t = "light", active: e = "" }) {
           </a>
         ))}
         <span className="menu-foot">
-          Ideas sin permiso.
-          <br />
           Barcelona.
         </span>
       </nav>

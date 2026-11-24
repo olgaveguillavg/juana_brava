@@ -26,7 +26,7 @@ try {
   await addPublishedIdeas();
 
   const pages = [
-    { path: "/", title: "Juana Brava — Ideas sin permiso" },
+    { path: "/", title: "Juana Brava. Agencia creativa" },
     { path: "/proyectos", title: "Proyectos — Juana Brava" },
     { path: "/estudio", title: "Estudio — Juana Brava" },
     { path: "/ideas", title: "Ideas — Juana Brava" },

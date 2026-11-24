@@ -541,7 +541,7 @@ export function JBStudioPage() {
         </section>
         <section className="jbv2-finale">
           <div className="wrap jbv2-finale-inner">
-            <span className="jbv2-reveal jbv3-text-reveal">IDEAS SIN PERMISO.</span>
+            <span className="jbv2-reveal jbv3-text-reveal">LO HACEMOS POSIBLE</span>
             <h2 className="jbv2-reveal jbv3-text-reveal">¿Y si hacemos algo que merezca la pena recordar?</h2>
             <div className="jbv2-finale-actions">
               <a href="/contacto">
