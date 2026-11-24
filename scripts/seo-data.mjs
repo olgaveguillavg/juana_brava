@@ -30,7 +30,7 @@ export const PAGES = [
   {
     path: "/",
     name: "Inicio",
-    title: "Juana Brava. Agencia creativa",
+    title: "Juana Brava · Agencia creativa en Barcelona",
     description:
       "Juana Brava es una agencia creativa en Barcelona: identidad de marca, dirección de arte, diseño web, contenido e IA para marcas que quieren diferenciarse.",
   },

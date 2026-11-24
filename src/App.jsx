@@ -103,7 +103,7 @@ export function App({ initialRoute }) {
       ? project.name + " — Juana Brava"
       : idea
         ? idea.title.replace(/\.$/, "") + " — Juana Brava"
-        : (PAGE_TITLES[route.path] ?? "Juana Brava. Agencia creativa");
+        : (PAGE_TITLES[route.path] ?? "Juana Brava · Agencia creativa en Barcelona");
 
     // Carga inicial con #!/…?section=…: coloca la página en su sección.
     if (shown.current === null) {

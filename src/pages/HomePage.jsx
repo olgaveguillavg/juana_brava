@@ -24,7 +24,7 @@ export function HomePage() {
           />
           <div className="hero-shade" />
           <div className="hero-copy">
-            <h1 id="intro-title" className="sr-only">Juana Brava. Agencia creativa</h1>
+            <h1 id="intro-title" className="sr-only">Juana Brava, agencia creativa en Barcelona</h1>
             <p className="hero-sub">
               Agencia creativa en Barcelona. Diseñamos lo que una marca cuenta y cómo se ve.
             </p>
