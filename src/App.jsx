@@ -6,6 +6,7 @@ import { RevealMotion } from "./components/RevealMotion.jsx";
 import { SiteFooter } from "./components/SiteFooter.jsx";
 import { SiteHeader } from "./components/SiteHeader.jsx";
 import { findIdea } from "./data/ideas.js";
+import { loadCloudIdeas } from "./data/cloudIdeas.js";
 import { projects } from "./data/projects.js";
 import { parseRoute } from "./lib/router.js";
 import { startSmoothScroll } from "./lib/smoothScroll.js";
@@ -61,6 +62,12 @@ export function App({ initialRoute }) {
   current.current = route;
   const shown = useRef(null); // ruta cuya posición de scroll ya está aplicada
 
+  // Notas publicadas desde el CMS: cuando llegan, se vuelve a pintar Ideas.
+  const [ideasVersion, setIdeasVersion] = useState(0);
+  useEffect(() => {
+    loadCloudIdeas(() => setIdeasVersion((v) => v + 1));
+  }, []);
+
   useEffect(() => {
     const onHashChange = () => {
       const next = parseRoute(window.location.hash);
@@ -104,7 +111,7 @@ export function App({ initialRoute }) {
       shown.current = route;
       return () => cancelAnimationFrame(frame);
     }
-  }, [route.path, route.section]);
+  }, [route.path, route.section, ideasVersion]);
 
   const project = projects.find((item) => route.path === "/proyectos/" + item.slug);
   const note = route.path.startsWith("/ideas/") ? findIdea(route.path.slice(7)) : null;
@@ -139,7 +146,7 @@ export function App({ initialRoute }) {
     <>
       <SiteHeader {...headerFor(route.path)} />
       <Fragment key={route.path}>{page}</Fragment>
-      <RevealMotion key={route.path + "-motion"} />
+      <RevealMotion key={route.path + "-motion-" + ideasVersion} />
       <PortfolioTransitions />
     </>
   );

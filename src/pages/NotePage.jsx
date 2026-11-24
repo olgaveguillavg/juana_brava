@@ -62,6 +62,8 @@ function TextBlock({ block }) {
         <p>{block.text}</p>
       </blockquote>
     );
+  // `html` llega ya saneado desde cloudIdeas.js (solo negrita, cursiva, enlaces y saltos de línea).
+  if (block.html) return <p className="reveal" dangerouslySetInnerHTML={{ __html: block.html }} />;
   return <p className="reveal">{block.text}</p>;
 }
 
@@ -72,6 +74,21 @@ function WideBlock({ block }) {
       <div className="nf-full wrap">
         <Photo src={block.src} alt={block.alt} caption={block.caption} />
       </div>
+    );
+  if (block.type === "video")
+    return (
+      <figure className="nf-figure nf-full wrap">
+        <video src={block.src} controls playsInline preload="metadata" style={{ width: "100%" }} />
+        {block.caption && <figcaption>{block.caption}</figcaption>}
+      </figure>
+    );
+  if (block.type === "link")
+    return (
+      <p className="nf-full wrap">
+        <a href={block.href} target="_blank" rel="noopener noreferrer">
+          Ver la publicación original <Arrow />
+        </a>
+      </p>
     );
   if (block.type === "duo")
     return (
@@ -102,7 +119,7 @@ function WideBlock({ block }) {
               <h3>{step.title}</h3>
               <p>{step.text}</p>
             </div>
-            <Photo src={step.src} alt={step.alt} />
+            {step.src && <Photo src={step.src} alt={step.alt} />}
           </li>
         ))}
       </ol>
@@ -150,6 +167,8 @@ export function NotePage({ note }) {
   const title = note.title.replace(/\.$/, "");
   const others = ideas.filter((n) => n.slug !== note.slug).slice(0, 3);
   const groups = groupBlocks(note.body, note.type);
+  // Sin texto en el cuerpo, la entradilla necesita igualmente su bloque.
+  if (!groups.some((g) => g.text)) groups.unshift({ text: [] });
   const firstText = groups.findIndex((g) => g.text);
 
   useEffect(() => {
@@ -212,9 +231,11 @@ export function NotePage({ note }) {
           </div>
         </header>
 
-        <div className="nf-cover wrap">
-          <Photo src={note.image} alt={note.imageAlt} caption={note.caption} eager />
-        </div>
+        {note.image && (
+          <div className="nf-cover wrap">
+            <Photo src={note.image} alt={note.imageAlt} caption={note.caption} eager />
+          </div>
+        )}
 
         <article>
           {groups.map((group, i) =>

@@ -12,9 +12,6 @@ const TYPES = {
   process: { label: "Proceso", filter: "Procesos", color: "#e5c8c8" },
 };
 
-// Solo aparecen los filtros de tipos que tienen alguna nota.
-const presentTypes = Object.keys(TYPES).filter((key) => ideas.some((idea) => idea.type === key));
-
 function IdeaRow({ idea }) {
   const title = idea.title.replace(/\.$/, "");
   if (idea.type === "opinion") {
@@ -57,6 +54,8 @@ function IdeaRow({ idea }) {
 export function JBThinkingPage() {
   const [filter, setFilter] = useState("all");
   const list = filter === "all" ? ideas : ideas.filter((idea) => idea.type === filter);
+  // Solo aparecen los filtros de tipos que tienen alguna nota.
+  const presentTypes = Object.keys(TYPES).filter((key) => ideas.some((idea) => idea.type === key));
   const filters = [["all", "Todo"], ...presentTypes.map((key) => [key, TYPES[key].filter])];
 
   return (
