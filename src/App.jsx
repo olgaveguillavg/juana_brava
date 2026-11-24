@@ -130,6 +130,9 @@ export function App({ initialRoute }) {
       <CasePage params={{ slug: project.slug }} />
     ) : note ? (
       <NotePage note={note} />
+    ) : route.path.startsWith("/ideas/") && ideasVersion === 0 ? (
+      // Las notas se están cargando: no se muestra «no existe» antes de tiempo.
+      <main id="contenido" style={{ minHeight: "100vh" }} />
     ) : (
       <>
         <main className="archive-page wrap" id="contenido">

@@ -492,7 +492,8 @@ function showToast(message){
   toastNode.hidden=false;
   toastTimer=setTimeout(()=>{toastNode.hidden=true;},4200);
 }
-const mediaUrl=async id=>id?CLOUD_URL+'/storage/v1/object/public/ideas/'+encodeURIComponent(id):'';
+const siteFile=id=>String(id).startsWith('/');
+const mediaUrl=async id=>id?siteFile(id)?id:CLOUD_URL+'/storage/v1/object/public/ideas/'+encodeURIComponent(id):'';
 async function hydrateMedia(){
   for(const node of page.querySelectorAll('[data-file]')){
     const url=await mediaUrl(node.dataset.file);
@@ -614,7 +615,7 @@ function tableRows(){
     return '<tr><td><div class="title-cell">'+art(p,c)+'<div><button data-act="edit" data-id="'+esc(p.id)+'">'+esc(c.title||'Sin título')+'</button><small>'+esc(c.category||TYPES[c.type].category)+'</small></div></div></td>'+
       '<td class="optional-col">'+esc(TYPES[c.type].label)+'</td><td>'+badge(p)+'</td><td>'+esc(time)+'</td>'+
       '<td class="optional-col">'+(p.published?number(viewsIn(p)):'—')+'</td><td><div class="row-actions">'+
-      (p.published?action('Ver','read',{id:p.id,className:'small ghost'}):'')+action('Editar','edit',{id:p.id,className:'small'})+'</div></td></tr>';
+      (p.published?action('Ver','read',{id:p.id,className:'small ghost'}):'')+action('Editar','edit',{id:p.id,className:'small'})+action('Eliminar','delete',{id:p.id,className:'small ghost danger'})+'</div></td></tr>';
   }).join('')};
 }
 function renderPosts(){
@@ -655,7 +656,7 @@ function field(name,label,options={}){
     (options.hint?'<span class="caption">'+esc(options.hint)+'</span>':'')+'</div>';
 }
 function inlineAsset(id){
-  const asset=assetById(id);
+  const asset=assetById(id)||(id&&siteFile(id)?{kind:'image',name:id.split('/').pop()}:null);
   return asset?'<div class="asset-inline">'+(asset.kind==='image'?'<div class="thumb"><img data-file="'+esc(id)+'" alt="" hidden><span class="file-fallback" hidden>Imagen</span></div>':'')+'<span>'+esc(asset.name)+'</span></div>':'<div class="caption asset-inline">Ningún archivo seleccionado.</div>';
 }
 function bfield(block,name,label,placeholder='',lines=0){
@@ -717,7 +718,8 @@ function publishControls(saved){
     (planned?'<p class="caption space">'+esc(dateTime(planned.at))+' · Europe/Madrid</p>':'')+
     action(planned?'Reprogramar':'Programar','schedule')+
     (planned?action('Cancelar programación','unschedule',{className:'ghost danger'}):'')+
-    action(saved?.published?'Publicar cambios ahora':'Publicar ahora','publish',{className:'primary'});
+    action(saved?.published?'Publicar cambios ahora':'Publicar ahora','publish',{className:'primary'})+
+    (saved?action('Eliminar publicación','delete',{id:saved.id,className:'ghost danger'}):'');
 }
 function renderEditor(){
   if(!editor){view='posts';return renderPosts();}
@@ -1140,6 +1142,33 @@ const actions={
   },
   publish:publishModal,
   'confirm-publish':()=>storeEditor('publish'),
+  delete:button=>{
+    const p=byId(button.dataset.id);
+    if(!p)return;
+    openModal('Eliminar publicación','<p>Vas a eliminar «'+esc(displayed(p).title||'Sin título')+'».'+
+      (p.published?' Dejará de verse en la web.':p.scheduled?' Ya no se publicará.':'')+' Esta acción no se puede deshacer.</p>'+
+      '<div class="modal-actions">'+action('Volver','close-modal')+action('Eliminar definitivamente','confirm-delete',{id:p.id,className:'primary'})+'</div>');
+  },
+  'confirm-delete':async button=>{
+    const id=button.dataset.id;
+    button.disabled=true;
+    try{
+      await queue;
+      // La base de datos devuelve lo borrado: así se sabe que de verdad se ha eliminado.
+      const removed=await api('/rest/v1/publicaciones?id=eq.'+encodeURIComponent(id),{method:'DELETE',headers:{Prefer:'return=representation'}});
+      if(!removed?.length&&synced.has(id))throw new Error('Sin cambios');
+    }catch{
+      button.disabled=false;
+      modalError('No se pudo eliminar. Revisa la conexión y vuelve a intentarlo.');
+      return;
+    }
+    data.posts=data.posts.filter(p=>p.id!==id);
+    synced.delete(id);
+    if(editor?.id===id){editor=null;dirty=false;}
+    closeModal();
+    if(view==='editor'||view==='preview'||view==='read')navigate('posts');else render();
+    showToast('Publicación eliminada.');
+  },
   'add-block':()=>openModal('Añadir bloque','<div class="choices">'+blockKinds(editor.content.type).map(id=>action(BLOCKS[id],'append-'+id)).join('')+'</div>'),
   'append-text':()=>addBlock('text'),
   'append-image':()=>addBlock('image'),

@@ -9,7 +9,9 @@ const CLOUD_URL = "https://jkksnyueshgqnjaodukj.supabase.co";
 const CLOUD_KEY = "sb_publishable_63Uodmg8t0ADdV3jplKUKg_CxjcztNW";
 const ZONE = "Europe/Madrid";
 
-const fileUrl = (id) => (id ? CLOUD_URL + "/storage/v1/object/public/ideas/" + encodeURIComponent(id) : "");
+// Los archivos subidos desde el CMS llevan un identificador; las fotos propias de la web, su dirección.
+const fileUrl = (id) =>
+  !id ? "" : id.startsWith("/") ? id : CLOUD_URL + "/storage/v1/object/public/ideas/" + encodeURIComponent(id);
 
 const safeUrl = (raw) => {
   try {
@@ -143,7 +145,8 @@ export async function addPublishedIdeas() {
   }
 }
 
-// Avisa a la aplicación para que vuelva a pintar.
-export async function loadCloudIdeas(onChange) {
-  if (await addPublishedIdeas()) onChange();
+// Avisa a la aplicación cuando termina la consulta, haya notas o no, para que vuelva a pintar.
+export async function loadCloudIdeas(onDone) {
+  await addPublishedIdeas();
+  onDone();
 }

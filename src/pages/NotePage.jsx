@@ -270,6 +270,7 @@ export function NotePage({ note }) {
           </p>
         </article>
 
+        {others.length > 0 && (
         <section className="note-more wrap" aria-labelledby="note-more-title">
           <div className="note-more__top">
             <h2 id="note-more-title">Más ideas</h2>
@@ -292,6 +293,7 @@ export function NotePage({ note }) {
             ))}
           </ul>
         </section>
+        )}
       </main>
       <SiteFooter />
     </>
