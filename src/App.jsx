@@ -1,4 +1,6 @@
 import { Arrow } from "./components/Arrow.jsx";
+import { fichas } from "./casos/index.js";
+import { Ficha } from "./components/Ficha.jsx";
 import { Fragment, useEffect, useRef, useState } from "react";
 import { flushSync } from "react-dom";
 import { PortfolioTransitions } from "./components/PortfolioTransitions.jsx";
@@ -115,6 +117,8 @@ export function App({ initialRoute }) {
 
   const project = projects.find((item) => route.path === "/proyectos/" + item.slug);
   const note = route.path.startsWith("/ideas/") ? findIdea(route.path.slice(7)) : null;
+  // Los proyectos con ficha propia traen su cabecera y su pie.
+  const ficha = project?.ficha ? fichas[project.slug] : null;
   const page =
     route.path === "/" ? (
       <HomePage />
@@ -126,6 +130,8 @@ export function App({ initialRoute }) {
       <JBStudioPage />
     ) : route.path === "/contacto" ? (
       <JBContactPage />
+    ) : ficha ? (
+      <Ficha slug={project.slug} {...ficha} />
     ) : project ? (
       <CasePage params={{ slug: project.slug }} />
     ) : note ? (
@@ -147,7 +153,7 @@ export function App({ initialRoute }) {
 
   return (
     <>
-      <SiteHeader {...headerFor(route.path)} />
+      {!ficha && <SiteHeader {...headerFor(route.path)} />}
       <Fragment key={route.path}>{page}</Fragment>
       <RevealMotion key={route.path + "-motion-" + ideasVersion} />
       <PortfolioTransitions />

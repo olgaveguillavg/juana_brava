@@ -1,0 +1,25 @@
+/* Fuentes de las fichas de proyecto (las mismas que traía cada HTML). */
+@font-face { font-family: "Ficha Anton juana-brava"; font-style: normal; font-weight: 400; font-display: swap; src: url("/casos/comun/anton-912c3c9f.woff2") format("woff2"); }
+@font-face { font-family: "Ficha Syne juana-brava"; font-style: normal; font-weight: 600; font-display: swap; src: url("/casos/comun/syne-da65aa97.woff2") format("woff2"); }
+@font-face { font-family: "Ficha Syne juana-brava"; font-style: normal; font-weight: 700; font-display: swap; src: url("/casos/comun/syne-0d42317c.woff2") format("woff2"); }
+@font-face { font-family: "Ficha Space Grotesk juana-brava"; font-style: normal; font-weight: 400; font-display: swap; src: url("/casos/comun/space-grotesk-1a806675.woff2") format("woff2"); }
+@font-face { font-family: "Ficha Space Grotesk juana-brava"; font-style: normal; font-weight: 600; font-display: swap; src: url("/casos/comun/space-grotesk-49f2dd2d.woff2") format("woff2"); }
+@font-face { font-family: "Ficha Anton vyrk-r01"; font-style: normal; font-weight: 400; font-display: swap; src: url("/casos/comun/anton-912c3c9f.woff2") format("woff2"); }
+@font-face { font-family: "Ficha Syne vyrk-r01"; font-style: normal; font-weight: 600; font-display: swap; src: url("/casos/comun/syne-da65aa97.woff2") format("woff2"); }
+@font-face { font-family: "Ficha Space Grotesk vyrk-r01"; font-style: normal; font-weight: 400; font-display: swap; src: url("/casos/comun/space-grotesk-1a806675.woff2") format("woff2"); }
+@font-face { font-family: "Ficha Space Grotesk vyrk-r01"; font-style: normal; font-weight: 600; font-display: swap; src: url("/casos/comun/space-grotesk-49f2dd2d.woff2") format("woff2"); }
+@font-face { font-family: "Ficha Anton soy-de-moto"; font-style: normal; font-weight: 400; font-display: swap; src: url("/casos/comun/anton-912c3c9f.woff2") format("woff2"); }
+@font-face { font-family: "Ficha Syne soy-de-moto"; font-style: normal; font-weight: 500; font-display: swap; src: url("/casos/comun/syne-7d6fdfe7.woff2") format("woff2"); }
+@font-face { font-family: "Ficha Syne soy-de-moto"; font-style: normal; font-weight: 600; font-display: swap; src: url("/casos/comun/syne-da65aa97.woff2") format("woff2"); }
+@font-face { font-family: "Ficha Syne soy-de-moto"; font-style: normal; font-weight: 700; font-display: swap; src: url("/casos/comun/syne-0d42317c.woff2") format("woff2"); }
+@font-face { font-family: "Ficha Space Grotesk soy-de-moto"; font-style: normal; font-weight: 400; font-display: swap; src: url("/casos/comun/space-grotesk-1a806675.woff2") format("woff2"); }
+@font-face { font-family: "Ficha Space Grotesk soy-de-moto"; font-style: normal; font-weight: 500; font-display: swap; src: url("/casos/comun/space-grotesk-ab486186.woff2") format("woff2"); }
+@font-face { font-family: "Ficha Space Grotesk soy-de-moto"; font-style: normal; font-weight: 600; font-display: swap; src: url("/casos/comun/space-grotesk-49f2dd2d.woff2") format("woff2"); }
+@font-face { font-family: "Ficha Anton marcen-gt"; font-style: normal; font-weight: 400; font-display: swap; src: url("/casos/comun/anton-912c3c9f.woff2") format("woff2"); }
+@font-face { font-family: "Ficha Syne marcen-gt"; font-style: normal; font-weight: 600; font-display: swap; src: url("/casos/comun/syne-da65aa97.woff2") format("woff2"); }
+@font-face { font-family: "Ficha Space Grotesk marcen-gt"; font-style: normal; font-weight: 400; font-display: swap; src: url("/casos/comun/space-grotesk-1a806675.woff2") format("woff2"); }
+@font-face { font-family: "Ficha Space Grotesk marcen-gt"; font-style: normal; font-weight: 600; font-display: swap; src: url("/casos/comun/space-grotesk-49f2dd2d.woff2") format("woff2"); }
+@font-face { font-family: "Ficha Anton segundo-telon"; font-style: normal; font-weight: 400; font-display: swap; src: url("/casos/comun/anton-912c3c9f.woff2") format("woff2"); }
+@font-face { font-family: "Ficha Syne segundo-telon"; font-style: normal; font-weight: 600; font-display: swap; src: url("/casos/comun/syne-da65aa97.woff2") format("woff2"); }
+@font-face { font-family: "Ficha Space Grotesk segundo-telon"; font-style: normal; font-weight: 400; font-display: swap; src: url("/casos/comun/space-grotesk-1a806675.woff2") format("woff2"); }
+@font-face { font-family: "Ficha Space Grotesk segundo-telon"; font-style: normal; font-weight: 600; font-display: swap; src: url("/casos/comun/space-grotesk-49f2dd2d.woff2") format("woff2"); }

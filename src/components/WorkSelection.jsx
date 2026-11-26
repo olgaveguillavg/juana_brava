@@ -17,7 +17,7 @@ import { PORTFOLIO_END_EVENT, PORTFOLIO_LEAVE_EVENT } from "../lib/portfolioFlig
  * `.work-pick__img` y el `data-project` de cada `.work-pick`). Con «reducir movimiento» no hay paralaje.
  */
 const LEFT = [
-  { slug: "sobremesa", variant: "wide" },
+  { slug: "vyrk-r01", variant: "wide" },
   { slug: "mara", variant: "tall" },
 ];
 const RIGHT = [

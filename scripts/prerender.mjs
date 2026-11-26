@@ -84,6 +84,7 @@ try {
   for (const page of pages) {
     const markup = renderToStaticMarkup(createElement(App, { initialRoute: { path: page.path, section: "" } }))
       // Las fotos de esta copia no deben descargarse para quien sí ve la web.
+      .replace(/<video[\s\S]*?<\/video>/g, "")
       .replace(/ loading="eager"/g, "")
       .replace(/<img (?![^>]*loading=)/g, '<img loading="lazy" ')
       .replace(/<link rel="preload"[^>]*>/g, "");

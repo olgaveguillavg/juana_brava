@@ -9,7 +9,7 @@ const PORTFOLIO_FLIGHT_KEY = "jb-portfolio-flight-v4";
 function portfolioFlightBoot(t) {
   try {
     let e = JSON.parse(sessionStorage.getItem(t) || "null"),
-      a = /^(sobremesa|nacar|umbral|mara|bruma|fuga|pulso)$/;
+      a = /^(vyrk-r01|nacar|soy-de-moto|mara|marcen-gt|segundo-telon|pulso)$/;
     if (
       e?.version !== 4 ||
       !Array.isArray(e.slugs) ||

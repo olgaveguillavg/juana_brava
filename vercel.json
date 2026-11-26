@@ -1,0 +1,24 @@
+{
+  "redirects": [
+    {
+      "source": "/proyectos/sobremesa",
+      "destination": "/proyectos/vyrk-r01",
+      "permanent": true
+    },
+    {
+      "source": "/proyectos/umbral",
+      "destination": "/proyectos/soy-de-moto",
+      "permanent": true
+    },
+    {
+      "source": "/proyectos/bruma",
+      "destination": "/proyectos/marcen-gt",
+      "permanent": true
+    },
+    {
+      "source": "/proyectos/fuga",
+      "destination": "/proyectos/segundo-telon",
+      "permanent": true
+    }
+  ]
+}

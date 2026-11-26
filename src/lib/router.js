@@ -13,6 +13,14 @@ export function notFound() {
   throw new Error("404");
 }
 
+// Direcciones de proyectos anteriores: llevan a los que ocupan su lugar.
+const MOVED = {
+  "/proyectos/sobremesa": "/proyectos/vyrk-r01",
+  "/proyectos/umbral": "/proyectos/soy-de-moto",
+  "/proyectos/bruma": "/proyectos/marcen-gt",
+  "/proyectos/fuga": "/proyectos/segundo-telon",
+};
+
 export function parseRoute(t) {
   if (!t.startsWith("#!"))
     return {
@@ -24,7 +32,7 @@ export function parseRoute(t) {
     l = (a < 0 ? e : e.slice(0, a)).replace(/\/+$/, "") || "/",
     n = a < 0 ? "" : new URLSearchParams(e.slice(a + 1)).get("section") || "";
   return {
-    path: l === "/thinking" ? "/ideas" : l.startsWith("/") ? l : "/",
+    path: l === "/thinking" ? "/ideas" : (MOVED[l] ?? (l.startsWith("/") ? l : "/")),
     section: n,
   };
 }

@@ -3,6 +3,8 @@ import { projects } from "../data/projects.js";
 // En el HTML original las fotos eran data URIs; ahora son archivos, y img.src devuelve la URL absoluta.
 const absoluteUrl = (url) => (url ? new URL(url, document.baseURI).href : url);
 
+const hasFicha = (slug) => projects.some((project) => project.slug === slug && project.ficha);
+
 export // A single image connects the gallery and the fully prepared project hero.
 function JBEditorialOpening() {
   const initialPath = location.pathname?.replace(/\/$/, "") || "/";
@@ -159,7 +161,7 @@ function JBEditorialOpening() {
       const target = raw.startsWith("#!") ? raw : "#!" + new URL(raw, location.href).pathname;
       const slug = target.match(/^#!\/proyectos\/([a-z0-9-]+)\/?$/)?.[1];
       const project = projects.find((item) => item.slug === slug);
-      if (!project || target === location.hash) return;
+      if (!project || project.ficha || target === location.hash) return;
       event.preventDefault();
       const abort = new AbortController(),
         effects = new Set();
@@ -687,7 +689,7 @@ function JBEditorialOpening() {
   }
   window.JBHistoryZoomOut = function (fromPath) {
     const slug = fromPath?.match(/^\/proyectos\/([a-z0-9-]+)\/?$/)?.[1];
-    if (!slug || location.hash !== "#!/proyectos") return false;
+    if (!slug || location.hash !== "#!/proyectos" || hasFicha(slug)) return false;
     return JBReverseCase(slug, true);
   };
   document.addEventListener(
@@ -715,7 +717,7 @@ function JBEditorialOpening() {
   // If browser Forward re-opens a project, use the same image-to-viewport motion.
   window.JBHistoryZoomIn = function (toPath) {
     const slug = toPath?.match(/^\/proyectos\/([a-z0-9-]+)\/?$/)?.[1];
-    if (!slug || current || reduced.matches || narrow.matches || typeof HTMLElement.prototype.animate !== "function") return false;
+    if (!slug || hasFicha(slug) || current || reduced.matches || narrow.matches || typeof HTMLElement.prototype.animate !== "function") return false;
     const source = document.getElementById(slug)?.querySelector(".editorial-cover img");
     if (!source?.naturalWidth) return false;
     const cover = source.closest(".editorial-cover"),

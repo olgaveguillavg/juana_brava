@@ -78,7 +78,7 @@ export function JBDisciplinePanel({ options: t, matching: e, selected: a, onChoo
       all: "juana-brava",
       identity: "juana-brava",
       art: "mara",
-      digital: "sobremesa",
+      digital: "soy-de-moto",
       campaign: "mara",
     },
     g = m.find((r) => r.slug === h[c.id]) || m[0] || projects[0];

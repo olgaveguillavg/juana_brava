@@ -3738,3 +3738,6 @@ html[data-note-head="ink"] .site-header:not(.menu-is-open) .menu-toggle > span {
 .hero-copy h1.sr-only, .sr-only { position: absolute !important; width: 1px; height: 1px; margin: -1px; overflow: hidden; clip-path: inset(50%); white-space: nowrap; }
 /* Sin lema en la portada, la entradilla se queda a la derecha como antes */
 @media (min-width: 761px) { .hero-copy .hero-sub { margin-left: auto; } }
+
+/* Fichas de proyecto con diseño propio: sin el grano de la web por encima */
+html.has-ficha body::before { display: none; }
