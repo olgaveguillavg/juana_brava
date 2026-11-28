@@ -1,5 +1,5 @@
 /*
- * Ficha de proyecto con diseño propio (las de `src/casos`). Cada una trae su cabecera, su pie, sus estilos
+ * Ficha de proyecto con diseño propio (las de `src/casos`). Cada una trae sus estilos
  * y su comportamiento, y se monta dentro de un «shadow root» para verse exactamente igual que su diseño
  * original: ni los estilos de la web la tocan ni los suyos se escapan al resto de páginas.
  * Al compilar (sin navegador) se pinta el contenido directamente, para buscadores e IA.
@@ -10,7 +10,8 @@ import "../casos/fonts.css";
 
 const useBrowserLayoutEffect = typeof window === "undefined" ? () => {} : useLayoutEffect;
 
-export function Ficha({ slug, Content, css, run, anchorOffset = 0 }) {
+// `children`: contenido de la web (con sus estilos) que se asoma por los huecos <slot> de la ficha.
+export function Ficha({ slug, Content, css, run, anchorOffset = 0, children }) {
   const hostRef = useRef(null);
   const [root, setRoot] = useState(null);
 
@@ -88,12 +89,14 @@ export function Ficha({ slug, Content, css, run, anchorOffset = 0 }) {
     return (
       <div className="jb-ficha" data-ficha={slug}>
         <Content />
+        {children}
       </div>
     );
   }
 
   return (
     <div ref={hostRef} className="jb-ficha" data-ficha={slug}>
+      {children}
       {root &&
         createPortal(
           <>

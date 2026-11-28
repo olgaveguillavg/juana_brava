@@ -2,113 +2,42 @@
 export function FichaSoyDeMoto() {
   return (
     <>
-      <header className="header" id="site-header">
-        {" "}
-        <a aria-label="Volver a Juana Brava" className="brand" href="#!/">
-          <img alt="Juana Brava" height="728" src="/casos/comun/logo.svg" width="1901" />
-        </a>
-        {" "}
-        <nav aria-label="Navegación" className="nav-center">
-          <a href="#!/">
-            Inicio
-          </a>
-          <a href="#!/proyectos">
-            Proyectos
-          </a>
-          <a href="#!/estudio">
-            Estudio
-          </a>
-          <a href="#!/ideas">
-            Ideas
-          </a>
-        </nav>
-        {" "}
-        <div className="nav-right">
-          <a href="#!/proyectos">
-            {"Volver a proyectos "}
-            <span aria-hidden="true" className="nav-arrow">
-              ↗
-            </span>
-          </a>
-        </div>
-        {" "}
-      </header>
       {" "}
       <main>
         {" "}
-        <section aria-labelledby="case-title" className="hero" id="inicio">
+        <section aria-labelledby="case-title" className="hero case-hero" id="inicio">
           {" "}
           <div className="hero-visual" id="hero-visual">
-            <img alt="Moto naranja y negra en el taller de Soy de Moto, imagen de la portada de su web" fetchPriority="high" src="/casos/soy-de-moto/a11.jpg" />
+            <img className="case-hero-image" alt="Moto naranja y negra en el taller de Soy de Moto, imagen de la portada de su web" fetchPriority="high" src="/casos/soy-de-moto/a11.jpg" />
           </div>
-          <div className="hero-shade">
-          </div>
-          {" "}
-          <div className="hero-brandnote">
-            Juana Brava / Proyectos / Caso de estudio
+          <div className="hero-shade case-hero-shade">
           </div>
           {" "}
-          <div className="hero-inner">
+          {" "}
+          <div className="hero-inner case-hero-side">
             <h1 className="hero-title" id="case-title">
               SOY DE
               <br />
-              MOTO
+              <span className="naranja">MOTO</span>
             </h1>
             <div className="hero-side">
-              <div className="eyebrow">
-                Enfoque del proyecto
-              </div>
               <p className="focus">
                 Soy de Moto acababa de abrir. Diseñamos su web desde cero y la publicamos en menos de una semana.
               </p>
-              <a className="hero-scroll" href="#overview">
-                Desliza para descubrir ↓
-              </a>
             </div>
           </div>
           {" "}
-          <span className="case-demo-note">
-            Imágenes creadas con IA para soydemoto.com
-          </span>
         </section>
+        <slot name="dossier"></slot>
         {" "}
-        <div className="wrap project-meta">
-          <span>
-            <strong>
-              SOY DE MOTO
-            </strong>
-            {" / Proyecto digital"}
-          </span>
-          <span>
-            Diseño web · Dirección de arte · Desarrollo digital · Producción visual con IA
-          </span>
-          <a className="last" href="https://www.soydemoto.com/" rel="noopener" target="_blank">
-            Visitar proyecto ↗
-          </a>
-        </div>
         {" "}
         <section className="wrap overview" id="overview">
-          <div className="section-id reveal">
-            / Resumen
-            <br />
-            <span className="red">
-              01 — 06
-            </span>
+          <div className="section-id reveal jb-vacio" aria-hidden="true">
           </div>
           <div>
             <h2 className="reveal">
               Una web nueva para un taller que acababa de abrir.
             </h2>
-            <div className="overview-copy reveal delay">
-              <p>
-                Cuando el propietario de Soy de Moto nos contactó, acababa de abrir el taller. Quería que la gente pudiera conocer el negocio, ver qué servicios ofrecían y pedir cita. También tenía planes para vender motos de segunda mano y lanzar merchandising. Nos pidió que construyéramos esas partes desde el principio, aunque todavía no fueran a estar disponibles para el público. Y había que hacerlo rápido: la web tenía que estar lista en menos de una semana.
-              </p>
-              <p className="small">
-                Taller de motos + Experiencia digital + Inteligencia artificial
-                <br />
-                Arquitectura de la web, dirección de arte, prototipado, producción visual, desarrollo y publicación.
-              </p>
-            </div>
           </div>
         </section>
         {" "}
@@ -155,21 +84,10 @@ export function FichaSoyDeMoto() {
             </video>
           </div>
           {" "}
-          <div className="jb-collage-foot">
-            <span>
-              Soy de Moto / Universo visual
-            </span>
-            <span>
-              Imágenes de la web · 00:04 en bucle
-            </span>
-          </div>
           {" "}
         </section>
         {" "}
         <section className="wrap chapter" id="reto">
-          <div className="section-id reveal">
-            01 / El reto
-          </div>
           <div className="chapter-heading reveal">
             <h2>
               El encargo tenía más recorrido del que parecía.
@@ -193,9 +111,6 @@ export function FichaSoyDeMoto() {
         {" "}
         <section className="wrap story-statement" id="enfoque">
           <div className="statement-inner">
-            <span className="section-id reveal">
-              02 / Nuestro enfoque
-            </span>
             <h2 className="reveal">
               {"La web tenía que contar "}
               <em>
@@ -209,14 +124,8 @@ export function FichaSoyDeMoto() {
         <section className="wrap editorial-spread">
           <figure className="spread-img image-reveal">
             <img alt="Mecánico de Soy de Moto trabajando en una moto naranja y negra" loading="lazy" src="/casos/soy-de-moto/a14.jpg" />
-            <figcaption>
-              Imagen de la web / producción con IA
-            </figcaption>
           </figure>
           <div className="spread-text reveal">
-            <span className="section-id">
-              Nuestro enfoque
-            </span>
             <h2>
               Pensamos en quien todavía no conoce el taller.
             </h2>
@@ -239,9 +148,6 @@ export function FichaSoyDeMoto() {
         {" "}
         <section className="art-direction" id="arte">
           <div className="wrap chapter">
-            <div className="section-id reveal">
-              03 / Dirección de arte
-            </div>
             <div className="chapter-heading reveal">
               <h2>
                 Una web que se sintiera parte del taller.
@@ -265,17 +171,11 @@ export function FichaSoyDeMoto() {
           <div className="wrap image-pair">
             <figure className="desktop-capture image-reveal">
               <img alt="El taller de Soy de Moto con una moto en el elevador" loading="lazy" src="/casos/soy-de-moto/a15.jpg" />
-              <figcaption>
-                Nosotros / el taller
-              </figcaption>
             </figure>
             <figure className="aside reveal">
               <div className="phone-frame">
                 <img alt="Diagnosis electrónica de una moto en el taller" loading="lazy" src="/casos/soy-de-moto/a16.jpg" />
               </div>
-              <figcaption>
-                Servicios / diagnosis electrónica
-              </figcaption>
             </figure>
           </div>
           <div className="wrap type-pull">
@@ -293,8 +193,7 @@ export function FichaSoyDeMoto() {
               </video>
             </div>
             <div className="jb-system-motion-foot">
-              <span>
-                SOY DE MOTO / PÁGINAS REALES DE LA WEB
+              <span className="jb-vacio" aria-hidden="true">
               </span>
               <button aria-label="Volver a reproducir la secuencia de pantallas" className="jb-system-motion-replay" type="button">
                 ↻ Repetir secuencia
@@ -305,12 +204,6 @@ export function FichaSoyDeMoto() {
         {" "}
         <section className="wrap experience" id="experiencia">
           <div className="intro-line">
-            <span className="section-id">
-              04 / Diseño y experiencia digital
-            </span>
-            <span className="section-id">
-              UI / UX — Web
-            </span>
           </div>
           <h2 className="reveal">
             Cada parte de la web tenía su propio trabajo.
@@ -325,9 +218,6 @@ export function FichaSoyDeMoto() {
           </div>
           <div className="experience-items">
             <article className="experience-item reveal">
-              <span className="n">
-                01
-              </span>
               <h3>
                 Taller y mantenimiento.
               </h3>
@@ -336,9 +226,6 @@ export function FichaSoyDeMoto() {
               </p>
             </article>
             <article className="experience-item reveal">
-              <span className="n">
-                02
-              </span>
               <h3>
                 Compra y venta.
               </h3>
@@ -347,9 +234,6 @@ export function FichaSoyDeMoto() {
               </p>
             </article>
             <article className="experience-item reveal">
-              <span className="n">
-                03
-              </span>
               <h3>
                 Merchandising.
               </h3>
@@ -365,9 +249,6 @@ export function FichaSoyDeMoto() {
           <div className="wrap jb-demo-head">
             {" "}
             <div>
-              <span className="section-id">
-                Diseño web / Tres áreas
-              </span>
               <h2>
                 Así es la web, en sus tres áreas.
               </h2>
@@ -376,15 +257,15 @@ export function FichaSoyDeMoto() {
             <div aria-label="Elegir vista de la experiencia digital" className="jb-demo-tabs" role="tablist">
               {" "}
               <button aria-controls="jb-demo-taller" aria-selected="true" className="active" data-tab="taller" id="jb-tab-taller" role="tab" type="button">
-                01 / Taller
+                Taller
               </button>
               {" "}
               <button aria-controls="jb-demo-motos" aria-selected="false" data-tab="motos" id="jb-tab-motos" role="tab" tabIndex="-1" type="button">
-                02 / Motos
+                Motos
               </button>
               {" "}
               <button aria-controls="jb-demo-merch" aria-selected="false" data-tab="merch" id="jb-tab-merch" role="tab" tabIndex="-1" type="button">
-                03 / Merchandising
+                Merchandising
               </button>
               {" "}
             </div>
@@ -450,23 +331,14 @@ export function FichaSoyDeMoto() {
                   {" "}
                 </div>
               </div>
-              <span className="jb-device-caption">
-                Versión móvil / capturas reales
-              </span>
             </div>
             {" "}
           </div>
           {" "}
-          <p className="jb-demo-disclaimer wrap">
-            Capturas reales de soydemoto.com: las tres portadas del carrusel de inicio. Las secciones de compraventa y merchandising están desarrolladas, pero todavía no están abiertas al público.
-          </p>
           {" "}
         </section>
         {" "}
         <section className="wrap ai-section" id="ia">
-          <span className="section-id reveal">
-            05 / Inteligencia artificial
-          </span>
           <h2 className="reveal">
             Nuestro primer proyecto con IA de principio a fin.
           </h2>
@@ -495,23 +367,14 @@ export function FichaSoyDeMoto() {
             {" "}
             <figure className="image-reveal">
               <img alt="Moto despiezada, primera fase de la animación de la web" loading="lazy" src="/casos/soy-de-moto/a25.jpg" />
-              <figcaption>
-                DESPIECE — 01
-              </figcaption>
             </figure>
             {" "}
             <figure className="image-reveal">
               <img alt="Moto a medio montar, fase intermedia" loading="lazy" src="/casos/soy-de-moto/a26.jpg" />
-              <figcaption>
-                MONTAJE — 02
-              </figcaption>
             </figure>
             {" "}
             <figure className="image-reveal">
               <img alt="Moto montada, fase final" loading="lazy" src="/casos/soy-de-moto/a27.jpg" />
-              <figcaption>
-                LISTA PARA RODAR — 03
-              </figcaption>
             </figure>
             {" "}
           </div>
@@ -532,17 +395,11 @@ export function FichaSoyDeMoto() {
             {" "}
           </div>
           {" "}
-          <div className="jb-film-topleft">
-            Soy de Moto / Universo visual
-          </div>
           {" "}
           <div className="jb-film-bottom">
             <span>
               El taller también tiene una historia que contar.
             </span>
-            <small>
-              Montaje con las imágenes de soydemoto.com · 00:08
-            </small>
           </div>
           {" "}
         </section>
@@ -552,11 +409,11 @@ export function FichaSoyDeMoto() {
             <img alt="Mecánico de Soy de Moto trabajando en el taller" loading="lazy" src="/casos/soy-de-moto/a29.jpg" />
           </div>
           <div className="inner wrap">
-            <span className="section-id reveal">
-              06 / El resultado
-            </span>
             <h2 className="reveal">
-              Publicada en menos de una semana.
+              {"Publicada en "}
+              <em>
+                menos de una semana.
+              </em>
             </h2>
             <div className="result-copy reveal delay">
               <p>
@@ -580,19 +437,6 @@ export function FichaSoyDeMoto() {
         {" "}
       </main>
       {" "}
-      <footer className="end-footer wrap">
-        <a className="footer-brand" href="#!/">
-          <img alt="Juana Brava, inicio" src="/casos/comun/logo.svg" />
-        </a>
-        <p>
-          ESTUDIO CREATIVO / IDEAS SIN PERMISO.
-          <br />
-          Diseño · Dirección de arte · Tecnología
-        </p>
-        <a href="#!/proyectos">
-          Todos los proyectos ↗
-        </a>
-      </footer>
       {" "}
     </>
   );

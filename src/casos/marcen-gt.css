@@ -73,12 +73,26 @@ figcaption{font-size:10px;letter-spacing:.16em;text-transform:uppercase;color:va
 .hd.solid{background:rgba(255,255,255,.92);color:#0B0A0A;border-bottom:1px solid var(--line)}
 .hd.solid .brand img{filter:brightness(0)}
 .hero,.terr,.end{color:#FFFFFF}
-.hero{--mut:#B5ADAB}.hero h1 span{color:#D06A82}
+.hero{--mut:#B5ADAB}.hero h1 span{color:#8E2A42}
 .cols,.head p:not(.sid),.chapter .copy,.turn .copy{color:#3A3535}
-.rail img,.mosaic figure{background:#EEEBEA}
-.rail{scrollbar-color:var(--bur) #EEEBEA}
-.turn{background:#F3F0EE}.trio video,.trio img{background:#E6E2E0}
-.end{--ink:#FFFFFF;--mut:#B5ADAB}.end-in .sid{color:#E28CA0}.end h2 em{color:#E28CA0}
+.rail img,.mosaic figure{background:#EFEFEF}
+.rail{scrollbar-color:var(--bur) #EFEFEF}
+.turn{background:#FFFFFF}.trio video,.trio img{background:#EFEFEF}
+.end{--ink:#FFFFFF;--mut:#B5ADAB}.end-in .sid{color:#8E2A42}.end h2 em{color:#8E2A42}
 .ft img{filter:brightness(0)}
 .terr .sid,.terr h2,.terr h2 em{color:#FFFFFF}
 :host{background:var(--bg)}
+
+/* Rótulos retirados: su columna se respeta en ordenador; en móvil no ocupan */
+@media(max-width:900px){.jb-vacio{display:none!important}}
+
+/* Aire entre las líneas y las letras de los titulares */
+h2{line-height:1.14;letter-spacing:-.028em}
+.tgrid h3{line-height:1.18;letter-spacing:-.025em}
+.big h2{line-height:1.16;letter-spacing:.012em}
+
+/* Ordenador: cada foto y cada cartel caben en la pantalla junto con sus flechas */
+@media(min-width:901px){
+.rail figure{flex-basis:min(78vw,980px,calc((100svh - 190px)*1.5))}
+.rail.tall figure{flex-basis:min(62vw,520px,calc((100svh - 190px)*2/3))}
+}

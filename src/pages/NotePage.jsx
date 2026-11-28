@@ -7,7 +7,7 @@ import { ideaPath, ideas, readingMinutes } from "../data/ideas.js";
 /*
  * Ficha de una nota de «Ideas».
  *  - Empieza con el color de su tipo (negro para identidad, rojo para opinión, azul claro para notas y
- *    rosa para procesos): titular y fecha en Anton, una línea con tipo, firma y lectura, y la portada.
+ *    rosa para procesos): titular en Anton, una línea con tipo, firma y lectura, y la portada.
  *  - Cuando el texto llega a la mitad de la pantalla, la página entera se funde al blanco de la web.
  *  - Entradilla fija a la izquierda (Syne) y texto a la derecha. Las fotos, parejas, colores, pasos y la
  *    frase gigante de opinión ocupan todo el ancho.
@@ -20,12 +20,6 @@ const TYPES = {
   opinion: { label: "Opinión", bg: "#9c2425", ...dark },
   note: { label: "Notas", bg: "#bad5e3", ...light },
   process: { label: "Procesos", bg: "#e5c8c8", ...light },
-};
-
-// "2026-10-11" -> "11.10.26"
-const shortDate = (iso) => {
-  const [year, month, day] = iso.split("-").map(Number);
-  return day + "." + month + "." + String(year).slice(2);
 };
 
 // El texto va en la columna de lectura; el resto de bloques ocupa todo el ancho.
@@ -219,15 +213,10 @@ export function NotePage({ note }) {
           <h1 className="nf-title">
             <SlideText delay={0.1} step={0.05}>{title}</SlideText>
           </h1>
-          <div>
-            <time className="nf-date" dateTime={note.iso}>
-              {shortDate(note.iso)}
-            </time>
-            <div className="nf-rule">
-              <span>{type.label}</span>
-              <span>Por Juana Brava</span>
-              <span>Lectura {readingMinutes(note)} min</span>
-            </div>
+          <div className="nf-rule">
+            <span>{type.label}</span>
+            <span>Por Juana Brava</span>
+            <span>Lectura {readingMinutes(note)} min</span>
           </div>
         </header>
 
@@ -248,10 +237,7 @@ export function NotePage({ note }) {
                     <>
                       <p className="nf-lead">{note.excerpt}</p>
                       <p className="nf-who">
-                        {type.label}
-                        <br />
-                        {note.topic}
-                        <br />({shortDate(note.iso)})
+                        <time dateTime={note.iso}>{note.date}</time>
                       </p>
                       <Share title={title} />
                     </>

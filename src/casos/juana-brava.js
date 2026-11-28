@@ -1,12 +1,12 @@
 /* Comportamiento de la ficha «juana-brava» (código original, aplicado solo dentro de la ficha). */
 export function run({ root, body, addEventListener, IntersectionObserver, setInterval }) {
-(()=>{const hd=root.getElementById('hd');const red=matchMedia('(prefers-reduced-motion: reduce)').matches;
+(()=>{const red=matchMedia('(prefers-reduced-motion: reduce)').matches;
 const els=root.querySelectorAll('.rv');
 if(red||!('IntersectionObserver'in window)){els.forEach(e=>e.classList.add('in'))}else{const io=new IntersectionObserver(es=>es.forEach(e=>{if(e.isIntersecting){e.target.classList.add('in');io.unobserve(e.target)}}),{threshold:.06});els.forEach(e=>io.observe(e))}
 body.classList.add('loaded');
 const hero=root.querySelector('.hero-img'),hi=root.querySelector('.hero-in'),stw=[...root.querySelectorAll('#stw span')];
 const par=[...root.querySelectorAll('.home>img,.end>img')];const party=root.querySelector('.party'),peep=root.querySelector('.peep');
-const onS=()=>{const y=scrollY;hd.classList.toggle('solid',y>innerHeight*.8);if(red){stw.forEach(w=>w.classList.add('lit'));return}
+const onS=()=>{const y=scrollY;if(red){stw.forEach(w=>w.classList.add('lit'));return}
  hero.style.transform='translateY('+(y*.25)+'px)';hi.style.opacity=Math.max(0,1-y/(innerHeight*.55));hi.style.transform='translateY('+(-y*.2)+'px)';
  const st=root.getElementById('stw').getBoundingClientRect();const p=Math.min(1,Math.max(0,(innerHeight*.85-st.top)/(st.height+innerHeight*.35)));stw.forEach((w,i)=>w.classList.toggle('lit',i/stw.length<p));
  {const r=party.getBoundingClientRect();const p=Math.min(1,Math.max(0,-r.top/(r.height-innerHeight)));const e=p<.5?4*p*p*p:1-Math.pow(-2*p+2,3)/2;peep.style.setProperty('--r',(3+e*90)+'%');peep.style.setProperty('--p',e);root.querySelector('.peep-intro').style.opacity=Math.max(0,1-p*4);root.querySelector('.party-pin').style.setProperty('--dot',Math.max(0,1-p*6));const pv=root.querySelector('.peep-v');if(p>.02&&p<1.2&&r.bottom>0){if(pv.paused){const q=pv.play();q&&q.catch&&q.catch(()=>{})}}}

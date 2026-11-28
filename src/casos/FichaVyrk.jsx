@@ -2,32 +2,6 @@
 export function FichaVyrk() {
   return (
     <>
-      <header className="hd" id="hd">
-        {" "}
-        <a className="brand" href="#!/" aria-label="Volver a Juana Brava">
-          <img alt="Juana Brava" src="/casos/comun/logo.svg" />
-        </a>
-        {" "}
-        <nav className="nav">
-          <a href="#!/">
-            Inicio
-          </a>
-          <a href="#!/proyectos">
-            Proyectos
-          </a>
-          <a href="#!/estudio">
-            Estudio
-          </a>
-          <a href="#!/ideas">
-            Ideas
-          </a>
-        </nav>
-        {" "}
-        <a className="back" href="#!/proyectos">
-          Volver a proyectos ↗
-        </a>
-        {" "}
-      </header>
       {" "}
       <main>
         {" "}
@@ -35,8 +9,7 @@ export function FichaVyrk() {
           {" "}
           <div className="hero-l">
             {" "}
-            <p className="crumb">
-              Juana Brava / Proyectos / Caso de estudio
+            <p className="crumb jb-vacio" aria-hidden="true">
             </p>
             {" "}
             <h1>
@@ -56,54 +29,17 @@ export function FichaVyrk() {
             {" "}
           </div>
           {" "}
-          <div className="hero-r">
-            <img alt="La atleta saltando entre inflables transparentes con las VYRK R01 en primer plano" src="/casos/vyrk-r01/a06.jpg" />
-            <p className="tagimg">
-              Proyecto conceptual · Imágenes creadas con IA
-            </p>
+          <div className="hero-r case-hero">
+            <img className="case-hero-image" alt="La atleta saltando entre inflables transparentes con las VYRK R01 en primer plano" src="/casos/vyrk-r01/a06.jpg" />
           </div>
           {" "}
         </section>
+        <slot name="dossier"></slot>
         {" "}
-        <div className="wrap meta">
-          <div>
-            <span>
-              Cliente
-            </span>
-            <b>
-              VYRK (conceptual)
-            </b>
-          </div>
-          <div>
-            <span>
-              Sector
-            </span>
-            <b>
-              Calzado deportivo
-            </b>
-          </div>
-          <div>
-            <span>
-              Servicios
-            </span>
-            <b>
-              Estrategia · Concepto · Dirección de arte · Campaña · Producción visual con IA
-            </b>
-          </div>
-          <div>
-            <span>
-              Año
-            </span>
-            <b>
-              2026
-            </b>
-          </div>
-        </div>
         {" "}
         <section className="wrap row intro">
           {" "}
-          <p className="side rv">
-            Resumen
+          <p className="side rv jb-vacio" aria-hidden="true">
           </p>
           {" "}
           <div className="main">
@@ -112,14 +48,6 @@ export function FichaVyrk() {
               El lanzamiento de una zapatilla que nadie conocía.
             </h2>
             {" "}
-            <div className="two rv">
-              <p>
-                Nos imaginamos un encargo: una marca nueva de zapatillas, VYRK, llega con su primer modelo terminado, la R01, y con su identidad ya hecha. Nada más. Ni idea de campaña, ni claim, ni imágenes, ni plan. Solo una frase: «Haced lo que haríais si fuera vuestra».
-              </p>
-              <p>
-                Así que hicimos todo lo demás: la estrategia, el concepto, el mundo visual, la atleta, los carteles, el exterior, el packaging, las redes y una activación en la calle.
-              </p>
-            </div>
             {" "}
           </div>
           {" "}
@@ -159,40 +87,12 @@ export function FichaVyrk() {
           </video>
         </section>
         {" "}
-        <section className="wrap row" id="reto">
-          {" "}
-          <p className="side rv">
-            01 — El reto
-          </p>
-          {" "}
-          <div className="main split">
-            {" "}
-            <h2 className="rv">
-              Una marca sin historia frente a los gigantes.
-            </h2>
-            {" "}
-            <div className="copy rv">
-              <p>
-                VYRK llegaba con una zapatilla terminada y nada más. Una marca que nadie conoce, una primera referencia y un mercado donde Nike, Adidas y New Balance lo ocupan todo. Sin atletas famosos, sin historia y sin un presupuesto de gigante.
-              </p>
-              <p>
-                Además, la R01 no es fácil. Su suela de cápsulas de aire es enorme y muy marcada: o la entiendes o te parece rara. El cliente solo puso una condición: que nadie la confundiera con otra.
-              </p>
-              <p>
-                Revisamos cómo se anuncian las zapatillas deportivas y casi todo se parecía: ciudad de noche, sudor, cámara lenta y fondo negro. Si hacíamos eso, VYRK desaparecía entre los grandes.
-              </p>
-            </div>
-            {" "}
-          </div>
-          {" "}
-        </section>
         {" "}
         <section className="idea">
           {" "}
           <div className="wrap idea-in">
             {" "}
-            <p className="side rv">
-              02 — La idea
+            <p className="side rv jb-vacio" aria-hidden="true">
             </p>
             {" "}
             <p className="claim rv">
@@ -223,8 +123,7 @@ export function FichaVyrk() {
         {" "}
         <section className="wrap row" id="arte">
           {" "}
-          <p className="side rv">
-            03 — Dirección de arte
+          <p className="side rv jb-vacio" aria-hidden="true">
           </p>
           {" "}
           <div className="main split">
@@ -250,29 +149,17 @@ export function FichaVyrk() {
           {" "}
           <figure className="a1 rv">
             <img alt="La atleta de espaldas subiendo una escalera hacia una cúpula de inflables transparentes" loading="lazy" src="/casos/vyrk-r01/a11.jpg" />
-            <figcaption>
-              El mundo R01
-            </figcaption>
           </figure>
           {" "}
           <figure className="a2 rv">
             <img alt="El mundo R01 vacío: inflables transparentes sobre hormigón bajo un cielo limpio" loading="lazy" src="/casos/vyrk-r01/a12.jpg" />
-            <figcaption>
-              El mundo, vacío
-            </figcaption>
           </figure>
           {" "}
           <figure className="a3 rv">
             <img alt="La atleta de pie entre inflables transparentes con las R01" loading="lazy" src="/casos/vyrk-r01/a13.jpg" />
-            <figcaption>
-              Antes de moverse
-            </figcaption>
           </figure>
           {" "}
           <div className="a4 rv">
-            <p className="lbl">
-              Paleta
-            </p>
             <ul className="palette">
               <li>
                 <i style={{ background: "#ECEFF3" }}>
@@ -308,8 +195,7 @@ export function FichaVyrk() {
         {" "}
         <section className="wrap row" id="carteles">
           {" "}
-          <p className="side rv">
-            04 — Cartelería
+          <p className="side rv jb-vacio" aria-hidden="true">
           </p>
           {" "}
           <div className="main split">
@@ -346,8 +232,7 @@ export function FichaVyrk() {
         {" "}
         <section className="wrap row" id="exterior">
           {" "}
-          <p className="side rv">
-            05 — Exterior
+          <p className="side rv jb-vacio" aria-hidden="true">
           </p>
           {" "}
           <div className="main split">
@@ -368,44 +253,28 @@ export function FichaVyrk() {
         {" "}
         <figure className="wrap wide rv">
           <img alt="Valla en un andén de metro con la atleta corriendo y el claim Pressure to Move" loading="lazy" src="/casos/vyrk-r01/a17.jpg" />
-          <figcaption>
-            Valla de metro
-          </figcaption>
         </figure>
         {" "}
         <div className="wrap g-ext">
           {" "}
           <figure className="rv">
             <img alt="Marquesina en una calle del Eixample con la atleta de pie a sangre" loading="lazy" src="/casos/vyrk-r01/a18.jpg" />
-            <figcaption>
-              Marquesina
-            </figcaption>
           </figure>
           {" "}
           <figure className="rv">
             <img alt="Medianera pintada con la atleta saltando y la R01 en primer plano" loading="lazy" src="/casos/vyrk-r01/a19.jpg" />
-            <figcaption>
-              Medianera
-            </figcaption>
           </figure>
           {" "}
           <figure className="rv">
             <img alt="Mupi encerrado dentro de una cápsula inflable transparente gigante, con gente mirándolo" loading="lazy" src="/casos/vyrk-r01/a20.jpg" />
-            <figcaption>
-              Mupi bajo presión
-            </figcaption>
           </figure>
           {" "}
         </div>
         {" "}
-        <p className="wrap note">
-          Montajes de presentación: soportes y calles creados con IA para mostrar cómo viviría la campaña en la ciudad.
-        </p>
         {" "}
         <section className="wrap row" id="producto">
           {" "}
-          <p className="side rv">
-            06 — Producto y packaging
+          <p className="side rv jb-vacio" aria-hidden="true">
           </p>
           {" "}
           <div className="main split">
@@ -431,38 +300,25 @@ export function FichaVyrk() {
           {" "}
           <figure className="p1 rv">
             <img alt="La R01 dentro de una bolsa inflable transparente con borde lima" loading="lazy" src="/casos/vyrk-r01/a21.jpg" />
-            <figcaption>
-              Packaging
-            </figcaption>
           </figure>
           {" "}
           <figure className="p2 rv">
             <img alt="Manos abriendo la válvula de la bolsa inflable con la zapatilla dentro" loading="lazy" src="/casos/vyrk-r01/a22.jpg" />
-            <figcaption>
-              Apertura
-            </figcaption>
           </figure>
           {" "}
           <figure className="p3 rv">
             <img alt="Detalle de la lengüeta con la etiqueta azul VYRK R01 y el tirador lima" loading="lazy" src="/casos/vyrk-r01/a23.jpg" />
-            <figcaption>
-              Lengüeta
-            </figcaption>
           </figure>
           {" "}
           <figure className="p4 rv">
             <img alt="Macro de la mediasuela de la R01: cápsulas blancas y pieza lima translúcida" loading="lazy" src="/casos/vyrk-r01/a24.jpg" />
-            <figcaption>
-              La suela, el origen de todo
-            </figcaption>
           </figure>
           {" "}
         </div>
         {" "}
         <section className="wrap row" id="redes">
           {" "}
-          <p className="side rv">
-            07 — Redes
+          <p className="side rv jb-vacio" aria-hidden="true">
           </p>
           {" "}
           <div className="main split">
@@ -486,9 +342,6 @@ export function FichaVyrk() {
           <article className="rv">
             <img alt="Story del teaser: el mundo inflable vacío con el texto Something is building pressure" loading="lazy" src="/casos/vyrk-r01/a25.jpg" />
             <p className="ph">
-              <b>
-                01
-              </b>
               {" Teaser"}
             </p>
             <p>
@@ -503,9 +356,6 @@ export function FichaVyrk() {
           <article className="rv">
             <img alt="La atleta atándose las R01, pieza del reveal" loading="lazy" src="/casos/vyrk-r01/a26.jpg" />
             <p className="ph">
-              <b>
-                02
-              </b>
               {" Reveal"}
             </p>
             <p>
@@ -516,9 +366,6 @@ export function FichaVyrk() {
           <article className="rv">
             <img alt="Pieza vertical del drop con la atleta de pie y el claim" loading="lazy" src="/casos/vyrk-r01/a27.jpg" />
             <p className="ph">
-              <b>
-                03
-              </b>
               {" Drop"}
             </p>
             <p>
@@ -533,8 +380,7 @@ export function FichaVyrk() {
           <img alt="El pabellón inflable Pressure Room en un paseo de Barcelona, con la entrada lima y gente haciendo cola" loading="lazy" src="/casos/vyrk-r01/a28.jpg" />
           {" "}
           <div className="wrap room-t">
-            <p className="side">
-              08 — Activación
+            <p className="side jb-vacio" aria-hidden="true">
             </p>
             <h2 className="rv">
               Pressure Room: la suela, a escala de calle.
@@ -545,7 +391,7 @@ export function FichaVyrk() {
         {" "}
         <section className="wrap row">
           {" "}
-          <p className="side">
+          <p className="side jb-vacio" aria-hidden="true">
           </p>
           {" "}
           <div className="main split">
@@ -566,38 +412,25 @@ export function FichaVyrk() {
           {" "}
           <figure className="r1 rv">
             <img alt="Gente esperando y entrando al pabellón por el arco lima" loading="lazy" src="/casos/vyrk-r01/a29.jpg" />
-            <figcaption>
-              La entrada
-            </figcaption>
           </figure>
           {" "}
           <figure className="r2 rv">
             <img alt="Dos visitantes sentados dentro del pabellón probándose las R01" loading="lazy" src="/casos/vyrk-r01/a30.jpg" />
-            <figcaption>
-              Probarlas
-            </figcaption>
           </figure>
           {" "}
           <figure className="r3 rv">
             <img alt="Dos mujeres mayores caminando y riendo sobre el suelo inflable con las R01" loading="lazy" src="/casos/vyrk-r01/a31.jpg" />
-            <figcaption>
-              Caminar sobre aire
-            </figcaption>
           </figure>
           {" "}
           <figure className="r4 rv">
             <img alt="Visitantes caminando sobre el suelo de cápsulas blancas con las R01" loading="lazy" src="/casos/vyrk-r01/a32.jpg" />
-            <figcaption>
-              Dentro
-            </figcaption>
           </figure>
           {" "}
         </div>
         {" "}
         <section className="wrap row" id="ia">
           {" "}
-          <p className="side rv">
-            09 — Inteligencia artificial
+          <p className="side rv jb-vacio" aria-hidden="true">
           </p>
           {" "}
           <div className="main split">
@@ -640,8 +473,7 @@ export function FichaVyrk() {
             </p>
             {" "}
             <div className="row end-row rv">
-              <p className="side">
-                10 — Lo que entregamos
+              <p className="side jb-vacio" aria-hidden="true">
               </p>
               {" "}
               <div className="main split">
@@ -649,9 +481,6 @@ export function FichaVyrk() {
                   <h2>
                     Un lanzamiento completo.
                   </h2>
-                  <p className="small">
-                    Es un proyecto conceptual: no hay cifras de ventas que contar. Hay una campaña entera para una marca que empezaba de cero.
-                  </p>
                 </div>
                 {" "}
                 <ol>
@@ -686,17 +515,6 @@ export function FichaVyrk() {
         {" "}
       </main>
       {" "}
-      <footer className="ft">
-        <a href="#!/">
-          <img alt="Juana Brava, inicio" src="/casos/comun/logo.svg" />
-        </a>
-        <p>
-          ESTUDIO CREATIVO / IDEAS SIN PERMISO.
-        </p>
-        <a href="#!/proyectos">
-          Todos los proyectos ↗
-        </a>
-      </footer>
       {" "}
     </>
   );

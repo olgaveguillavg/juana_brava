@@ -2,51 +2,19 @@
 export function FichaMarcen() {
   return (
     <>
-      <header className="hd" id="hd">
-        {" "}
-        <a className="brand" href="#!/" aria-label="Volver a Juana Brava">
-          <img alt="Juana Brava" src="/casos/comun/logo.svg" />
-        </a>
-        {" "}
-        <nav className="nav">
-          <a href="#!/">
-            Inicio
-          </a>
-          <a href="#!/proyectos">
-            Proyectos
-          </a>
-          <a href="#!/estudio">
-            Estudio
-          </a>
-          <a href="#!/ideas">
-            Ideas
-          </a>
-        </nav>
-        {" "}
-        <a className="back" href="#!/proyectos">
-          Volver a proyectos ↗
-        </a>
-        {" "}
-      </header>
       {" "}
       <main>
         {" "}
-        <section className="hero">
+        <section className="hero case-hero">
           {" "}
-          <img className="hero-img" alt="El MARCÉN GT tapado con una funda de satén burdeos en un estudio oscuro, con el piloto trasero encendido" src="/casos/marcen-gt/a06.jpg" />
+          <img className="hero-img case-hero-image" alt="El MARCÉN GT tapado con una funda de satén burdeos en un estudio oscuro, con el piloto trasero encendido" src="/casos/marcen-gt/a06.jpg" />
           {" "}
-          <div className="hero-shade">
+          <div className="hero-shade case-hero-shade">
           </div>
           {" "}
-          <p className="crumb">
-            Juana Brava / Proyectos / Caso de estudio
-          </p>
           {" "}
-          <p className="note">
-            Proyecto conceptual · Imágenes creadas con IA
-          </p>
           {" "}
-          <div className="hero-in">
+          <div className="hero-in case-hero-side">
             {" "}
             <h1>
               MARCÉN
@@ -56,9 +24,6 @@ export function FichaMarcen() {
             </h1>
             {" "}
             <div className="hero-side">
-              <p className="eyebrow">
-                Enfoque del proyecto
-              </p>
               <p>
                 Un gran turismo eléctrico que nadie había visto, en un mercado lleno de SUV. Le buscamos un sitio: delante.
               </p>
@@ -67,26 +32,12 @@ export function FichaMarcen() {
           </div>
           {" "}
         </section>
+        <slot name="dossier"></slot>
         {" "}
-        <div className="meta wrap">
-          <span>
-            <b>
-              MARCÉN GT
-            </b>
-            {" / Proyecto conceptual"}
-          </span>
-          <span>
-            Estrategia · Territorios creativos · Copy · Dirección de arte · Exterior · Lanzamiento
-          </span>
-          <span>
-            Automoción
-          </span>
-        </div>
         {" "}
         <section className="wrap intro rv">
           {" "}
-          <p className="sid">
-            / Resumen
+          <p className="sid jb-vacio" aria-hidden="true">
           </p>
           {" "}
           <div>
@@ -97,14 +48,6 @@ export function FichaMarcen() {
               </em>
             </h2>
             {" "}
-            <div className="cols">
-              <p>
-                Nos imaginamos un encargo: MARCÉN, una marca nueva, lanza su primer modelo, el MARCÉN GT, un gran turismo eléctrico de dos puertas en burdeos. El coche ya estaba diseñado. Nos pedían todo lo demás: qué decir, a quién y cómo presentarlo.
-              </p>
-              <p>
-                Trabajamos dos territorios creativos, los llevamos a cartel y, al final, le dimos la vuelta a la campaña: antes de enseñar el coche, lo tapamos.
-              </p>
-            </div>
           </div>
           {" "}
         </section>
@@ -139,9 +82,6 @@ export function FichaMarcen() {
         <section className="car">
           {" "}
           <div className="wrap head rv">
-            <p className="sid">
-              01 / El coche
-            </p>
             <h2>
               Lo que nos dio el cliente.
             </h2>
@@ -150,48 +90,30 @@ export function FichaMarcen() {
             </p>
           </div>
           {" "}
-          <div className="rail" aria-label="Vistas de estudio del MARCÉN GT">
+          <div className="rail" data-lenis-prevent-horizontal="" aria-label="Vistas de estudio del MARCÉN GT">
             {" "}
             <figure>
               <img alt="Tres cuartos delantero" loading="lazy" src="/casos/marcen-gt/a07.jpg" />
-              <figcaption>
-                Tres cuartos
-              </figcaption>
             </figure>
             {" "}
             <figure>
               <img alt="Perfil lateral" loading="lazy" src="/casos/marcen-gt/a08.jpg" />
-              <figcaption>
-                Perfil
-              </figcaption>
             </figure>
             {" "}
             <figure>
               <img alt="Frontal" loading="lazy" src="/casos/marcen-gt/a09.jpg" />
-              <figcaption>
-                Frontal
-              </figcaption>
             </figure>
             {" "}
             <figure>
               <img alt="Tres cuartos trasero" loading="lazy" src="/casos/marcen-gt/a10.jpg" />
-              <figcaption>
-                Tres cuartos trasero
-              </figcaption>
             </figure>
             {" "}
             <figure>
               <img alt="Trasera con la barra de luz" loading="lazy" src="/casos/marcen-gt/a11.jpg" />
-              <figcaption>
-                Trasera
-              </figcaption>
             </figure>
             {" "}
             <figure>
               <img alt="Vista cenital" loading="lazy" src="/casos/marcen-gt/a12.jpg" />
-              <figcaption>
-                Cenital
-              </figcaption>
             </figure>
             {" "}
           </div>
@@ -207,33 +129,10 @@ export function FichaMarcen() {
           {" "}
         </section>
         {" "}
-        <section className="wrap chapter rv">
-          {" "}
-          <p className="sid">
-            02 / El reto
-          </p>
-          {" "}
-          <h2>
-            Vender un coupé a quien ya tiene un SUV.
-          </h2>
-          {" "}
-          <div className="copy">
-            <p>
-              El comprador tiene entre 35 y 55 años y viene del coche familiar. Sabe lo que es práctico. Lo que no sabe es que echa de menos conducir algo que le apetezca.
-            </p>
-            <p>
-              El MARCÉN GT tiene dos puertas y cuatro plazas justas. No gana en maletero ni en asientos. Así que no podíamos venderlo por lo que tiene, sino por cómo te hace sentir: un poco por delante del resto.
-            </p>
-          </div>
-          {" "}
-        </section>
         {" "}
         <section className="terr">
           {" "}
           <div className="wrap">
-            <p className="sid rv">
-              03 / Territorios creativos
-            </p>
             <h2 className="rv">
               Dos maneras de decir lo mismo.
             </h2>
@@ -275,49 +174,31 @@ export function FichaMarcen() {
         <section className="gallery">
           {" "}
           <div className="wrap head rv">
-            <p className="sid">
-              04 / Cartelería
-            </p>
             <h2>
               Los carteles.
             </h2>
           </div>
           {" "}
-          <div className="rail tall" aria-label="Carteles de la campaña">
+          <div className="rail tall" data-lenis-prevent-horizontal="" aria-label="Carteles de la campaña">
             {" "}
             <figure>
               <img alt="Cartel Delante se está mejor: vista cenital de un semáforo con el MARCÉN GT primero en una cola de SUV grises" loading="lazy" src="/casos/marcen-gt/a13.jpg" />
-              <figcaption>
-                A · El semáforo
-              </figcaption>
             </figure>
             {" "}
             <figure>
               <img alt="Cartel Delante se está mejor: el MARCÉN GT delante de una fila de SUV sobre fondo blanco" loading="lazy" src="/casos/marcen-gt/a14.jpg" />
-              <figcaption>
-                A · La fila
-              </figcaption>
             </figure>
             {" "}
             <figure>
               <img alt="Cartel Delante se está mejor: el coche sin techo visto desde arriba, con los asientos delanteros iluminados" loading="lazy" src="/casos/marcen-gt/a15.jpg" />
-              <figcaption>
-                A · Sin techo
-              </figcaption>
             </figure>
             {" "}
             <figure>
               <img alt="Cartel Aún no lo tiene tu vecino: plano de una urbanización con un solo garaje ocupado por el MARCÉN GT" loading="lazy" src="/casos/marcen-gt/a16.jpg" />
-              <figcaption>
-                B · El plano
-              </figcaption>
             </figure>
             {" "}
             <figure>
               <img alt="Cartel Entre caerle bien al vecino y un MARCÉN GT: dos garajes adosados al anochecer" loading="lazy" src="/casos/marcen-gt/a17.jpg" />
-              <figcaption>
-                B · Los garajes
-              </figcaption>
             </figure>
             {" "}
           </div>
@@ -345,8 +226,7 @@ export function FichaMarcen() {
         {" "}
         <section className="wrap chapter rv">
           {" "}
-          <p className="sid">
-            05 / Interior y detalle
+          <p className="sid jb-vacio" aria-hidden="true">
           </p>
           {" "}
           <h2>
@@ -400,8 +280,7 @@ export function FichaMarcen() {
         <section className="turn">
           {" "}
           <div className="wrap">
-            <p className="sid rv">
-              06 / El giro
+            <p className="sid rv jb-vacio" aria-hidden="true">
             </p>
             <h2 className="rv">
               {"Antes de enseñarlo, "}
@@ -426,25 +305,16 @@ export function FichaMarcen() {
               <video autoPlay loop muted playsInline poster="/casos/marcen-gt/a26.jpg">
                 <source src="/casos/marcen-gt/a27.mp4" type="video/mp4" />
               </video>
-              <figcaption>
-                Teaser · la funda
-              </figcaption>
             </figure>
             {" "}
             <figure className="rv">
               <img alt="Pieza de redes: Lo tapamos por respeto a la competencia. MARCÉN, 12.03.2027" loading="lazy" src="/casos/marcen-gt/a28.jpg" />
-              <figcaption>
-                «Lo tapamos por respeto a la competencia.»
-              </figcaption>
             </figure>
             {" "}
             <figure className="rv">
               <video autoPlay loop muted playsInline poster="/casos/marcen-gt/a29.jpg">
                 <source src="/casos/marcen-gt/a30.mp4" type="video/mp4" />
               </video>
-              <figcaption>
-                Teaser · el latido
-              </figcaption>
             </figure>
             {" "}
           </div>
@@ -453,8 +323,7 @@ export function FichaMarcen() {
         {" "}
         <section className="wrap chapter rv">
           {" "}
-          <p className="sid">
-            07 / Inteligencia artificial
+          <p className="sid jb-vacio" aria-hidden="true">
           </p>
           {" "}
           <h2>
@@ -477,9 +346,6 @@ export function FichaMarcen() {
           <img alt="Piloto trasero del MARCÉN GT encendido" loading="lazy" src="/casos/marcen-gt/a20.jpg" />
           {" "}
           <div className="wrap end-in rv">
-            <p className="sid">
-              08 / Lo que entregamos
-            </p>
             <h2>
               Una campaña antes de que el coche salga a la calle.
             </h2>
@@ -513,17 +379,6 @@ export function FichaMarcen() {
         {" "}
       </main>
       {" "}
-      <footer className="ft wrap">
-        <a href="#!/">
-          <img alt="Juana Brava, inicio" src="/casos/comun/logo.svg" />
-        </a>
-        <p>
-          ESTUDIO CREATIVO / IDEAS SIN PERMISO.
-        </p>
-        <a href="#!/proyectos">
-          Todos los proyectos ↗
-        </a>
-      </footer>
       {" "}
     </>
   );

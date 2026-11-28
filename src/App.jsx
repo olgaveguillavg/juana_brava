@@ -1,6 +1,7 @@
 import { Arrow } from "./components/Arrow.jsx";
 import { fichas } from "./casos/index.js";
 import { Ficha } from "./components/Ficha.jsx";
+import { CaseDecisions, CaseReturn, CaseStory, NextCase } from "./components/CaseSections.jsx";
 import { Fragment, useEffect, useRef, useState } from "react";
 import { flushSync } from "react-dom";
 import { PortfolioTransitions } from "./components/PortfolioTransitions.jsx";
@@ -117,7 +118,9 @@ export function App({ initialRoute }) {
 
   const project = projects.find((item) => route.path === "/proyectos/" + item.slug);
   const note = route.path.startsWith("/ideas/") ? findIdea(route.path.slice(7)) : null;
-  // Los proyectos con ficha propia traen su cabecera y su pie.
+  // Los proyectos con ficha propia comparten la estructura de los casos (misma cabecera, «Proyectos»,
+  // punto de partida, decisiones y siguiente proyecto) alrededor de su diseño. El color de la cabecera lo
+  // marca la portada de cada ficha.
   const ficha = project?.ficha ? fichas[project.slug] : null;
   const page =
     route.path === "/" ? (
@@ -131,7 +134,19 @@ export function App({ initialRoute }) {
     ) : route.path === "/contacto" ? (
       <JBContactPage />
     ) : ficha ? (
-      <Ficha slug={project.slug} {...ficha} />
+      <>
+        <main id="contenido" className="case-page case-ficha" data-tone={ficha.header} style={{ "--case-accent": project.accent }}>
+          <CaseReturn />
+          <Ficha slug={project.slug} {...ficha}>
+            <div slot="dossier" className="ficha-dossier">
+              <CaseStory project={project} />
+              <CaseDecisions project={project} />
+            </div>
+          </Ficha>
+          <NextCase project={project} />
+        </main>
+        <SiteFooter />
+      </>
     ) : project ? (
       <CasePage params={{ slug: project.slug }} />
     ) : note ? (
@@ -153,7 +168,7 @@ export function App({ initialRoute }) {
 
   return (
     <>
-      {!ficha && <SiteHeader {...headerFor(route.path)} />}
+      <SiteHeader {...(ficha ? { tone: ficha.header, active: "projects" } : headerFor(route.path))} />
       <Fragment key={route.path}>{page}</Fragment>
       <RevealMotion key={route.path + "-motion-" + ideasVersion} />
       <PortfolioTransitions />

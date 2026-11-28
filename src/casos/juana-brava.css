@@ -1,6 +1,6 @@
 :host{all:initial;display:block}
 :host{--bg:#FFFFFF;--ink:#26201D;--mut:#7B726D;--red:#9C2425;--sky:#75AADE;--mist:#BAD5E3;--line:rgba(38,32,29,.15);--anton:"Ficha Anton juana-brava",Impact,sans-serif;--syne:"Ficha Syne juana-brava",Arial,sans-serif;--gro:"Ficha Space Grotesk juana-brava",Arial,sans-serif}
-*{box-sizing:border-box}.ficha-body{margin:0;background:var(--bg);color:var(--ink);font-family:var(--gro);font-size:17px;line-height:1.55;-webkit-font-smoothing:antialiased;overflow-x:hidden}
+*{box-sizing:border-box}.ficha-body{margin:0;background:var(--bg);color:var(--ink);font-family:var(--gro);font-size:17px;line-height:1.55;-webkit-font-smoothing:antialiased;overflow-x:clip}
 img,video{display:block;max-width:100%}a{color:inherit;text-decoration:none}figure{margin:0}button{font:inherit;color:inherit;background:none;border:0;cursor:pointer}
 .wrap{width:min(1320px,calc(100% - 64px));margin:0 auto}
 .hd{position:fixed;inset:0 0 auto;z-index:20;display:flex;align-items:center;justify-content:space-between;padding:20px 32px;color:#fff;border-bottom:1px solid transparent;transition:background .3s,color .3s,border-color .3s}
@@ -315,3 +315,18 @@ h1 .ln{display:block;overflow:hidden;padding-bottom:.02em}h1 .ln>span{display:bl
 .end>img{object-position:62% 50%}
 .end::after{background:linear-gradient(90deg,rgba(20,40,80,.55),rgba(0,0,0,0) 55%)}
 :host{background:var(--bg)}
+
+/* Rótulos retirados: su columna se respeta en ordenador; en móvil no ocupan */
+@media(max-width:900px){.jb-vacio{display:none!important}}
+.sw-list button{grid-template-columns:1fr}.sw-list button span{grid-column:1}
+
+/* Aire entre las líneas y las letras de los titulares */
+h1{line-height:1.02;letter-spacing:.012em}
+h2,.wgrid h3,.t1,.pi-t,.big,.home .big,.statement p,.endbig{line-height:1.14;letter-spacing:.012em}
+.lead{line-height:1.16;letter-spacing:-.028em}
+.phases h3,.phases2 h3,.pl-list b{line-height:1.16;letter-spacing:.012em}
+
+/* Lista de la campaña sin numeración: título y texto, uno debajo de otro */
+.pl-list button{grid-template-columns:1fr}.pl-list span{grid-column:1}
+/* El nombre de la portada se ajusta también al alto: no llega a «← Proyectos» ni al logotipo */
+@media(min-width:761px){h1{font-size:min(clamp(100px,17vw,280px),26svh)}}

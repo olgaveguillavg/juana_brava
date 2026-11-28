@@ -1,5 +1,5 @@
 /*
- * Proyectos con ficha de diseño propio. Para añadir uno: componente (.jsx), estilos (.css) y
+ * Proyectos con ficha de diseño propio (`header`: color de la cabecera de la web sobre su portada). Para añadir uno: componente (.jsx), estilos (.css) y
  * comportamiento (.js) en esta carpeta, sus archivos en public/casos/<proyecto>/ y su entrada aquí
  * y en `data/projects.js` (con `ficha: true`).
  */
@@ -20,9 +20,9 @@ import vyrkCss from "./vyrk-r01.css?inline";
 import { run as vyrkRun } from "./vyrk-r01.js";
 
 export const fichas = {
-  "juana-brava": { Content: FichaJuanaBrava, css: juanaBravaCss, run: juanaBravaRun },
-  "vyrk-r01": { Content: FichaVyrk, css: vyrkCss, run: vyrkRun },
-  "soy-de-moto": { Content: FichaSoyDeMoto, css: motoCss, run: motoRun, anchorOffset: 100 },
-  "marcen-gt": { Content: FichaMarcen, css: marcenCss, run: marcenRun },
-  "segundo-telon": { Content: FichaSegundoTelon, css: telonCss, run: telonRun },
+  "juana-brava": { Content: FichaJuanaBrava, css: juanaBravaCss, run: juanaBravaRun, header: "light" },
+  "vyrk-r01": { Content: FichaVyrk, css: vyrkCss, run: vyrkRun, header: "dark" },
+  "soy-de-moto": { Content: FichaSoyDeMoto, css: motoCss, run: motoRun, anchorOffset: 100, header: "light" },
+  "marcen-gt": { Content: FichaMarcen, css: marcenCss, run: marcenRun, header: "light" },
+  "segundo-telon": { Content: FichaSegundoTelon, css: telonCss, run: telonRun, header: "light" },
 };

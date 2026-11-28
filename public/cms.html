@@ -953,7 +953,7 @@ function fichaBody(c){
   let intro=false,step=0;
   return groups.map(g=>{
     if(g.text){
-      const side=intro?'':'<p class="f-lead">'+esc(c.deck)+'</p>'+(c.geoSummary?'<p><strong>'+esc(c.geoSummary)+'</strong></p>':'')+'<p class="f-who">'+esc(TYPES[c.type].label)+'<br>'+esc(c.category)+'</p>';
+      const side=intro?'':'<p class="f-lead">'+esc(c.deck)+'</p>'+(c.geoSummary?'<p><strong>'+esc(c.geoSummary)+'</strong></p>':'');
       intro=true;
       return '<div class="f-body"><div class="f-side">'+side+'</div><div class="f-text">'+g.text.map(publicBlock).join('')+'</div></div>';
     }
@@ -1003,12 +1003,11 @@ function renderPublicPost(p,c,isPreview){
   const project=safeUrl(c.project);
   const related=data.posts.filter(item=>item.published&&item.id!==p.id).slice(0,3);
   const type=TYPES[c.type];
-  const day=p.publishedAt?new Intl.DateTimeFormat('es-ES',{timeZone:ZONE,day:'numeric',month:'numeric',year:'2-digit'}).format(p.publishedAt).replace(/\//g,'.'):'';
   page.innerHTML='<div class="public-shell"><div class="section-row" style="margin-bottom:20px"><div class="button-row">'+
     (isPreview?action('Volver al editor','back-editor',{className:'small'}):action('Volver a Ideas','back-ideas',{className:'small'}))+
     '</div><span class="caption">'+(isPreview?'Vista previa del borrador':'Ideas')+' · Ficha de '+esc(type.label)+'</span></div>'+
     '<div class="ficha"><div class="f-head" style="--f-bg:'+type.color+';--f-ink:'+type.ink+'"><h1>'+esc(c.title||'Sin título')+'</h1>'+
-    '<div class="f-date">'+esc(day||new Intl.DateTimeFormat('es-ES',{timeZone:ZONE,day:'numeric',month:'numeric',year:'2-digit'}).format(Date.now()).replace(/\//g,'.'))+'</div><div class="f-rule"><span>'+esc(type.label)+'</span><span>Por '+esc(c.author)+'</span><span>Lectura '+readings(c)+' min</span></div>'+
+    '<div class="f-rule" style="margin-top:34px"><span>'+esc(type.label)+'</span><span>Por '+esc(c.author)+'</span><span>Lectura '+readings(c)+' min</span></div>'+
     (c.cover?'<div class="f-cover">'+photo(c.cover,c.coverAlt,c.coverCaption)+'</div>':'<div class="f-nocover">Aquí irá la portada</div>')+'</div>'+
     '<article>'+fichaBody(c)+'<div class="f-end">'+(project?'<p><a href="'+esc(project)+'" target="_blank" rel="noopener noreferrer">Ver el proyecto</a></p>':'')+
     (sourceLinks.length?'<h2>Fuentes</h2><ul>'+sourceLinks.map(url=>'<li><a href="'+esc(url)+'" target="_blank" rel="noopener noreferrer">'+esc(url)+'</a></li>').join('')+'</ul>':'')+

@@ -2,50 +2,18 @@
 export function FichaJuanaBrava() {
   return (
     <>
-      <header className="hd" id="hd">
-        {" "}
-        <a className="brand" href="#!/" aria-label="Volver a Juana Brava">
-          <img alt="Juana Brava" src="/casos/comun/logo.svg" />
-        </a>
-        {" "}
-        <nav className="nav">
-          <a href="#!/">
-            Inicio
-          </a>
-          <a href="#!/proyectos">
-            Proyectos
-          </a>
-          <a href="#!/estudio">
-            Estudio
-          </a>
-          <a href="#!/ideas">
-            Ideas
-          </a>
-        </nav>
-        {" "}
-        <a className="back" href="#!/proyectos">
-          Volver a proyectos ↗
-        </a>
-        {" "}
-      </header>
       {" "}
       <main>
         {" "}
-        <section className="hero">
+        <section className="hero case-hero">
           {" "}
-          <img className="hero-img" alt="La imagen de Juana Brava: chica con gafas rojas y chaqueta roja y blanca bajo un cielo azul" src="/casos/juana-brava/a07.jpg" />
+          <img className="hero-img case-hero-image" alt="La imagen de Juana Brava: chica con gafas rojas y chaqueta roja y blanca bajo un cielo azul" src="/casos/juana-brava/a07.jpg" />
           {" "}
-          <div className="hero-shade">
+          <div className="hero-shade case-hero-shade">
           </div>
           {" "}
-          <a className="crumb" href="#!/proyectos">
-            ← Proyectos
-          </a>
           {" "}
-          <div className="hero-in">
-            <p className="kick">
-              Proyecto propio · Caso de estudio
-            </p>
+          <div className="hero-in case-hero-side">
             <h1>
               <span className="ln">
                 <span>
@@ -64,6 +32,7 @@ export function FichaJuanaBrava() {
           </div>
           {" "}
         </section>
+        <slot name="dossier"></slot>
         {" "}
         <div className="ticker" aria-hidden="true">
           <div className="tk">
@@ -118,40 +87,6 @@ export function FichaJuanaBrava() {
           </div>
         </div>
         {" "}
-        <div className="wrap meta">
-          <div>
-            <span>
-              Cliente
-            </span>
-            <b>
-              Juana Brava (nosotras)
-            </b>
-          </div>
-          <div>
-            <span>
-              Equipo
-            </span>
-            <b>
-              Olga Veguilla y Saray Cruz
-            </b>
-          </div>
-          <div>
-            <span>
-              Alcance
-            </span>
-            <b>
-              Identidad · Manual · Web · Herramientas · Lanzamiento
-            </b>
-          </div>
-          <div>
-            <span>
-              Estudio
-            </span>
-            <b>
-              Barcelona · 2026
-            </b>
-          </div>
-        </div>
         {" "}
         <section className="wrap intro">
           {" "}
@@ -162,14 +97,6 @@ export function FichaJuanaBrava() {
             </span>
           </p>
           {" "}
-          <div className="intro-cols rv">
-            <p>
-              Juana Brava nació porque queríamos hacer algo juntas. Nos gusta diseñar webs, crear contenido y trabajar una idea hasta encontrar la forma que mejor le sienta, y quisimos llevarlo un paso más allá: montar una agencia creativa.
-            </p>
-            <p>
-              El primer encargo fuimos nosotras. Y es el más difícil: le tenemos tanto cariño y le vemos tantas posibilidades que siempre hay algo más que nos apetece hacer con ella.
-            </p>
-          </div>
           {" "}
           <div className="facts rv">
             <div>
@@ -203,8 +130,7 @@ export function FichaJuanaBrava() {
         <section className="universe">
           {" "}
           <div className="wrap sec-head rv">
-            <p className="lbl">
-              01 / El universo
+            <p className="lbl jb-vacio" aria-hidden="true">
             </p>
             <h2>
               Rojo, azul y flash directo.
@@ -214,72 +140,24 @@ export function FichaJuanaBrava() {
             </p>
           </div>
           {" "}
-          <div className="rail" aria-label="Imágenes del universo de Juana Brava">
+          <div className="rail" data-lenis-prevent-horizontal="" aria-label="Imágenes del universo de Juana Brava">
             <figure>
               <img alt="El guiño" loading="lazy" src="/casos/juana-brava/a09.jpg" />
-              <figcaption>
-                <b>
-                  El guiño
-                </b>
-                <span>
-                  Retrato · flash directo
-                </span>
-              </figcaption>
             </figure>
             <figure>
               <img alt="El reflejo" loading="lazy" src="/casos/juana-brava/a10.jpg" />
-              <figcaption>
-                <b>
-                  El reflejo
-                </b>
-                <span>
-                  Retrato · cielo
-                </span>
-              </figcaption>
             </figure>
             <figure>
               <img alt="El guante" loading="lazy" src="/casos/juana-brava/a11.jpg" />
-              <figcaption>
-                <b>
-                  El guante
-                </b>
-                <span>
-                  Objeto · color plano
-                </span>
-              </figcaption>
             </figure>
             <figure>
               <img alt="La jugada" loading="lazy" src="/casos/juana-brava/a12.jpg" />
-              <figcaption>
-                <b>
-                  La jugada
-                </b>
-                <span>
-                  Concepto
-                </span>
-              </figcaption>
             </figure>
             <figure>
               <img alt="En la mano" loading="lazy" src="/casos/juana-brava/a13.jpg" />
-              <figcaption>
-                <b>
-                  En la mano
-                </b>
-                <span>
-                  Producto · macro
-                </span>
-              </figcaption>
             </figure>
             <figure>
               <img alt="La mirada" loading="lazy" src="/casos/juana-brava/a14.jpg" />
-              <figcaption>
-                <b>
-                  La mirada
-                </b>
-                <span>
-                  Detalle · campaña
-                </span>
-              </figcaption>
             </figure>
           </div>
           {" "}
@@ -294,47 +172,13 @@ export function FichaJuanaBrava() {
           {" "}
         </section>
         {" "}
-        <section className="wrap story">
-          {" "}
-          <p className="lbl rv">
-            02 / El reto
-          </p>
-          {" "}
-          <div className="rv">
-            <h2>
-              Ser nuestro propio cliente, y el más exigente.
-            </h2>
-          </div>
-          {" "}
-          <div className="story-r rv">
-            <p>
-              No había nadie a quien preguntar ni ningún briefing que firmar. Teníamos que decidir solas qué queríamos ser, sin caer en la tentación de cambiarlo todo cada semana.
-            </p>
-            <ul className="needs">
-              <li>
-                Una marca que se reconociera de un vistazo y no se pareciera a ninguna otra agencia.
-              </li>
-              <li>
-                Un sistema para aplicarla igual en una web, un cartel o una publicación.
-              </li>
-              <li>
-                Una web que contara cómo pensamos, no solo qué hacemos.
-              </li>
-              <li>
-                Herramientas para trabajar dos personas como si fuéramos más.
-              </li>
-            </ul>
-          </div>
-          {" "}
-        </section>
         {" "}
         <section className="words">
           {" "}
           <div className="wrap">
             {" "}
             <div className="words-head rv">
-              <p className="lbl w">
-                03 / La personalidad
+              <p className="lbl w jb-vacio" aria-hidden="true">
               </p>
               <h2>
                 Tres palabras para no perdernos.
@@ -347,9 +191,6 @@ export function FichaJuanaBrava() {
             <div className="wgrid">
               {" "}
               <article className="rv">
-                <span>
-                  A
-                </span>
                 <h3>
                   Valiente
                 </h3>
@@ -359,9 +200,6 @@ export function FichaJuanaBrava() {
               </article>
               {" "}
               <article className="rv">
-                <span>
-                  B
-                </span>
                 <h3>
                   Editorial
                 </h3>
@@ -371,9 +209,6 @@ export function FichaJuanaBrava() {
               </article>
               {" "}
               <article className="rv">
-                <span>
-                  C
-                </span>
                 <h3>
                   Contemporánea
                 </h3>
@@ -391,8 +226,7 @@ export function FichaJuanaBrava() {
         <section className="wrap firma">
           {" "}
           <div className="sec-head rv">
-            <p className="lbl">
-              04 / La firma
+            <p className="lbl jb-vacio" aria-hidden="true">
             </p>
             <h2>
               El logo no se reescribe.
@@ -413,36 +247,24 @@ export function FichaJuanaBrava() {
             {" "}
             <div className="sw-list" role="tablist">
               <button className="on" data-i="0">
-                <b>
-                  01
-                </b>
                 Tipográfico
                 <span>
                   La firma principal, sobre blanco.
                 </span>
               </button>
               <button data-i="1">
-                <b>
-                  02
-                </b>
                 Horizontal
                 <span>
                   Con la patrona, para cabeceras y piezas anchas.
                 </span>
               </button>
               <button data-i="2">
-                <b>
-                  03
-                </b>
                 Integrado
                 <span>
                   Patrona y nombre juntos, para formatos verticales.
                 </span>
               </button>
               <button data-i="3">
-                <b>
-                  04
-                </b>
                 Monograma JB
                 <span>
                   Para avatares, sellos y detalles pequeños.
@@ -477,9 +299,6 @@ export function FichaJuanaBrava() {
             </div>
             {" "}
             <div className="rv">
-              <p className="lbl w">
-                05 / La patrona
-              </p>
               <h2>
                 El guiño es nuestro código.
               </h2>
@@ -499,8 +318,7 @@ export function FichaJuanaBrava() {
         <section className="film">
           {" "}
           <div className="wrap film-head rv">
-            <p className="lbl">
-              La marca en once segundos
+            <p className="lbl jb-vacio" aria-hidden="true">
             </p>
             <p>
               Monograma, patrona, color y actitud: todo el sistema en movimiento.
@@ -561,8 +379,7 @@ export function FichaJuanaBrava() {
         <section className="wrap art">
           {" "}
           <div className="sec-head rv">
-            <p className="lbl">
-              06 / Dirección de arte
+            <p className="lbl jb-vacio" aria-hidden="true">
             </p>
             <h2>
               Actitud antes que decoración.
@@ -576,23 +393,14 @@ export function FichaJuanaBrava() {
             {" "}
             <figure className="m1 rv">
               <img alt="Bodegón con tijeras rojas, muestras de color, cinta métrica y cartulinas rojas y azules" loading="lazy" src="/casos/juana-brava/a22.jpg" />
-              <figcaption>
-                Las herramientas del oficio
-              </figcaption>
             </figure>
             {" "}
             <figure className="m2 rv">
               <img alt="Detalle de unas gafas rojas con la patrona grabada en la lente" loading="lazy" src="/casos/juana-brava/a14.jpg" />
-              <figcaption>
-                El sello, en la lente
-              </figcaption>
             </figure>
             {" "}
             <figure className="m3 rv">
               <img alt="Esfera cromada sobre un pedestal rojo con el logo de Juana Brava, agencia creativa" loading="lazy" src="/casos/juana-brava/a23.jpg" />
-              <figcaption>
-                La marca, en un objeto
-              </figcaption>
             </figure>
             {" "}
             <div className="m4 rv">
@@ -671,9 +479,6 @@ export function FichaJuanaBrava() {
           <div className="party-pin">
             {" "}
             <div className="peep-intro">
-              <p className="pi-k">
-                07 / La campaña de lanzamiento
-              </p>
               <p className="pi-t">
                 Haz scroll y mira por la mirilla.
               </p>
@@ -712,8 +517,7 @@ export function FichaJuanaBrava() {
         <section className="wrap camp">
           {" "}
           <div className="sec-head rv">
-            <p className="lbl">
-              07 / Nos anunciamos
+            <p className="lbl jb-vacio" aria-hidden="true">
             </p>
             <h2>
               Nos tratamos como a un cliente.
@@ -741,9 +545,6 @@ export function FichaJuanaBrava() {
             <div className="pl-list" role="tablist">
               {" "}
               <button className="on" data-s="0">
-                <em>
-                  01
-                </em>
                 <b>
                   Coming soon
                 </b>
@@ -753,9 +554,6 @@ export function FichaJuanaBrava() {
               </button>
               {" "}
               <button data-s="1">
-                <em>
-                  02
-                </em>
                 <b>
                   Portarse bien…
                 </b>
@@ -765,9 +563,6 @@ export function FichaJuanaBrava() {
               </button>
               {" "}
               <button data-s="2">
-                <em>
-                  03
-                </em>
                 <b>
                   Los minutos contados
                 </b>
@@ -777,9 +572,6 @@ export function FichaJuanaBrava() {
               </button>
               {" "}
               <button data-s="3">
-                <em>
-                  04
-                </em>
                 <b>
                   La fiesta · 01.12
                 </b>
@@ -788,9 +580,6 @@ export function FichaJuanaBrava() {
                 </span>
               </button>
               {" "}
-              <p className="pl-hint">
-                Pulsa cada fase para ver la pieza.
-              </p>
               {" "}
             </div>
             {" "}
@@ -840,9 +629,6 @@ export function FichaJuanaBrava() {
           <img alt="" aria-hidden="true" loading="lazy" src="/casos/juana-brava/a34.jpg" />
           {" "}
           <div className="wrap home-in">
-            <p className="lbl w rv">
-              08 / Hecho en casa
-            </p>
             <p className="big rv">
               Todo lo que sabemos hacer, primero lo probamos con nosotras.
             </p>
@@ -855,9 +641,6 @@ export function FichaJuanaBrava() {
           <div className="pgrid">
             {" "}
             <article className="rv">
-              <span>
-                Identidad
-              </span>
               <h3>
                 Esta marca
               </h3>
@@ -867,9 +650,6 @@ export function FichaJuanaBrava() {
             </article>
             {" "}
             <article className="rv">
-              <span>
-                Web
-              </span>
               <h3>
                 Esta página
               </h3>
@@ -879,9 +659,6 @@ export function FichaJuanaBrava() {
             </article>
             {" "}
             <article className="rv">
-              <span>
-                Contenido
-              </span>
               <h3>
                 Ideas
               </h3>
@@ -891,9 +668,6 @@ export function FichaJuanaBrava() {
             </article>
             {" "}
             <article className="rv">
-              <span>
-                Campaña
-              </span>
               <h3>
                 La fiesta
               </h3>
@@ -903,9 +677,6 @@ export function FichaJuanaBrava() {
             </article>
             {" "}
             <article className="rv">
-              <span>
-                Automatización
-              </span>
               <h3>
                 Planea
               </h3>
@@ -915,9 +686,6 @@ export function FichaJuanaBrava() {
             </article>
             {" "}
             <article className="rv">
-              <span>
-                Prospección
-              </span>
               <h3>
                 Un CRM propio
               </h3>
@@ -927,9 +695,6 @@ export function FichaJuanaBrava() {
             </article>
             {" "}
             <article className="rv">
-              <span>
-                Agente de IA
-              </span>
               <h3>
                 Correos con idea
               </h3>
@@ -939,9 +704,6 @@ export function FichaJuanaBrava() {
             </article>
             {" "}
             <article className="rv">
-              <span>
-                Producción con IA
-              </span>
               <h3>
                 Imagen y vídeo
               </h3>
@@ -1010,17 +772,6 @@ export function FichaJuanaBrava() {
         {" "}
       </main>
       {" "}
-      <footer className="ft wrap">
-        <a href="#!/">
-          <img alt="Juana Brava, inicio" src="/casos/comun/logo.svg" />
-        </a>
-        <p>
-          Olga Veguilla y Saray Cruz · Estudio creativo en Barcelona
-        </p>
-        <a href="#!/proyectos">
-          Todos los proyectos ↗
-        </a>
-      </footer>
       {" "}
     </>
   );

@@ -31,7 +31,7 @@ blockquote{margin:28px 0;padding-left:22px;border-left:3px solid var(--red);font
 .head2{display:grid;grid-template-columns:300px 1fr 1fr;gap:20px 100px;border-top:1px solid var(--ink);padding-top:26px;margin-bottom:44px;align-items:baseline}.head2 .lbl{margin:0}.head2 p:last-child{margin:0;color:#4A4842;font-size:15px}
 .rail{display:flex;gap:16px;overflow-x:auto;scroll-snap-type:x mandatory;padding:0 max(32px,calc((100% - 1320px)/2)) 10px;scrollbar-width:none}.rail::-webkit-scrollbar{display:none}
 .rail figure{flex:0 0 clamp(220px,22vw,320px);scroll-snap-align:start}
-.rail img{width:100%;aspect-ratio:1;object-fit:cover;background:#F2F1EF;transition:transform .6s cubic-bezier(.2,.7,.2,1)}.rail figure:hover img{transform:scale(1.03)}
+.rail img{width:100%;aspect-ratio:1;object-fit:cover;background:#F2F2F2;transition:transform .6s cubic-bezier(.2,.7,.2,1)}.rail figure:hover img{transform:scale(1.03)}
 .rail figcaption{display:flex;justify-content:space-between;gap:10px;padding-top:12px;font-size:14px}.rail figcaption span{color:var(--mut);font-size:12px;white-space:nowrap}.rail figcaption b{font-weight:500}
 .rnav{display:flex;justify-content:flex-end;gap:10px;margin-top:18px}
 .rbtn{width:52px;height:52px;border-radius:50%;border:1px solid var(--line);font-size:20px;transition:background .25s,color .25s,opacity .25s}.rbtn:hover:not(:disabled){background:var(--ink);color:#fff}.rbtn:disabled{opacity:.25;cursor:default}
@@ -70,7 +70,7 @@ blockquote{margin:28px 0;padding-left:22px;border-left:3px solid var(--red);font
 .bar span{width:10px;height:10px;border-radius:50%;background:#DDD9D2}.bar b{font-weight:400;font-size:12px;color:var(--mut);margin-left:18px}
 .browser video{width:100%;aspect-ratio:16/10;object-fit:cover}
 /* cinema */
-.cinema{background:#121110;color:#EDE9E3;padding:130px 0 110px}
+.cinema{background:#121110;color:#EEEEEE;padding:130px 0 110px}
 .cin-head{display:grid;grid-template-columns:300px 1fr 1fr;gap:20px 100px;align-items:baseline;margin-bottom:56px;border-top:1px solid rgba(255,255,255,.3);padding-top:26px}.cin-head .lbl{margin:0;color:#F0533F}.cin-head p:last-child{margin:0;color:#A9A397;font-size:15px}
 .cin-head h2{font-size:clamp(36px,4vw,60px)}
 .browser.dk{border-color:#2a2824;box-shadow:0 50px 100px -40px rgba(0,0,0,.9)}.dk .bar{background:#1c1a17;border-color:#2a2824}.dk .bar span{background:#3a3730}.dk .bar b{color:#8E887E}
@@ -107,3 +107,18 @@ figcaption{color:var(--mut);font-size:11px;letter-spacing:.12em;text-transform:u
 .rail figcaption{text-transform:none;letter-spacing:0;color:var(--ink)}
 @media(max-width:550px){.rail{scroll-padding-inline:20px}}
 :host{background:var(--bg)}
+
+/* Rótulos retirados: su columna se respeta en ordenador; en móvil no ocupan */
+@media(max-width:900px){.jb-vacio{display:none!important}}
+.hero-meta{grid-template-columns:1fr}
+/* Sin numeración en la lista final */
+.end li{grid-template-columns:1fr}.end li::before{content:none}
+
+/* Aire entre las líneas y las letras de los titulares */
+h1{line-height:1.02;letter-spacing:-.035em}
+h2{line-height:1.14;letter-spacing:-.025em}
+.statement p{line-height:1.06;letter-spacing:-.035em}
+.end-in h2{line-height:1.12;letter-spacing:-.025em}
+
+/* La pantalla del catálogo, sola y centrada */
+.feat{grid-template-columns:1fr}.feat .browser{width:100%;max-width:1100px;margin-inline:auto}

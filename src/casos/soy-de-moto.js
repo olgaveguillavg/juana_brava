@@ -1,13 +1,10 @@
 /* Comportamiento de la ficha «soy-de-moto» (código original, aplicado solo dentro de la ficha). */
 export function run({ root, body, addEventListener, IntersectionObserver, setInterval }) {
 (()=>{
- const header=root.getElementById('site-header');
  const hero=root.querySelector('.hero');
  const heroImg=root.getElementById('hero-visual');
  const reduce=window.matchMedia('(prefers-reduced-motion: reduce)').matches;
  function frame(){
-  let boundary=hero.getBoundingClientRect().bottom;
-  header.classList.toggle('is-light',boundary<116);
   if(!reduce&&heroImg){
    const pct=Math.max(0,Math.min(1, -hero.getBoundingClientRect().top/Math.max(1,hero.offsetHeight)));
    heroImg.style.transform=`translate3d(0, ${pct*12}%, 0) scale(${1.03+pct*.065})`;

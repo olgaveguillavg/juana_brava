@@ -5,6 +5,16 @@ const absoluteUrl = (url) => (url ? new URL(url, document.baseURI).href : url);
 
 const hasFicha = (slug) => projects.some((project) => project.slug === slug && project.ficha);
 
+// La portada de un caso: en la página normal o dentro del «shadow root» de su ficha.
+const findHero = (slug) =>
+  hasFicha(slug)
+    ? document.querySelector('.jb-ficha[data-ficha="' + slug + '"]')?.shadowRoot?.querySelector(".case-hero-image")
+    : document.querySelector("#app .case-" + slug + " .case-hero-image");
+const shadeOf = (heroSection) => {
+  const shade = heroSection.querySelector(".case-hero-shade");
+  return shade ? getComputedStyle(shade).backgroundImage : "none";
+};
+
 export // A single image connects the gallery and the fully prepared project hero.
 function JBEditorialOpening() {
   const initialPath = location.pathname?.replace(/\/$/, "") || "/";
@@ -82,9 +92,10 @@ function JBEditorialOpening() {
   }
   function waitForHero(slug, signal) {
     return new Promise((resolve, reject) => {
-      let observer, timer;
+      let observer, timer, poll;
       const stop = () => {
         observer?.disconnect();
+        clearInterval(poll);
         clearTimeout(timer);
         signal.removeEventListener("abort", cancel);
       };
@@ -93,7 +104,7 @@ function JBEditorialOpening() {
         reject(new DOMException("Cancelled", "AbortError"));
       };
       const check = () => {
-        const hero = document.getElementById("app")?.querySelector(".case-" + slug + " .case-hero-image");
+        const hero = findHero(slug);
         if (!hero) return false;
         stop();
         readyImage(hero, signal).then(() => resolve(hero), reject);
@@ -112,6 +123,8 @@ function JBEditorialOpening() {
       signal.addEventListener("abort", cancel, {
         once: true,
       });
+      // Lo que se pinta dentro de una ficha no lo ve el observador de la página.
+      if (hasFicha(slug)) poll = setInterval(check, 50);
       timer = setTimeout(() => {
         stop();
         reject(new Error("The project page did not become ready"));
@@ -161,7 +174,7 @@ function JBEditorialOpening() {
       const target = raw.startsWith("#!") ? raw : "#!" + new URL(raw, location.href).pathname;
       const slug = target.match(/^#!\/proyectos\/([a-z0-9-]+)\/?$/)?.[1];
       const project = projects.find((item) => item.slug === slug);
-      if (!project || project.ficha || target === location.hash) return;
+      if (!project || target === location.hash) return;
       event.preventDefault();
       const abort = new AbortController(),
         effects = new Set();
@@ -332,10 +345,11 @@ function JBEditorialOpening() {
         const heroSection = hero.closest(".case-hero"),
           targetRect = heroSection.getBoundingClientRect();
         const destination = fittedImage(hero, hero.getBoundingClientRect());
-        const heroShade = heroSection.querySelector(".case-hero-shade");
-        shade.style.backgroundImage = getComputedStyle(heroShade).backgroundImage;
+        shade.style.backgroundImage = shadeOf(heroSection);
         document.documentElement.dataset.caseOpening = "moving";
         const duration = skipped ? 1 : 1050;
+        // Portada a dos mitades: la página anterior se desvanece para dejar ver la otra mitad.
+        if (targetRect.width < width * 0.9) animate(backdrop, [{ opacity: 1 }, { opacity: 0 }], { duration, easing: "ease-in-out" }).catch(() => {});
         await Promise.all([
           animate(
             overlay,
@@ -391,7 +405,7 @@ function JBEditorialOpening() {
         for (const [index, node] of [
           // El título no se anima como bloque: sus palabras suben una a una (SlideText) en cuanto termina la
           // foto; su animación queda en pausa mientras dura la apertura (ver site.css).
-          ...heroSection.querySelectorAll(".case-hero-side"),
+          ...hero.getRootNode().querySelectorAll(".case-hero-side"),
         ].entries()) {
           node
             .animate(
@@ -414,7 +428,9 @@ function JBEditorialOpening() {
                 fill: "both",
               },
             )
-            .finished.catch(() => {});
+            // En las fichas se suelta al terminar: su propio efecto al hacer scroll vuelve a mandar.
+            .finished.then((animation) => hero.getRootNode() !== document && animation.cancel())
+            .catch(() => {});
         }
         cleanup();
         document.getElementById("case-hero-title")?.focus({
@@ -439,7 +455,7 @@ function JBEditorialOpening() {
   // One reversible photographic transition shared by UI control and browser history.
   function JBReverseCase(slug, historyMode = false) {
     if (current || reduced.matches || narrow.matches || typeof HTMLElement.prototype.animate !== "function") return false;
-    const hero = document.querySelector(".case-" + slug + " .case-hero-image");
+    const hero = findHero(slug);
     if (!hero?.naturalWidth) return false;
     const controller = new AbortController(),
       signal = controller.signal;
@@ -587,9 +603,7 @@ function JBEditorialOpening() {
       });
       shade = document.createElement("div");
       shade.className = "jb-case-transition-shade";
-      shade.style.backgroundImage = getComputedStyle(
-        hero.closest(".case-hero").querySelector(".case-hero-shade"),
-      ).backgroundImage;
+      shade.style.backgroundImage = shadeOf(hero.closest(".case-hero"));
       overlay.appendChild(copy);
       overlay.appendChild(shade);
       document.body.appendChild(overlay);
@@ -689,7 +703,7 @@ function JBEditorialOpening() {
   }
   window.JBHistoryZoomOut = function (fromPath) {
     const slug = fromPath?.match(/^\/proyectos\/([a-z0-9-]+)\/?$/)?.[1];
-    if (!slug || location.hash !== "#!/proyectos" || hasFicha(slug)) return false;
+    if (!slug || location.hash !== "#!/proyectos") return false;
     return JBReverseCase(slug, true);
   };
   document.addEventListener(
@@ -717,7 +731,7 @@ function JBEditorialOpening() {
   // If browser Forward re-opens a project, use the same image-to-viewport motion.
   window.JBHistoryZoomIn = function (toPath) {
     const slug = toPath?.match(/^\/proyectos\/([a-z0-9-]+)\/?$/)?.[1];
-    if (!slug || hasFicha(slug) || current || reduced.matches || narrow.matches || typeof HTMLElement.prototype.animate !== "function") return false;
+    if (!slug || current || reduced.matches || narrow.matches || typeof HTMLElement.prototype.animate !== "function") return false;
     const source = document.getElementById(slug)?.querySelector(".editorial-cover img");
     if (!source?.naturalWidth) return false;
     const cover = source.closest(".editorial-cover"),
@@ -781,7 +795,7 @@ function JBEditorialOpening() {
         const heroSection = hero.closest(".case-hero"),
           targetRect = heroSection.getBoundingClientRect(),
           target = fittedImage(hero, hero.getBoundingClientRect());
-        shade.style.backgroundImage = getComputedStyle(heroSection.querySelector(".case-hero-shade")).backgroundImage;
+        shade.style.backgroundImage = shadeOf(heroSection);
         await Promise.all([
           overlay.animate(
             [
